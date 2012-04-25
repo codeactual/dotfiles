@@ -56,7 +56,7 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 source ~/zsh/completion/*.sh
 
 function configurePrompt {
-  export PROMPT="%D{%a %b %d} %{$fg[green]%}%D{%T}%{$reset_color%} %D{%Z} %{$fg[magenta]%}%M%{$reset_color%} %{$fg[blue]%}%n%{$reset_color%} %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
+  export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %{$fg[magenta]%}%M%{$reset_color%} %{$fg[blue]%}%n%{$reset_color%} %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
 }
 configurePrompt
 
