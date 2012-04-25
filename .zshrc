@@ -83,6 +83,14 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
+################
+##### GIT ######
+################
+
+alias gitamend="git reset --soft `git log master --skip 1 -n 1 --pretty=format:%H`"
+alias gitlogdeleted="git log -- \$1"
+alias gitdiffall="git diff; git diff --cached"
+
 ##########################
 ##### LOCAL INCLUDES #####
 ##########################
