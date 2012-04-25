@@ -1,0 +1,16 @@
+[user]
+	name = David Smith
+	email = codeactual@gmail.com
+[alias]
+	clog = log --stat -n 1
+  lol = log --oneline --graph --decorate
+  logmasterin = log origin/master ^master
+  logmasterout = log master ^origin/master
+	unstage = reset HEAD
+  st = status
+[color]
+	ui = auto
+[github]
+	user = codeactual
+[help]
+	autocorrect = 1

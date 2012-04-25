@@ -13,7 +13,6 @@
 .gegl*
 .gem/
 .gimp*
-.gitconfig
 .gksu.lock
 .gnome2/
 .gstreamer*

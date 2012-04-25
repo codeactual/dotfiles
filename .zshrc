@@ -74,6 +74,19 @@ setopt nocorrectall     # Do not correct arguments, only commands.
 setopt nohup            # Don't kill bg processes on exit.
 setopt pushdignoredups  # Don't auto-add duplicate dirs for `pushd`/popd` use.
 
+# http://www.commandlinefu.com/commands/view/9530/color-man-pages
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;37m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+##########################
+##### LOCAL INCLUDES #####
+##########################
+
 function loadLocalConfigs {
   local LOCAL_CONFIG_DIR=$HOME/zsh/local
   if [ -d $LOCAL_CONFIG_DIR ]; then
