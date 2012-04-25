@@ -25,6 +25,7 @@
 .mozilla/
 .npm/
 .opera/
+.pearrc
 .pki/
 .pulse-cookie
 .pulse/
