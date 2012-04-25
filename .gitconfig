@@ -1,20 +1,20 @@
 [user]
-	name = David Smith
-	email = codeactual@gmail.com
+  name = David Smith
+  email = codeactual@gmail.com
 [alias]
   cdiff = diff --cached
-	clog = log --stat -n 1
+  clog = log --stat -n 1
   difflast = diff HEAD^ HEAD
   lol = log --oneline --graph --decorate
   logmasterin = log origin/master ^master
   logmasterout = log master ^origin/master
-	unstage = reset HEAD
+  unstage = reset HEAD
   wdiff = diff --word-diff
   sst = status -sb
   st = status
 [color]
-	ui = auto
+  ui = auto
 [github]
-	user = codeactual
+  user = codeactual
 [help]
-	autocorrect = 1
+  autocorrect = 1
