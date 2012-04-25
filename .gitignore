@@ -50,6 +50,7 @@ outbox/
 pear.conf
 sandboxes/
 tmp/
+zsh/local
 *.log
 *.yaml
 *.png
