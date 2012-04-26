@@ -2,18 +2,30 @@
   name = David Smith
   email = codeactual@gmail.com
 [alias]
+  amend = commit --amend -C HEAD
+  br = branch
   cdiff = diff --cached
+  ci = commit
   clog = log --stat -n 1
+  co = checkout
   difflast = diff HEAD^ HEAD
-  lol = log --oneline --graph --decorate
+  ignored = ls-files --others -i --exclude-standard
+  l = log --oneline --graph --decorate
   logmasterin = log origin/master ^master
   logmasterout = log master ^origin/master
-  unstage = reset HEAD
-  wdiff = diff --word-diff
+  modified = ls-files -m
   sst = status -sb
   st = status
+  timeline = log --graph --decorate --branches --pretty=oneline
+  unstage = reset HEAD
+  untracked = ls-files -o --exclude-standard
+  wdiff = diff --word-diff
 [color]
-  ui = auto
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = true
 [github]
   user = codeactual
 [help]
