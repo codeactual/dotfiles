@@ -14,6 +14,7 @@ alias tt='tree -pFCfa -I ".git" . | grep "$1" | less -RgIKNs'
 
 alias connected_ips="netstat -lantp | grep ESTABLISHED |awk '{print \$5}' | awk -F: '{print \$1}' | sort -u"
 alias lsof-inet="lsof -i -U"
+alias lsof-open-owners="lsof -i -P | grep -i 'listen'"
 alias resmem="ps -Aely --sort:rss | awk '{print \$NF\": \"\$8/1024\" MB\"}' | column -t"  # http://www.commandlinefu.com/commands/view/9847/find-and-sort-by-resident-size-of-each-process-on-the-system-in-mb
 
 #######################
@@ -39,6 +40,12 @@ alias dpkginstalled="dpkg --get-selections | grep -v deinstall"
 alias dpkgls="dpkg -L $1"
 alias dpkgowner="dpkg -S $1"
 alias aptupdateall="sudo apt-get update && sudo apt-get upgrade -y"
+
+#######################
+##### RSYNC / SSH #####
+#######################
+
+alias rsync-resume="rsync --partial"  # Resumes incomplete scp operation.
 
 ################
 ##### MISC #####
