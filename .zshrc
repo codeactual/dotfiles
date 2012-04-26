@@ -53,7 +53,7 @@ export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
-source ~/zsh/completion/*.sh
+source ~/zsh/completion/*.zsh
 
 function configurePrompt {
   export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %{$fg[magenta]%}%M%{$reset_color%} %{$fg[blue]%}%n%{$reset_color%} %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
@@ -83,13 +83,11 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-################
-##### GIT ######
-################
+#########################
+##### MAIN INCLUDES #####
+#########################
 
-alias gitamend="git reset --soft `git log master --skip 1 -n 1 --pretty=format:%H`"
-alias gitlogdeleted="git log -- \$1"
-alias gitdiffall="git diff; git diff --cached"
+source ~/zsh/git.zsh
 
 ##########################
 ##### LOCAL INCLUDES #####
@@ -99,7 +97,7 @@ function loadLocalConfigs {
   local LOCAL_CONFIG_DIR=$HOME/zsh/local
   if [ -d $LOCAL_CONFIG_DIR ]; then
     echo "Loading $LOCAL_CONFIG_DIR"
-    source $LOCAL_CONFIG_DIR/*.sh
+    source $LOCAL_CONFIG_DIR/*.zsh
   fi
 }
 loadLocalConfigs
