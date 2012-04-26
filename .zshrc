@@ -74,6 +74,8 @@ setopt nocorrectall     # Do not correct arguments, only commands.
 setopt nohup            # Don't kill bg processes on exit.
 setopt pushdignoredups  # Don't auto-add duplicate dirs for `pushd`/popd` use.
 
+export EDITOR="vim"
+
 # http://www.commandlinefu.com/commands/view/9530/color-man-pages
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;37m'
@@ -87,7 +89,12 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 ##### MAIN INCLUDES #####
 #########################
 
-source ~/zsh/git.zsh
+source ~/zsh/aliases.zsh
+source ~/zsh/funcs.zsh
+source ~/zsh/mac.zsh
+source ~/zsh/mysql.zsh
+source ~/zsh/python.zsh
+source ~/zsh/vcs.zsh
 
 ##########################
 ##### LOCAL INCLUDES #####

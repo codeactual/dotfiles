@@ -20,3 +20,10 @@ alias gp='git push'
 alias gs='git stash'
 alias gsa='git stash apply'                                                       # Like pop but w/out modifying stash list.
 
+################
+##### SVN ######
+################
+
+function svndiff {
+  svn diff $1 | vim -R -
+}
