@@ -29,6 +29,17 @@ alias recently-modified="find . -type f -mmin -15"
 alias wcgrep-nocolor="wcgrep-base --color=never"
 alias wcgrep="wcgrep-base --color=always"
 
+######################
+##### APT / DPKG #####
+######################
+
+alias dpkgfind="dpkg -l | cgrep -i $1"
+alias dpkghistory="tail -n 1000 | less /var/log/dpkg.log"
+alias dpkginstalled="dpkg --get-selections | grep -v deinstall"
+alias dpkgls="dpkg -L $1"
+alias dpkgowner="dpkg -S $1"
+alias aptupdateall="sudo apt-get update && sudo apt-get upgrade -y"
+
 ################
 ##### MISC #####
 ################
