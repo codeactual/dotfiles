@@ -105,8 +105,10 @@ source ~/zsh/vcs.zsh
 function loadLocalConfigs {
   local LOCAL_CONFIG_DIR=$HOME/zsh/local
   if [ -d $LOCAL_CONFIG_DIR ]; then
-    echo "Loading $LOCAL_CONFIG_DIR"
-    source $LOCAL_CONFIG_DIR/*.zsh
+    for file in $LOCAL_CONFIG_DIR/*.zsh
+    do
+      source $file
+    done
   fi
 }
 loadLocalConfigs
