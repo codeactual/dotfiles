@@ -112,3 +112,23 @@ function loadLocalConfigs {
   fi
 }
 loadLocalConfigs
+
+##############################
+##### CHECK DEPENDENCIES #####
+##############################
+
+function checkDependencies {
+  local -a PACKAGES
+  PACKAGES=( renameutils )
+
+  local QUERY_RESULT=''
+
+  for pkg in $PACKAGES
+  do
+    QUERY_RESULT=$(dpkg-query --status $pkg 2>&1)
+    if [[ $QUERY_RESULT =~ 'not installed' ]]; then
+      echo "Missing package: $pkg"
+    fi
+  done
+}
+checkDependencies
