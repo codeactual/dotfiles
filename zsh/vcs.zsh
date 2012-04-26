@@ -7,10 +7,12 @@ echo "Loading $0"
 # Based on http://justinlilly.com/dotfiles/zsh.html
 alias g=git
 alias ga='git add'
-alias gam="git reset --soft `git log master --skip 1 -n 1 --pretty=format:%H`"    # Amend last commit before push.
+alias gap='git add --patch'
 alias gb='git branch'
 alias gba='git branch -a'                                                         # Include remote-tracking and local.
 alias gc='git commit -v'                                                          # Verbose commit.
+alias gcatchup="git fetch && git rebase origin/master"                            # Catch up local snapshot of origin/master. But don't modify local master.
+alias gcp='git checkout --patch'
 alias gd='git diff | $EDITOR -'
 alias gda="git diff; git diff --cached"
 alias gl='git pull'

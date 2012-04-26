@@ -3,6 +3,7 @@
   email = codeactual@gmail.com
 [alias]
   amend = commit --amend -C HEAD
+  blame-editor = blame -C
   br = branch
   cdiff = diff --cached
   ci = commit
@@ -30,3 +31,11 @@
   user = codeactual
 [help]
   autocorrect = 1
+[branch]
+	autosetuprebase = always
+[branch "master"]
+	rebase = true
+[rebase]
+	stat = true
+[push]
+	default = tracking
