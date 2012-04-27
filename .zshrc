@@ -16,7 +16,7 @@ setopt prompt_subst
 ###################
 
 export HISTFILE=~/.zsh_history
-export HISTIGNORE="&:ls:ll:top:[bf]g:exit:reset:clear:cd:cd ..:cd.."
+export HISTIGNORE="&:ls:ll:top:[bf]g:exit:reset:clear:cd:cd ..:cd..:cd ~:gs:gss:gl:gci:gco:fg:vim:update"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
