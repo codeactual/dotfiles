@@ -84,11 +84,6 @@ set scrolloff=3
 " line
 set formatoptions=qroct
 
-" Repair wired terminal/vim settings
-" (Backspace, at start of a line, will pull the line onto the end
-" of the previous line.)
-set backspace=start,eol
-
 " use control-J and control-K to move up and down buffers
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
