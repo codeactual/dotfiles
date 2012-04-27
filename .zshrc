@@ -113,22 +113,67 @@ function loadLocalConfigs {
 }
 loadLocalConfigs
 
-##############################
-##### CHECK DEPENDENCIES #####
-##############################
+########################
+##### DEPENDENCIES #####
+########################
 
-function checkDependencies {
-  local -a PACKAGES
-  PACKAGES=( renameutils )
+function installDependencies {
+  local -a packages
+  packages=(
+    sudo apt-get install
 
-  local QUERY_RESULT=''
+    # build
+    ant
+    autoconf
 
-  for pkg in $PACKAGES
-  do
-    QUERY_RESULT=$(dpkg-query --status $pkg 2>&1)
-    if [[ $QUERY_RESULT =~ 'not installed' ]]; then
-      echo "Missing package: $pkg"
-    fi
-  done
+    # dev
+    exuberant-ctags
+    g++
+    git-core
+    subversion
+    tcl
+    vim
+
+    # java
+    openjdk-7-jdk
+
+    # mysql
+    libaio1
+
+    # node.js
+    libc-ares2
+    libev4
+    libssl-dev
+    libv8-3.1.8.22
+
+    # php
+    graphviz
+    libcurl4-gnutls-dev
+    libicu-dev
+    libmcrypt-dev
+    libmemcached-dev
+    libreadline6-dev
+    libssl-dev
+    libxml2-dev
+    libxslt1-dev
+    net-tools
+    zlib1g-dev
+
+    # python
+    ipython
+
+    # ruby
+    ruby1.9.1
+
+    # util
+    curl
+    htop
+    multitail
+    net-tools
+    nmap
+    renameutils
+    tree
+    wget
+  )
+  "${packages[@]}"
 }
-checkDependencies

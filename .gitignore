@@ -19,6 +19,8 @@
 .gstreamer*
 .gtk*
 .hplip/
+.htoprc
+.ipython/
 .lesshst
 .libreoffice/
 .local/
