@@ -1,3 +1,4 @@
 echo "Loading $0"
 
-alias adb_restart="adb kill-server && adb start-server"
+alias adb-restart="adb kill-server && adb start-server"
+alias android-start-avd="emulator -verbose -avd" # android-start-avd <name>

@@ -122,6 +122,9 @@ function installDependencies {
   packages=(
     sudo apt-get install
 
+    # android
+    ia32-libs
+
     # build
     ant
     autoconf
