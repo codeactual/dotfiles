@@ -91,6 +91,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 source ~/zsh/aliases.zsh
 source ~/zsh/android.zsh
 source ~/zsh/funcs.zsh
+source ~/zsh/gnome.zsh
 source ~/zsh/mac.zsh
 source ~/zsh/mysql.zsh
 source ~/zsh/php.zsh
