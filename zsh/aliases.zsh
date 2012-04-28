@@ -47,6 +47,12 @@ alias aptupdateall="sudo apt-get update && sudo apt-get upgrade -y"
 
 alias rsync-resume="rsync --partial"  # Resumes incomplete scp operation.
 
+#######################
+##### CURL / WGET #####
+#######################
+
+alias download="wget --max-redirect 5 --no-cookies"
+
 ################
 ##### MISC #####
 ################
