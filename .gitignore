@@ -5,6 +5,7 @@
 .config/
 .dbshell
 .dbus/
+.eclipse/
 .ecryptfs
 .esd_auth
 .fehbg
@@ -37,10 +38,12 @@
 .ssh/
 .subversion/
 .sudo_as_admin_successful
+.swt/
 .thumbnails/
 .thunderbird/
 .tumblr
 .viminfo
+workspace/
 .xsession-errors
 .xscreensaver
 .Xmodmap
