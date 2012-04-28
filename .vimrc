@@ -186,3 +186,8 @@ abbreviate sapce space
 abbreviate stirng string
 abbreviate expection exception
 abbreviate Expection Exception
+
+call pathogen#infect()
+
+" web-indent
+let g:js_indent_log = 0
