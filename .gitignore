@@ -1,11 +1,12 @@
 .Private
 .adobe*
+.android*
 .cache/
 .compiz*
 .config/
 .dbshell
 .dbus/
-.eclipse/
+.eclipse*
 .ecryptfs
 .esd_auth
 .fehbg
