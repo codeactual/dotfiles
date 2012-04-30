@@ -16,6 +16,7 @@ alias gcatchup="git fetch && git rebase origin/master"                          
 alias gcop='git checkout --patch'
 alias gd='git diff'
 alias gda="git diff; git diff --cached"
+alias gdc="git diff --cached"
 alias gdv='git diff | $EDITOR -R - '
 alias gl='git log --oneline --graph --decorate'
 alias gld="git log -- \$1"                                                        # Search log for a deleted path.
