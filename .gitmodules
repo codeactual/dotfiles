@@ -1,3 +1,6 @@
 [submodule ".vim/bundle/vim-node"]
 	path = .vim/bundle/vim-node
 	url = https://github.com/guileen/vim-node.git
+[submodule ".vim/bundle/command-t"]
+	path = .vim/bundle/command-t
+	url = git://git.wincent.com/command-t.git

@@ -166,7 +166,9 @@ function installDependencies {
     ipython
 
     # ruby
-    ruby1.9.1
+    rake
+    ruby1.8-dev
+    vim-nox # for vim-ruby required by Command-T
 
     # util
     curl
