@@ -52,7 +52,7 @@ Desktop/
 Downloads/
 Pictures/
 Ubuntu*
-bin
+/bin
 bookmarkbackups
 config
 examples.desktop

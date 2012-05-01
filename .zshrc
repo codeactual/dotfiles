@@ -84,6 +84,27 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
+################
+##### PATH #####
+################
+
+local CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin
+export PATH=$CORE_PATH
+
+function addBinPaths {
+  local BIN_DIR="$HOME/zsh/bin"
+  for dir in `ls -d $BIN_DIR/*`
+  do
+    if [ -d "$dir/bin" ]; then
+      PATH="$PATH:$dir/bin"   # Ex. zsh/bin/percona-toolkit/bin
+    else
+      PATH="$PATH:$dir"       # Ex. zsh/bin/search
+    fi
+  done
+}
+addBinPaths
+
+
 #########################
 ##### MAIN INCLUDES #####
 #########################
