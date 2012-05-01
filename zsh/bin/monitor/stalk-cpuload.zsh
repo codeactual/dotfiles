@@ -12,7 +12,7 @@ LOG_FILE="$2"
 TOP_LIST_SIZE=25
 
 while true; do
-  LOAD=$(uptime | cut -d " " -f 13 | cut -d "," -f 1)
+  LOAD=$(uptime | cut -d " " -f 12 | cut -d "," -f 1)
   if [ $(echo "$LOAD >= $EXECUTE_ON_AVERAGE" | bc) = 1 ]; then
     echo "\n-------------------------------" >> $LOG_FILE
     date --rfc-2822 >> $LOG_FILE
