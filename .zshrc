@@ -154,6 +154,8 @@ function installDependencies {
 
     # android
     ia32-libs
+    mtp-tools
+    mtpfs
 
     # build
     ant
@@ -206,6 +208,7 @@ function installDependencies {
     multitail
     net-tools
     nmap
+    pv
     renameutils
     tree
     wget
