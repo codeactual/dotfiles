@@ -154,8 +154,6 @@ function installDependencies {
 
     # android
     ia32-libs
-    mtp-tools
-    mtpfs
 
     # build
     ant
