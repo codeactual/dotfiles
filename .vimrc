@@ -2,7 +2,7 @@
 " Ciaran McCreesh <ciaranm at gentoo.org>
 
 " Remove any trailing whitespace that is in the file
-autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+autocmd BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
 " http://nvie.com/posts/how-i-boosted-my-vim/
 set history=1000         " remember more commands and search history
