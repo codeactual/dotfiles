@@ -90,20 +90,29 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 
 local CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin
 export PATH=$CORE_PATH
+export PERL5LIB=""
 
-function addBinPaths {
+function addPaths {
   local BIN_DIR="$HOME/zsh/bin"
   for dir in `ls -d $BIN_DIR/*`
   do
     if [ -d "$dir/bin" ]; then
-      PATH="$PATH:$dir/bin"   # Ex. zsh/bin/percona-toolkit/bin
+      PATH="$PATH:$dir/bin"             # Ex. zsh/bin/percona-toolkit/bin
     else
-      PATH="$PATH:$dir"       # Ex. zsh/bin/search
+      PATH="$PATH:$dir"                 # Ex. zsh/bin/search
+    fi
+    if [ -d "$dir/lib" ]; then
+      if [ -z $PERL5LIB ]; then
+        PERL5LIB="$dir/lib"             # Ex. zsh/bin/MySQL-Sandbox/lib
+      else
+        PERL5LIB="$PERL5LIB:$dir/lib"
+      fi
     fi
   done
 }
-addBinPaths
+addPaths
 
+echo $PERL5LIB
 
 #########################
 ##### MAIN INCLUDES #####
