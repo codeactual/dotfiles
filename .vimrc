@@ -116,10 +116,9 @@ map <C-Right> :tabnext<CR>
 map <S-Left> :cp<CR>
 map <S-Right> :cn<CR>
 
-" Command-T plugin configuration
-map <S-T> :CommandT<CR>
-map <C-T> :CommandTBuffer<CR>
-let g:CommandTCancelMap='<ESC>'
+" ctrlp plugin configuration
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_working_path_mode = 0
 
 " The completion dictionary is provided by Rasmus:
 " http://lerdorf.com/funclist.txt

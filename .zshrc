@@ -198,7 +198,6 @@ function installDependencies {
     # ruby
     rake
     ruby1.8-dev
-    vim-nox # for vim-ruby required by Command-T
 
     # util
     curl
