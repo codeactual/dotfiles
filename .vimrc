@@ -201,3 +201,6 @@ call pathogen#infect()
 
 " web-indent
 let g:js_indent_log = 0
+
+" vim-css-color
+let g:cssColorVimDoNotMessMyUpdatetime = 1
