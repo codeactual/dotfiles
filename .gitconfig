@@ -15,7 +15,6 @@
   timeline = log --graph --decorate --branches --pretty=oneline
   unstage = reset HEAD
   untracked = ls-files -o --exclude-standard
-  wdiff = diff --word-diff
 [color]
   branch = auto
   diff = auto
