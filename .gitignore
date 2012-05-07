@@ -30,6 +30,7 @@
 .mission-control/
 .mozilla/
 .npm/
+.npmrc
 .opera/
 .pearrc
 .pki/
