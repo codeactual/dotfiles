@@ -54,10 +54,7 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 
 source ~/zsh/completion/*.zsh
 
-function configurePrompt {
-  export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %{$fg[magenta]%}%M%{$reset_color%} %{$fg[blue]%}%n%{$reset_color%} %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
-}
-configurePrompt
+export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %{$fg[magenta]%}%M%{$reset_color%} %{$fg[blue]%}%n%{$reset_color%} %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
 
 ########################
 ##### MISC OPTIONS #####
@@ -92,25 +89,22 @@ local CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin
 export PATH=$CORE_PATH
 export PERL5LIB=""
 
-function addPaths {
-  local BIN_DIR="$HOME/zsh/bin"
-  for dir in `ls -d $BIN_DIR/*`
-  do
-    if [ -d "$dir/bin" ]; then
-      PATH="$PATH:$dir/bin"             # Ex. zsh/bin/percona-toolkit/bin
+local BIN_DIR="$HOME/zsh/bin"
+for dir in `ls -d $BIN_DIR/*`
+do
+  if [ -d "$dir/bin" ]; then
+    PATH="$PATH:$dir/bin"             # Ex. zsh/bin/percona-toolkit/bin
+  else
+    PATH="$PATH:$dir"                 # Ex. zsh/bin/search
+  fi
+  if [ -d "$dir/lib" ]; then
+    if [ -z $PERL5LIB ]; then
+      PERL5LIB="$dir/lib"             # Ex. zsh/bin/MySQL-Sandbox/lib
     else
-      PATH="$PATH:$dir"                 # Ex. zsh/bin/search
+      PERL5LIB="$PERL5LIB:$dir/lib"
     fi
-    if [ -d "$dir/lib" ]; then
-      if [ -z $PERL5LIB ]; then
-        PERL5LIB="$dir/lib"             # Ex. zsh/bin/MySQL-Sandbox/lib
-      else
-        PERL5LIB="$PERL5LIB:$dir/lib"
-      fi
-    fi
-  done
-}
-addPaths
+  fi
+done
 
 echo $PERL5LIB
 
@@ -132,16 +126,13 @@ source ~/zsh/vcs.zsh
 ##### LOCAL INCLUDES #####
 ##########################
 
-function loadLocalConfigs {
-  local LOCAL_CONFIG_DIR=$HOME/zsh/local
-  if [ -d $LOCAL_CONFIG_DIR ]; then
-    for file in $LOCAL_CONFIG_DIR/*.zsh
-    do
-      source $file
-    done
-  fi
-}
-loadLocalConfigs
+local LOCAL_CONFIG_DIR=$HOME/zsh/local
+if [ -d $LOCAL_CONFIG_DIR ]; then
+  for file in $LOCAL_CONFIG_DIR/*.zsh
+  do
+    source $file
+  done
+fi
 
 ########################
 ##### DEPENDENCIES #####
