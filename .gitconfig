@@ -1,20 +1,6 @@
 [user]
   name = David Smith
   email = codeactual@gmail.com
-[alias]
-  amend = commit --amend -C HEAD
-  blame-editor = blame -C
-  br = branch
-  cdiff = diff --cached
-  clog = log --stat -n 1
-  difflast = diff HEAD^ HEAD
-  ignored = ls-files --others -i --exclude-standard
-  logmasterin = log origin/master ^master
-  logmasterout = log master ^origin/master
-  modified = ls-files -m
-  timeline = log --graph --decorate --branches --pretty=oneline
-  unstage = reset HEAD
-  untracked = ls-files -o --exclude-standard
 [color]
   branch = auto
   diff = auto
