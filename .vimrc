@@ -62,11 +62,6 @@ set textwidth=0
 " Show cursor position in lower-right corner
 set ruler
 
-" Show a cursorline in the current window
-set cursorline
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-
 " Highlight matching parens
 set showmatch
 
