@@ -9,8 +9,6 @@
   ui = true
 [github]
   user = codeactual
-[help]
-  autocorrect = 1
 [branch]
 	autosetuprebase = always
 [branch "master"]
