@@ -59,4 +59,6 @@ alias dl="wget --max-redirect 5 --no-cookies"
 
 alias resetfonts="sudo fc-cache -fv"
 alias rm="rm -i"
+alias vim="vim -O3"
+alias vimsafe="vim -RMm"
 alias zshrc="vim ~/.zshrc; sleep 1; source ~/.zshrc"
