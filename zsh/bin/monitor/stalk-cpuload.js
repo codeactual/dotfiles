@@ -29,7 +29,7 @@ var check = function(fd) {
       return;
     }
 
-    exec('top -b -n 1 -c | head -n 32', null, function(err, stdout, stderr) {
+    exec('COLUMNS=300 top -b -n 1 -c | head -n 32', null, function(err, stdout, stderr) {
       if (err) { throw err; }
 
       var event = util.format(
