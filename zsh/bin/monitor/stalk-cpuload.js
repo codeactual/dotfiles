@@ -51,5 +51,12 @@ var check = function(fd) {
 
 fs.open(program.log, 'a', function(err, fd) {
   if (err) { throw err; }
+
+  process.on('SIGINT', process.exit);
+  process.on('SIGTERM', process.exit);
+  process.on('exit', function() {
+    fs.close(fd);
+  });
+
   check(fd);
 });
