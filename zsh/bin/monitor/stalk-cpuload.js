@@ -19,7 +19,7 @@ if (!program.log || !program.min || !program.sleep) {
   process.exit(1);
 }
 var check = function(fd) {
-  exec('uptime | cut -d " " -f 13 | cut -d "," -f 1', null, function(err, stdout, stderr) {
+  exec('uptime | cut -d " " -f 14 | cut -d "," -f 1', null, function(err, stdout, stderr) {
     if (err) { throw err; }
 
     var load = parseFloat(stdout.toString(), 10);
