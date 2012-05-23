@@ -10,7 +10,7 @@ var exec = require('child_process').exec,
 
 program
   .option('-l, --log <file>')
-  .option('-m, --min <#>', 'Minimum cpuload to trigger logging, ex. 0.5', Number)
+  .option('-m, --min <#>', 'Minimum cpu usage to trigger logging, ex. 50', Number)
   .option('-s, --sleep <#>', 'Seconds between checks', Number)
   .parse(process.argv);
 
@@ -19,32 +19,28 @@ if (!program.log || !program.min || !program.sleep) {
   process.exit(1);
 }
 var check = function(fd) {
-  exec('uptime | cut -d " " -f 14 | cut -d "," -f 1', null, function(err, stdout, stderr) {
+  exec('COLUMNS=300 top -b -n 1 -c | head -n 32', null, function(err, stdout, stderr) {
     if (err) { throw err; }
 
-    var load = parseFloat(stdout.toString(), 10);
+    var user = parseFloat(stdout.toString().match(/Cpu\(s\):\s+(.*)%us/m)[1], 10);
 
-    if (load < program.min) {
+    if (user < program.min) {
       setTimeout(check.bind(null, fd), program.sleep * 1000);
       return;
     }
 
-    exec('COLUMNS=300 top -b -n 1 -c | head -n 32', null, function(err, stdout, stderr) {
+    var event = util.format(
+      '\n%s\n%s\nuser: %d\n%s\n\n%s',
+      divider,
+      (new Date()).toUTCString(),
+      user,
+      divider,
+      stdout.toString()
+    );
+
+    fs.write(fd, event, null, 'utf8', function(err) {
       if (err) { throw err; }
-
-      var event = util.format(
-        '\n%s\n%s\nload: %d\n%s\n\n%s',
-        divider,
-        (new Date()).toUTCString(),
-        load,
-        divider,
-        stdout.toString()
-      );
-
-      fs.write(fd, event, null, 'utf8', function(err) {
-        if (err) { throw err; }
-        setTimeout(check.bind(null, fd), program.sleep * 1000);
-      });
+      setTimeout(check.bind(null, fd), program.sleep * 1000);
     });
   });
 };
