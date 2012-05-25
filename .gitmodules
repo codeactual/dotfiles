@@ -13,3 +13,6 @@
 [submodule "zsh/bin/redis-faina"]
 	path = zsh/bin/redis-faina
 	url = https://github.com/Instagram/redis-faina.git
+[submodule ".vim/bundle/vim-json"]
+	path = .vim/bundle/vim-json
+	url = git://github.com/helino/vim-json.git
