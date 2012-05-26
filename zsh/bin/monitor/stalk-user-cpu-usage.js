@@ -22,7 +22,10 @@ var check = function(fd) {
   exec('COLUMNS=300 top -b -n 1 -c | head -n 32', null, function(err, stdout, stderr) {
     if (err) { throw err; }
 
-    var user = parseFloat(stdout.toString().match(/Cpu\(s\):\s+(.*)%us/m)[1], 10);
+    stdout = stdout.toString();
+
+    var lines = stdout.split('\n').map(function(s) { return s.trimRight(); }),
+        user = parseFloat(lines[7].match(/([^ ]+)/g)[8]);
 
     if (user < program.min) {
       setTimeout(check.bind(null, fd), program.sleep * 1000);
@@ -30,12 +33,12 @@ var check = function(fd) {
     }
 
     var event = util.format(
-      '\n%s\n%s\nuser: %d\n%s\n\n%s',
+      '\n%s\n%s\n%CPU: %d\n%s\n\n%s',
       divider,
       (new Date()).toUTCString(),
       user,
       divider,
-      stdout.toString()
+      lines.join('\n')
     );
 
     fs.write(fd, event, null, 'utf8', function(err) {
