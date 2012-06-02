@@ -16,3 +16,6 @@
 [submodule ".vim/bundle/vim-json"]
 	path = .vim/bundle/vim-json
 	url = git://github.com/helino/vim-json.git
+[submodule ".vim/bundle/zendcoding-vim"]
+	path = .vim/bundle/zendcoding-vim
+	url = https://github.com/mattn/zencoding-vim.git
