@@ -51,6 +51,7 @@ alias rsync-resume="rsync --partial"  # Resumes incomplete scp operation.
 ##### CURL / WGET #####
 #######################
 
+alias curl-find-ca-bundle="curl-config --ca"
 alias dl="wget --max-redirect 5 --no-cookies"
 
 ################
