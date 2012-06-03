@@ -120,6 +120,7 @@ source ~/zsh/mac.zsh
 source ~/zsh/mysql.zsh
 source ~/zsh/php.zsh
 source ~/zsh/python.zsh
+source ~/zsh/ruby.zsh
 source ~/zsh/vcs.zsh
 
 ##########################
