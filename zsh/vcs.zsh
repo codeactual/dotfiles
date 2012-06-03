@@ -30,6 +30,7 @@ alias gl='git log --oneline --graph --decorate'
 alias glc="git log --stat -n 1"                                     # Log of last commit.
 alias gld="git log -- \$1"                                          # Search log for a deleted path.
 alias glf="git log --follow -p"                                     # Search log for changes to a path w/ diffs.
+alias glp="git log -p -40 | vim - -R -c 'set foldmethod=syntax' -O1"
 alias glmi="git log origin/master \^master"
 alias glmo="git log master \^origin/master"
 alias glsi="git ls-files --others -i --exclude-standard"            # Ignore files.
