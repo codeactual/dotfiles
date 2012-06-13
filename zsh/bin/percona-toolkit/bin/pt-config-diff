@@ -1053,6 +1053,8 @@ use Data::Dumper;
 $Data::Dumper::Indent    = 0;
 $Data::Dumper::Quotekeys = 0;
 
+my $dsn_sep = qr/(?<!\\),/;
+
 eval {
    require DBI;
 };
@@ -1107,7 +1109,8 @@ sub parse {
    my %final_props;
    my $opts = $self->{opts};
 
-   foreach my $dsn_part ( split(/,/, $dsn) ) {
+   foreach my $dsn_part ( split($dsn_sep, $dsn) ) {
+      $dsn_part =~ s/\\,/,/g;
       if ( my ($prop_key, $prop_val) = $dsn_part =~  m/^(.)=(.*)$/ ) {
          $given_props{$prop_key} = $prop_val;
       }
@@ -1324,7 +1327,7 @@ sub get_dbh {
          'SELECT DATABASE(), CONNECTION_ID(), VERSION()/*!50038 , @@hostname*/')),
       'Connection info:',      $dbh->{mysql_hostinfo},
       'Character set info:',   Dumper($dbh->selectall_arrayref(
-                     'SHOW VARIABLES LIKE "character_set%"', { Slice => {}})),
+                     "SHOW VARIABLES LIKE 'character_set%'", { Slice => {}})),
       '$DBD::mysql::VERSION:', $DBD::mysql::VERSION,
       '$DBI::VERSION:',        $DBI::VERSION,
    );
@@ -1405,9 +1408,11 @@ package Cxn;
 use strict;
 use warnings FATAL => 'all';
 use English qw(-no_match_vars);
-use constant PTDEBUG => $ENV{PTDEBUG} || 0;
-
-use constant PERCONA_TOOLKIT_TEST_USE_DSN_NAMES => $ENV{PERCONA_TOOLKIT_TEST_USE_DSN_NAMES} || 0;
+use Scalar::Util qw(blessed);
+use constant {
+   PTDEBUG => $ENV{PTDEBUG} || 0,
+   PERCONA_TOOLKIT_TEST_USE_DSN_NAMES => $ENV{PERCONA_TOOLKIT_TEST_USE_DSN_NAMES} || 0,
+};
 
 sub new {
    my ( $class, %args ) = @_;
@@ -1510,7 +1515,9 @@ sub name {
 
 sub DESTROY {
    my ($self) = @_;
-   if ( $self->{dbh} ) {
+   if ( $self->{dbh}
+         && blessed($self->{dbh})
+         && $self->{dbh}->can("disconnect") ) {
       PTDEBUG && _d('Disconnecting dbh', $self->{dbh}, $self->{name});
       $self->{dbh}->disconnect();
    }
@@ -3405,6 +3412,6 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-config-diff 2.1.1
+pt-config-diff 2.1.2
 
 =cut

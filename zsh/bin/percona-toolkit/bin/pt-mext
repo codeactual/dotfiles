@@ -26,29 +26,32 @@ fi
 # See https://launchpad.net/percona-toolkit for more information.
 # ###########################################################################
 
-TMPDIR=""
+
+set -u
+
+PT_TMPDIR=""
 
 mk_tmpdir() {
-   local dir=${1:-""}
+   local dir="${1:-""}"
 
    if [ -n "$dir" ]; then
       if [ ! -d "$dir" ]; then
-         mkdir $dir || die "Cannot make tmpdir $dir"
+         mkdir "$dir" || die "Cannot make tmpdir $dir"
       fi
-      TMPDIR="$dir"
+      PT_TMPDIR="$dir"
    else
-      local tool=`basename $0`
+      local tool="${0##*/}"
       local pid="$$"
-      TMPDIR=`mktemp -d /tmp/${tool}.${pid}.XXXXX` \
+      PT_TMPDIR=`mktemp -d -t "${tool}.${pid}.XXXXXX"` \
          || die "Cannot make secure tmpdir"
    fi
 }
 
 rm_tmpdir() {
-   if [ -n "$TMPDIR" ] && [ -d "$TMPDIR" ]; then
-      rm -rf $TMPDIR
+   if [ -n "$PT_TMPDIR" ] && [ -d "$PT_TMPDIR" ]; then
+      rm -rf "$PT_TMPDIR"
    fi
-   TMPDIR=""
+   PT_TMPDIR=""
 }
 
 # ###########################################################################
@@ -57,7 +60,7 @@ rm_tmpdir() {
 
 mk_tmpdir
 
-FILE="$TMPDIR/mext_temp_file";
+FILE="$PT_TMPDIR/mext_temp_file";
 NUM=0;
 REL=0;
 
@@ -279,7 +282,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-mext 2.1.1
+pt-mext 2.1.2
 
 =cut
 

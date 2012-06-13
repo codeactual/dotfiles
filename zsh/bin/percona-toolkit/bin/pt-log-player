@@ -959,7 +959,7 @@ sub _parse_size {
       $opt->{value} = ($pre || '') . $num;
    }
    else {
-      $self->save_error("Invalid size for --$opt->{long}");
+      $self->save_error("Invalid size for --$opt->{long}: $val");
    }
    return;
 }
@@ -2008,6 +2008,8 @@ use Data::Dumper;
 $Data::Dumper::Indent    = 0;
 $Data::Dumper::Quotekeys = 0;
 
+my $dsn_sep = qr/(?<!\\),/;
+
 eval {
    require DBI;
 };
@@ -2062,7 +2064,8 @@ sub parse {
    my %final_props;
    my $opts = $self->{opts};
 
-   foreach my $dsn_part ( split(/,/, $dsn) ) {
+   foreach my $dsn_part ( split($dsn_sep, $dsn) ) {
+      $dsn_part =~ s/\\,/,/g;
       if ( my ($prop_key, $prop_val) = $dsn_part =~  m/^(.)=(.*)$/ ) {
          $given_props{$prop_key} = $prop_val;
       }
@@ -2121,12 +2124,14 @@ sub parse_options {
 sub as_string {
    my ( $self, $dsn, $props ) = @_;
    return $dsn unless ref $dsn;
-   my %allowed = $props ? map { $_=>1 } @$props : ();
+   my @keys = $props ? @$props : sort keys %$dsn;
    return join(',',
-      map  { "$_=" . ($_ eq 'p' ? '...' : $dsn->{$_})  }
-      grep { defined $dsn->{$_} && $self->{opts}->{$_} }
-      grep { !$props || $allowed{$_}                   }
-      sort keys %$dsn );
+      map  { "$_=" . ($_ eq 'p' ? '...' : $dsn->{$_}) }
+      grep {
+         exists $self->{opts}->{$_}
+         && exists $dsn->{$_}
+         && defined $dsn->{$_}
+      } @keys);
 }
 
 sub usage {
@@ -2277,7 +2282,7 @@ sub get_dbh {
          'SELECT DATABASE(), CONNECTION_ID(), VERSION()/*!50038 , @@hostname*/')),
       'Connection info:',      $dbh->{mysql_hostinfo},
       'Character set info:',   Dumper($dbh->selectall_arrayref(
-                     'SHOW VARIABLES LIKE "character_set%"', { Slice => {}})),
+                     "SHOW VARIABLES LIKE 'character_set%'", { Slice => {}})),
       '$DBD::mysql::VERSION:', $DBD::mysql::VERSION,
       '$DBI::VERSION:',        $DBI::VERSION,
    );
@@ -2915,7 +2920,10 @@ sub play_session {
    } # ITERATION
 
    close $output_fh if $output_fh;
-   $dbh->disconnect() if $dbh;
+   if ($dbh) {
+      $dbh->commit() unless $dbh->{AutoCommit};
+      $dbh->disconnect();
+   }
    return;
 }
 
@@ -3604,6 +3612,6 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-log-player 2.1.1
+pt-log-player 2.1.2
 
 =cut
