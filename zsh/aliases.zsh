@@ -16,6 +16,7 @@ alias connected_ips="netstat -lantp | grep ESTABLISHED |awk '{print \$5}' | awk 
 alias lsof-inet="lsof -i -U"
 alias lsof-open-owners="lsof -i -P | grep -i 'listen'"
 alias resmem="ps -Aely --sort:rss | awk '{print \$NF\": \"\$8/1024\" MB\"}' | column -t"  # http://www.commandlinefu.com/commands/view/9847/find-and-sort-by-resident-size-of-each-process-on-the-system-in-mb
+alias top="top -c"
 
 #######################
 ##### FIND / GREP #####
@@ -39,7 +40,7 @@ alias dpkghistory="tail -n 1000 | less /var/log/dpkg.log"
 alias dpkginstalled="dpkg --get-selections | grep -v deinstall"
 alias dpkgls="dpkg -L $1"
 alias dpkgowner="dpkg -S $1"
-alias aptupdateall="sudo apt-get update && sudo apt-get upgrade -y"
+alias aptupdateall="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade"
 
 #######################
 ##### RSYNC / SSH #####
