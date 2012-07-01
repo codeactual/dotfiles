@@ -19,3 +19,6 @@
 [submodule ".vim/bundle/zendcoding-vim"]
 	path = .vim/bundle/zendcoding-vim
 	url = https://github.com/mattn/zencoding-vim.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git

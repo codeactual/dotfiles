@@ -112,6 +112,9 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 0
 map <C-O> :CtrlPClearCache<CR>
 
+" Open NERDtree file explorer
+map <C-T> :NERDTreeToggle<CR>
+
 " The completion dictionary is provided by Rasmus:
 " http://lerdorf.com/funclist.txt
 set dictionary-=~/.vim/funclist.txt dictionary+=~/.vim/funclist.txt
@@ -196,3 +199,6 @@ let g:js_indent_log = 0
 
 " vim-css-color
 let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+" Open NERDtree if there's no initial file to open
+autocmd vimenter * if !argc() | only | NERDTree | endif
