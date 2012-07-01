@@ -89,10 +89,6 @@ set formatoptions=qroct
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 
-" use control-m and control-n to turn numbering off and on respectively
-map <C-M> :set nonumber<CR>
-map <C-N> :set number<CR>
-
 " press f9 to check the current file for php syntax errors
 map <C-P> :w<CR>:!php -l %<CR>
 
