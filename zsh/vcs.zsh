@@ -4,6 +4,8 @@ echo "Loading $0"
 ##### GIT ######
 ################
 
+# Prepend `git` commands with GIT_TRACE=1 for verbose/debug output.
+
 # Based on http://justinlilly.com/dotfiles/zsh.html
 alias g=git
 alias ga='git add'
