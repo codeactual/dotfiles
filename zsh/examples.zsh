@@ -262,6 +262,21 @@ echo "Loading $0"
 # ssh -t reachable_host ssh unreachable_host
 # ssh -t host1 ssh -t host2 ssh -t host3 ssh -t host4 ...
 
+# Show permissions of current directory and all directories upwards to /
+# namei -m $(pwd)
+
+# tree by modify time with newest file at bottom
+# tree -L 1 -ChDit | tac
+
+# Create a tar archive with all files of a certain type found in present dir and subdirs
+# find ./ -type f -name "*.txt" -exec tar uvf myarchives.tar {} +
+
+# Sort files in multiple directories by date
+# find . -type f -exec ls -l --full-time {} + | sort -k 6,7
+
+# Limit the transfer rate of a pipe with pv
+# pv /dev/urandom -L 3m -i 0.3 > /dev/null
+
 ##############################
 ##### References / Lists #####
 ##############################
