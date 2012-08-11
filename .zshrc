@@ -50,9 +50,10 @@ compinit
 # For git-completion
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
-export GIT_PS1_SHOWUPSTREAM="auto"
+#export GIT_PS1_SHOWUPSTREAM="auto"
 
-source ~/zsh/completion/*.zsh
+source ~/zsh/completion/git-completion.zsh
+source ~/zsh/completion/git-prompt.zsh
 
 export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %{$fg[magenta]%}%M%{$reset_color%} %{$fg[blue]%}%n%{$reset_color%} %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
 
@@ -85,7 +86,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 ##### PATH #####
 ################
 
-local CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin
+local CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin
 export PATH=$CORE_PATH
 export PERL5LIB=""
 
@@ -144,11 +145,8 @@ function installDependencies {
   packages=(
     sudo apt-get install
 
-    # android
-    ia32-libs
-
     # build
-    ant
+    #ant
     autoconf
 
     # dev
@@ -160,7 +158,7 @@ function installDependencies {
     vim
 
     # java
-    openjdk-7-jdk
+    #openjdk-7-jdk
 
     # mysql
     libaio1
@@ -169,7 +167,7 @@ function installDependencies {
     libc-ares2
     libev4
     libssl-dev
-    libv8-3.1.8.22
+    libv8-3.7.12.22
 
     # php
     graphviz
@@ -188,8 +186,8 @@ function installDependencies {
     ipython
 
     # ruby
-    rake
-    ruby1.8-dev
+    #rake
+    #ruby1.8-dev
 
     # util
     curl
@@ -204,3 +202,7 @@ function installDependencies {
   )
   "${packages[@]}"
 }
+
+export NODE_PATH=/usr/local/lib/node_modules
+
+ll
