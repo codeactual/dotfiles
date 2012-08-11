@@ -22,3 +22,6 @@ function mdupe { # Remove files with duplicate content.
 function ext-ip {
   curl http://whatismyip.org; echo;
 }
+function recent {
+  find . -type f -mmin "-$1" -not -wholename '*.svn*' -exec ls -la {} \;
+}

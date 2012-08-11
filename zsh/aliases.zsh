@@ -27,7 +27,6 @@ alias cgrep="egrep --color=always"
 alias findbrokensym="find -L . -type l" # http://www.commandlinefu.com/commands/view/8260/find-broken-symlinks
 alias hgrep="history | cgrep -i $1"
 alias lsdir="find . -maxdepth 1 -type d -not -name '.'"
-alias recently-modified="find . -type f -mmin -15"
 alias wcgrep-nocolor="wcgrep-base --color=never"
 alias wcgrep="wcgrep-base --color=always"
 
