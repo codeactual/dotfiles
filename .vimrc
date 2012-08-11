@@ -48,6 +48,10 @@ set smarttab
 highlight comment ctermfg=lightblue
 highlight constant ctermfg=darkred
 
+" Change the autocompletion menu colors
+highlight Pmenu ctermfg=lightgray ctermbg=black
+highlight PmenuSel ctermfg=black ctermbg=lightgray
+
 " Set standard setting for PEAR coding standards
 set tabstop=2
 set shiftwidth=2
@@ -110,6 +114,7 @@ map <S-Right> :cn<CR>
 " ctrlp plugin configuration
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 0
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target\|dist\|jsgen\|.svn'
 map <C-O> :CtrlPClearCache<CR>
 
 " Open NERDtree file explorer
