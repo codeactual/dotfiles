@@ -52,12 +52,14 @@ workspace/
 .Xmodmap
 Desktop/
 Downloads/
+Dropbox/
 Pictures/
 Ubuntu*
 /bin
 bookmarkbackups
 config
 examples.desktop
+mac/
 opt/
 outbox/
 pear.conf
