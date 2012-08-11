@@ -12,8 +12,9 @@ alias ga='git add'
 alias gamend="git commit --amend -C HEAD"                           # Amend last commit.
 alias gap='git add --patch'
 alias gble="git blame -C"                                           # Blame last editor (not last mover/copier).
-alias gbr='git branch'
-alias gbra='git branch -a'                                          # Include remote-tracking and local.
+alias gb='git branch'
+alias gbr='git branch -r'
+alias gba='git branch -a'                                          # Include remote-tracking and local.
 alias gco='git checkout'
 alias gci='git commit -v'                                           # Verbose commit.
 alias gcatchup="git fetch && git rebase origin/master"              # Catch up local snapshot of origin/master. But don't modify local master.
@@ -28,6 +29,7 @@ alias gdmi="git diff origin/master \^master"
 alias gdmo="git diff master \^origin/master"
 alias gdv='git diff | $EDITOR -R - '
 alias gdw="git diff --word-diff"
+alias gi="git info"
 alias gl='git log --oneline --graph --decorate'
 alias glc="git log --stat -n 1"                                     # Log of last commit.
 alias gld="git log -- \$1"                                          # Search log for a deleted path.
@@ -53,5 +55,5 @@ alias gu="git reset HEAD"                                           # Unstage.
 ################
 
 function svndiff {
-  svn diff $1 | vim -R -
+  svn diff | vim - -R -O1
 }
