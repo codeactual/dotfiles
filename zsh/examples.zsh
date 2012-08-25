@@ -283,3 +283,16 @@ echo "Loading $0"
 
 # http://presentations.codeinthehole.com/confoo2011/
 # http://www.catonmat.net/blog/top-ten-one-liners-from-commandlinefu-explained/
+
+##############################
+############ Git #############
+##############################
+
+# (https://plus.google.com/u/0/115133653231679625609/posts/BEsxNbUSwpq)
+# reset back to the desired tree
+git reset 34e02cdcf
+# move the pointer on your branch to the previous HEAD
+git reset --soft HEAD@{1}
+git commit -m "Revert to 34e02cdcf"
+# Update your working copy to reflect the latest commit
+git reset --hard
