@@ -46,6 +46,7 @@
 .thunderbird/
 .tumblr
 .viminfo
+.zzz*
 workspace/
 .xsession-errors
 .xscreensaver
