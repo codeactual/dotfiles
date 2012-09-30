@@ -54,6 +54,14 @@ alias gu="git reset HEAD"                                           # Unstage.
 ##### SVN ######
 ################
 
+# Prevents finding of /bin/ss in path
+alias sa="svn add"
+alias sci="svn commit"
+alias sco="svn checkout"
+alias sd="svndiff"
+alias sl="svn log --verbose --limit \$1"
+alias ss="svn status"
+
 function svndiff {
-  svn diff | vim - -R -O1
+  svn diff $@ | vim - -R -O1
 }

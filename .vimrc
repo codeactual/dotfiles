@@ -206,4 +206,4 @@ let g:js_indent_log = 0
 let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " Open NERDtree if there's no initial file to open
-autocmd vimenter * if !argc() | only | NERDTree | endif
+" autocmd vimenter * if !argc() | only | NERDTree | endif

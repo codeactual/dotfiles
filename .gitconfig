@@ -19,3 +19,5 @@
 	default = tracking
 [core]
 	pager = less -r
+[merge]
+	ff = false
