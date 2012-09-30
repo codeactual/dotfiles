@@ -148,6 +148,7 @@ function installDependencies {
     # build
     #ant
     autoconf
+    make
 
     # dev
     exuberant-ctags
