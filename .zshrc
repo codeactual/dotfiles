@@ -56,7 +56,7 @@ source ~/zsh/completion/git-completion.zsh
 source ~/zsh/completion/git-prompt.zsh
 
 # Color list: /etc/X11/rgb.txt
-export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %n @ %{$fg[magenta]%}%M%{$reset_color%} : %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
+export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %n @ %{$fg[yellow]%}%M%{$reset_color%} : %{$fg[magenta]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
 
 ########################
 ##### MISC OPTIONS #####
