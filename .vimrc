@@ -214,8 +214,3 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " Open NERDtree if there's no initial file to open
 " autocmd vimenter * if !argc() | only | NERDTree | endif
-
-" https://github.com/majutsushi/tagbar/issues/77#issuecomment-6395137
-set laststatus=2
-
-let g:Powerline_symbols = 'fancy'
