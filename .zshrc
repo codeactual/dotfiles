@@ -199,6 +199,7 @@ function installDependencies {
     # util
     curl
     htop
+    iftop
     multitail
     net-tools
     nmap
