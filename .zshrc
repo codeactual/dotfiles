@@ -55,7 +55,8 @@ export GIT_PS1_SHOWSTASHSTATE=1
 source ~/zsh/completion/git-completion.zsh
 source ~/zsh/completion/git-prompt.zsh
 
-export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %{$fg[magenta]%}%M%{$reset_color%} %{$fg[blue]%}%n%{$reset_color%} %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
+# Color list: /etc/X11/rgb.txt
+export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %n @ %{$fg[magenta]%}%M%{$reset_color%} : %{$fg[yellow]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
 
 ########################
 ##### MISC OPTIONS #####
@@ -72,6 +73,11 @@ setopt nohup            # Don't kill bg processes on exit.
 setopt pushdignoredups  # Don't auto-add duplicate dirs for `pushd`/popd` use.
 
 export EDITOR="vim"
+
+# Display directories in non-bold cyan.
+# http://linux-sxs.org/housekeeping/lscolors.html
+# List defaults: dircolors -p
+export LS_COLORS="di=00;96"
 
 # http://www.commandlinefu.com/commands/view/9530/color-man-pages
 export LESS_TERMCAP_mb=$'\E[01;31m'
