@@ -1,5 +1,7 @@
-" Based on .vimrc by Tobias Schlitt <toby@php.net>
-" Ciaran McCreesh <ciaranm at gentoo.org>
+" Based on .vimrc by:
+"   Tobias Schlitt <toby@php.net>
+"   Ciaran McCreesh <ciaranm at gentoo.org>
+"   https://github.com/myusuf3/dotfiles/blob/master/vimrc
 
 " Remove any trailing whitespace that is in the file
 autocmd BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -11,6 +13,11 @@ set title                " change the terminal's title
 set noerrorbells         " don't beep
 
 set nofoldenable
+
+colorscheme Tomorrow-Night
+
+set colorcolumn=81 " line to show 81 character mark
+set cursorline " shows the horizontal cursor line
 
 " turn off any existing search
 au VimEnter * nohls
@@ -207,3 +214,8 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " Open NERDtree if there's no initial file to open
 " autocmd vimenter * if !argc() | only | NERDTree | endif
+
+" https://github.com/majutsushi/tagbar/issues/77#issuecomment-6395137
+set laststatus=2
+
+let g:Powerline_symbols = 'fancy'
