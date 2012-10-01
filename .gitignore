@@ -30,6 +30,7 @@
 .macromedia*
 .mission-control/
 .mozilla/
+.node-gyp/
 .npm/
 .npmrc
 .opera/
