@@ -12,12 +12,19 @@ set undolevels=1000      " use many muchos levels of undo
 set title                " change the terminal's title
 set noerrorbells         " don't beep
 
+" Disable visual bell
+set noeb vb t_vb=
+
 set nofoldenable
 
-colorscheme Tomorrow-Night
+" Highlight search matches (original fg, dark grey bg)
+hi Search cterm=NONE ctermfg=white ctermbg=233
 
-set colorcolumn=81 " line to show 81 character mark
-set cursorline " shows the horizontal cursor line
+" Highlight visual mode selections (original fg, dark grey bg)
+hi Visual cterm=NONE ctermfg=NONE ctermbg=233
+
+" Highlight incremental serach matches (white fg, dark grey bg)
+hi IncSearch cterm=NONE ctermfg=white ctermbg=233
 
 " turn off any existing search
 au VimEnter * nohls
@@ -121,7 +128,7 @@ map <S-Right> :cn<CR>
 " ctrlp plugin configuration
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target\|dist\|jsgen\|.svn'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target\|dist\|jsgen\|\.svn\|release\|\.min'
 map <C-O> :CtrlPClearCache<CR>
 
 " Open NERDtree file explorer
