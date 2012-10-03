@@ -18,13 +18,13 @@ set noeb vb t_vb=
 set nofoldenable
 
 " Highlight search matches (original fg, dark grey bg)
-hi Search cterm=NONE ctermfg=white ctermbg=233
+hi Search cterm=NONE ctermfg=white ctermbg=darkgrey
 
 " Highlight visual mode selections (original fg, dark grey bg)
-hi Visual cterm=NONE ctermfg=NONE ctermbg=233
+hi Visual cterm=NONE ctermfg=NONE ctermbg=darkgrey
 
 " Highlight incremental serach matches (white fg, dark grey bg)
-hi IncSearch cterm=NONE ctermfg=white ctermbg=233
+hi IncSearch cterm=NONE ctermfg=white ctermbg=darkgrey
 
 " turn off any existing search
 au VimEnter * nohls
