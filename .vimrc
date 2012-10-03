@@ -26,6 +26,17 @@ hi Visual cterm=NONE ctermfg=NONE ctermbg=darkgrey
 " Highlight incremental serach matches (white fg, dark grey bg)
 hi IncSearch cterm=NONE ctermfg=white ctermbg=darkgrey
 
+" Highlight line numbers
+hi LineNr cterm=NONE ctermfg=234 ctermbg=black
+
+" Set some syntax highlight colors
+hi comment ctermfg=lightblue
+hi constant ctermfg=darkred
+
+" Change the autocompletion menu colors
+hi Pmenu ctermfg=lightgray ctermbg=black
+hi PmenuSel ctermfg=black ctermbg=lightgray
+
 " turn off any existing search
 au VimEnter * nohls
 
@@ -57,14 +68,6 @@ set hidden
 set autoindent
 set smartindent
 set smarttab
-
-" Set some syntax highlight colors
-highlight comment ctermfg=lightblue
-highlight constant ctermfg=darkred
-
-" Change the autocompletion menu colors
-highlight Pmenu ctermfg=lightgray ctermbg=black
-highlight PmenuSel ctermfg=black ctermbg=lightgray
 
 " Set standard setting for PEAR coding standards
 set tabstop=2
@@ -221,3 +224,13 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " Open NERDtree if there's no initial file to open
 " autocmd vimenter * if !argc() | only | NERDTree | endif
+
+" Disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
