@@ -182,7 +182,7 @@ function ToggleHLSearch()
        endif
 endfunction
 
-nmap <C-H><C-H> :call ToggleHLSearch()<CR>.
+nmap <C-H> :call ToggleHLSearch()<CR>.
 
 function TogglePasteMode()
        if &paste
@@ -192,10 +192,10 @@ function TogglePasteMode()
        endif
 endfunction
 
-nmap <C-M><C-M> :call TogglePasteMode()<CR>.
+nmap <C-M> :call TogglePasteMode()<CR>.
 
 " Toggle line numbers.
-nmap <C-N><C-N> :set invnumber<CR>
+nmap <C-N> :set invnumber<CR>
 
 syntax enable
 
@@ -233,7 +233,3 @@ map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
