@@ -21,7 +21,7 @@ set nofoldenable
 hi Search cterm=NONE ctermfg=white ctermbg=darkgrey
 
 " Highlight visual mode selections (original fg, dark grey bg)
-hi Visual cterm=NONE ctermfg=NONE ctermbg=darkgrey
+hi Visual cterm=NONE ctermfg=white ctermbg=darkgrey
 
 " Highlight incremental serach matches (white fg, dark grey bg)
 hi IncSearch cterm=NONE ctermfg=white ctermbg=darkgrey
