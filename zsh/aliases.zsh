@@ -39,7 +39,7 @@ alias dpkghistory="tail -n 1000 | less /var/log/dpkg.log"
 alias dpkginstalled="dpkg --get-selections | grep -v deinstall"
 alias dpkgls="dpkg -L $1"
 alias dpkgowner="dpkg -S $1"
-alias aptupdateall="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade"
+alias aptupdateall="pushd . >/dev/null && cd /tmp && sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade && popd >/dev/null"
 
 #######################
 ##### RSYNC / SSH #####
