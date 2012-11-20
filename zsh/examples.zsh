@@ -277,6 +277,9 @@ echo "Loading $0"
 # Limit the transfer rate of a pipe with pv
 # pv /dev/urandom -L 3m -i 0.3 > /dev/null
 
+# Run last command with all matches replaced.
+# !!:gs/search/replace
+
 ##############################
 ##### References / Lists #####
 ##############################
