@@ -106,6 +106,9 @@ set scrolloff=3
 " line
 set formatoptions=qroct
 
+" Disable F1 help
+nmap <F1> <nop>
+
 " use control-J and control-K to move up and down buffers
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
