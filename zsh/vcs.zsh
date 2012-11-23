@@ -9,7 +9,7 @@ echo "Loading $0"
 # Based on http://justinlilly.com/dotfiles/zsh.html
 alias g=git
 alias ga='git add'
-alias gamend="git commit --amend -C HEAD"                           # Amend last commit.
+alias gamend="git commit --amend"                                   # Amend last commit.
 alias gap='git add --patch'
 alias gble="git blame -C"                                           # Blame last editor (not last mover/copier).
 alias gb='git branch'
