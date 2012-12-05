@@ -63,7 +63,7 @@ export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z
 ########################
 
 setopt alwaystoend      # After completion from in-word, move cursor to end.
-setopt autocd           # Change directory without 'cd ' prepended.
+# setopt autocd           # Change directory without 'cd ' prepended.
 setopt autopushd        # Auto-pop dirs to stack for `pushd`/`popd` use.
 setopt completeinword   # Enable completion mid-word, ex. apache<tab>tl -> apachectl.
 setopt correct          # Correction prompt when command not found.
