@@ -96,11 +96,13 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 ##### PATH #####
 ################
 
-local CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin
-export PATH=$CORE_PATH
+CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin
+NODE_MODULES_BIN_PATH=./node_modules/.bin
+
+export PATH=$CORE_PATH:$NODE_MODULES_BIN_PATH
 export PERL5LIB=""
 
-local BIN_DIR="$HOME/zsh/bin"
+BIN_DIR="$HOME/zsh/bin"
 for dir in `ls -d $BIN_DIR/*`
 do
   if [ -d "$dir/bin" ]; then
@@ -116,8 +118,6 @@ do
     fi
   fi
 done
-
-echo $PERL5LIB
 
 #########################
 ##### MAIN INCLUDES #####
@@ -138,7 +138,7 @@ source ~/zsh/vcs.zsh
 ##### LOCAL INCLUDES #####
 ##########################
 
-local LOCAL_CONFIG_DIR=$HOME/zsh/local
+LOCAL_CONFIG_DIR=$HOME/zsh/local
 if [ -d $LOCAL_CONFIG_DIR ]; then
   for file in $LOCAL_CONFIG_DIR/*.zsh
   do
