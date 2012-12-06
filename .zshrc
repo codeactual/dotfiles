@@ -99,7 +99,12 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin
 NODE_MODULES_BIN_PATH=./node_modules/.bin
 
-export PATH=$CORE_PATH:$NODE_MODULES_BIN_PATH
+# To avoid gem installation that requires sudo.
+# See "Installing RubyGems in a User Directory" http://docs.rubygems.org/
+export RUBY_PREFIX="$HOME/opt/ruby"
+export GEM_HOME="$RUBY_PREFIX/gems"
+
+export PATH=$CORE_PATH:$NODE_MODULES_BIN_PATH:$GEM_HOME/bin
 export PERL5LIB=""
 
 BIN_DIR="$HOME/zsh/bin"
