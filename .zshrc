@@ -96,15 +96,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 ##### PATH #####
 ################
 
-CORE_PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin
-NODE_MODULES_BIN_PATH=./node_modules/.bin
-
-# To avoid gem installation that requires sudo.
-# See "Installing RubyGems in a User Directory" http://docs.rubygems.org/
-export RUBY_PREFIX="$HOME/opt/ruby"
-export GEM_HOME="$RUBY_PREFIX/gems"
-
-export PATH=$CORE_PATH:$NODE_MODULES_BIN_PATH:$GEM_HOME/bin
+export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin"
 export PERL5LIB=""
 
 BIN_DIR="$HOME/zsh/bin"
@@ -137,6 +129,7 @@ source ~/zsh/mysql.zsh
 source ~/zsh/php.zsh
 source ~/zsh/python.zsh
 source ~/zsh/ruby.zsh
+source ~/zsh/node.zsh
 source ~/zsh/vcs.zsh
 
 ##########################
