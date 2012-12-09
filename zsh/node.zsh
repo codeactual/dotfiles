@@ -1,0 +1,6 @@
+echo "Loading $0"
+
+NODE_MODULES_CWD_BIN_PATH=./node_modules/.bin
+NODE_MODULES_HOME_BIN_PATH=$HOME/bin/node_modules/.bin
+
+export PATH=$PATH:$NODE_MODULES_CWD_BIN_PATH:$NODE_MODULES_HOME_BIN_PATH
