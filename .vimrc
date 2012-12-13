@@ -119,17 +119,9 @@ map <C-P> :w<CR>:!php -l %<CR>
 " Switch to the Buffer Explorer list
 map <C-\> :BufExplorer<CR>
 
-" Switch to previous/next error.
-map <C-Up> :cprev<CR>
-map <C-Down> :cnext<CR>
-
 " Switch to previous/next tab.
-map <C-Left> :tabprev<CR>
-map <C-Right> :tabnext<CR>
-
-" Switch to previous/next error (or vimgrep match).
-map <S-Left> :cp<CR>
-map <S-Right> :cn<CR>
+map <C-H> :tabprev<CR>
+map <C-L> :tabnext<CR>
 
 " ctrlp plugin configuration
 let g:ctrlp_map = '<c-p>'
@@ -176,16 +168,6 @@ function ClosePair(char)
    return a:char
  endif
 endf
-
-function ToggleHLSearch()
-       if &hls
-            set nohls
-       else
-            set hls
-       endif
-endfunction
-
-nmap <C-H> :call ToggleHLSearch()<CR>
 
 function TogglePasteMode()
        if &paste
