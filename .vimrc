@@ -109,10 +109,6 @@ set formatoptions=qroct
 " Disable F1 help
 nmap <F1> <nop>
 
-" use control-J and control-K to move up and down buffers
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-
 " press f9 to check the current file for php syntax errors
 map <C-P> :w<CR>:!php -l %<CR>
 
@@ -120,8 +116,8 @@ map <C-P> :w<CR>:!php -l %<CR>
 map <C-\> :BufExplorer<CR>
 
 " Switch to previous/next tab.
-map <C-H> :tabprev<CR>
-map <C-L> :tabnext<CR>
+map <C-J> :tabprev<CR>
+map <C-K> :tabnext<CR>
 
 " ctrlp plugin configuration
 let g:ctrlp_map = '<c-p>'
