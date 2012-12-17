@@ -98,11 +98,11 @@ syntax keyword javaScriptRepeat         do while for
 syntax keyword javaScriptBranch         break continue switch case default return
 syntax keyword javaScriptStatement      try catch throw with finally
 
-syntax keyword javaScriptGlobalObjects  Array Boolean Date Function Infinity JavaArray JavaClass JavaObject JavaPackage Math Number NaN Object Packages RegExp String Undefined java netscape sun console. debugger document. window. location.
+syntax keyword javaScriptGlobalObjects  Array Boolean Date Function Infinity JavaArray JavaClass JavaObject JavaPackage Math Number NaN Object Packages RegExp String Undefined java netscape sun console process module Module window document root GLOBAL describe it sinon mocha debugger
 
 syntax keyword javaScriptExceptions     Error EvalError RangeError ReferenceError SyntaxError TypeError URIError
 
-syntax keyword javaScriptFutureKeys     abstract enum int short boolean export interface static byte extends long super char final native synchronized class float package throws goto private transient debugger implements protected volatile double import public
+syntax keyword javaScriptFutureKeys     abstract enum int short boolean export interface static byte extends long super char final native synchronized class float package throws goto private transient implements protected volatile double import public
 
 "" DOM/HTML/CSS specified things
 
