@@ -130,7 +130,8 @@ source ~/zsh/php.zsh
 source ~/zsh/python.zsh
 source ~/zsh/ruby.zsh
 source ~/zsh/node.zsh
-source ~/zsh/vcs.zsh
+source ~/zsh/git.zsh
+source ~/zsh/svn.zsh
 
 ##########################
 ##### LOCAL INCLUDES #####
