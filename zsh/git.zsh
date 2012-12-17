@@ -48,3 +48,14 @@ alias gss='git status -sb'
 alias gsh='git stash'
 alias gsha='git stash apply'                                        # Like pop but w/out modifying stash list.
 alias gu="git reset HEAD"                                           # Unstage.
+
+# Check out a new timestamped branch.
+function gcob() {
+  local date=`date "+%Y-%m-%d"`
+
+  # Ex. fix-tests-2012-12-17
+  local branch="$1-$date"
+
+  # Append all remaining arguments, ex. source branch name.
+  git checkout -b $branch ${@:2}
+}
