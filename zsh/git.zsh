@@ -11,7 +11,6 @@ alias gble="git blame -C"                                           # Blame last
 alias gb='git branch'
 alias gbr='git branch -r'
 alias gba='git branch -a'                                          # Include remote-tracking and local.
-alias gco='git checkout'
 alias gci='git commit -v'                                           # Verbose commit.
 alias gcatchup="git fetch && git rebase origin/master"              # Catch up local snapshot of origin/master. But don't modify local master.
 alias gcop='git checkout --patch'
