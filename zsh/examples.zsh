@@ -293,9 +293,9 @@ echo "Loading $0"
 
 # (https://plus.google.com/u/0/115133653231679625609/posts/BEsxNbUSwpq)
 # reset back to the desired tree
-git reset 34e02cdcf
+# git reset 34e02cdcf
 # move the pointer on your branch to the previous HEAD
-git reset --soft HEAD@{1}
-git commit -m "Revert to 34e02cdcf"
+# git reset --soft HEAD@{1}
+# git commit -m "Revert to 34e02cdcf"
 # Update your working copy to reflect the latest commit
-git reset --hard
+# git reset --hard
