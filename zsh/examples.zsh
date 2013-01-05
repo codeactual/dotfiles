@@ -280,6 +280,13 @@ echo "Loading $0"
 # Run last command with all matches replaced.
 # !!:gs/search/replace
 
+################################
+# http://www.catonmat.net/blog #
+################################
+
+# Run a command inside of chroot as another user all in a single command and be back at your shell
+# sudo chroot /chroot su - user -c "cmd args"
+
 ##############################
 ##### References / Lists #####
 ##############################
