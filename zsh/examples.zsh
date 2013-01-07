@@ -281,6 +281,13 @@ echo "Loading $0"
 # !!:gs/search/replace
 
 ################################
+## superuser / stackoverflow ##
+################################
+
+# Delete all but newest 10 listed files.
+# rm -f $(ls -1t /path/to/target/files/ | tail -n +11)
+
+################################
 # http://www.catonmat.net/blog #
 ################################
 
