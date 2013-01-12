@@ -122,7 +122,7 @@ map <C-K> :tabnext<CR>
 " ctrlp plugin configuration
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target\|dist\|jsgen\|\.svn\|release\|\.min\|docroot\|instrumented'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|target\|dist\|jsgen\|\.svn\|release\|\.min\|docroot\|instrumented\|tmp'
 map <C-O> :CtrlPClearCache<CR>
 
 " Open NERDtree file explorer
