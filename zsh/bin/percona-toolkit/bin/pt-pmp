@@ -316,7 +316,9 @@ This tool does not use any environment variables.
 
 =head1 SYSTEM REQUIREMENTS
 
-This tool requires Bash v3 or newer.
+This tool requires Bash v3 or newer.  If no backtrace files are given,
+then gdb is also required to create backtraces for the process specified
+on the command line.
 
 =head1 BUGS
 
@@ -375,8 +377,8 @@ L<http://www.percona.com/software/> for more software developed by Percona.
 
 =head1 COPYRIGHT, LICENSE, AND WARRANTY
 
-This program is copyright 2010-2011 Baron Schwartz, 2011-2012 Percona Inc.
-Feedback and improvements are welcome.
+This program is copyright 2011-2013 Percona Ireland Ltd,
+2010-2011 Baron Schwartz.
 
 THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
@@ -394,7 +396,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-pmp 2.1.2
+pt-pmp 2.1.8
 
 =cut
 

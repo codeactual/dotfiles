@@ -6,7 +6,21 @@
 
 use strict;
 use warnings FATAL => 'all';
-use constant PTDEBUG => $ENV{PTDEBUG} || 0;
+
+# This tool is "fat-packed": most of its dependent modules are embedded
+# in this file.  Setting %INC to this file for each module makes Perl aware
+# of this so it will not try to load the module from @INC.  See the tool's
+# documentation for a full list of dependencies.
+BEGIN {
+   $INC{$_} = __FILE__ for map { (my $pkg = "$_.pm") =~ s!::!/!g; $pkg } (qw(
+      OptionParser
+      Transformers
+      Progress
+      FileIterator
+      SimpleTCPDumpParser
+      TCPRequestAggregator
+   ));
+}
 
 # ###########################################################################
 # OptionParser package
@@ -483,7 +497,7 @@ sub get_opts {
       else {
          print "Error parsing version.  See the VERSION section of the tool's documentation.\n";
       }
-      exit 0;
+      exit 1;
    }
 
    if ( @ARGV && $self->{strict} ) {
@@ -738,7 +752,7 @@ sub usage_or_errors {
    }
    elsif ( scalar @{$self->{errors}} ) {
       print $self->print_errors() or die "Cannot print errors: $OS_ERROR";
-      exit 0 unless $return;
+      exit 1 unless $return;
    }
 
    return;
@@ -806,7 +820,7 @@ sub print_usage {
             $desc .= ".  Optional suffix s=seconds, m=minutes, h=hours, "
                    . "d=days; if no suffix, $s is used.";
          }
-         $desc = join("\n$rpad", grep { $_ } $desc =~ m/(.{0,$rcol})(?:\s+|$)/g);
+         $desc = join("\n$rpad", grep { $_ } $desc =~ m/(.{0,$rcol}(?!\W))(?:\s+|(?<=\W)|$)/g);
          $desc =~ s/ +$//mg;
          if ( $short ) {
             $usage .= sprintf("  --%-${maxs}s -%s  %s\n", $long, $short, $desc);
@@ -1201,6 +1215,9 @@ sub parse_timestamp {
       return sprintf "%d-%02d-%02d %02d:%02d:"
                      . (defined $f ? '%09.6f' : '%02d'),
                      $y + 2000, $m, $d, $h, $i, (defined $f ? $s + $f : $s);
+   }
+   elsif ( $val =~ m/^$proper_ts$/ ) {
+      return $val;
    }
    return $val;
 }
@@ -1832,7 +1849,10 @@ sub parse_event {
          if ( $self->{in_prg} ) {
             die "Error: no more lines, but in_prg = $self->{in_prg}";
          }
-         if ( $self->{t_start} < $self->{current_ts} ) {
+         if ( defined $self->{t_start}
+                && defined $self->{current_ts}
+                && $self->{t_start} < $self->{current_ts} )
+         {
             PTDEBUG && _d("Returning event based on what's been seen");
             return $self->make_event($self->{t_start}, $self->{current_ts});
          }
@@ -2335,7 +2355,8 @@ number of iterations.
 
 type: float
 
-The percentile for the last column when L<"--type"> is "requests" (default .99).
+The percentile for the second to last last column when L<"--type"> is
+"requests" (default .99).
 
 =item --run-time
 
@@ -2492,8 +2513,8 @@ L<http://www.percona.com/software/> for more software developed by Percona.
 
 =head1 COPYRIGHT, LICENSE, AND WARRANTY
 
-This program is copyright 2011 Baron Schwartz, 2011-2012 Percona Inc.
-Feedback and improvements are welcome.
+This program is copyright 2011-2013 Percona Ireland Ltd,
+2011 Baron Schwartz.
 
 THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
@@ -2511,6 +2532,6 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-tcp-model 2.1.2
+pt-tcp-model 2.1.8
 
 =cut

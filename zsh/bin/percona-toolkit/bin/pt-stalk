@@ -23,7 +23,7 @@ PTDEBUG="${PTDEBUG:-""}"
 EXIT_STATUS=0
 
 log() {
-   TS=$(date +%F-%T | tr :- _);
+   TS=$(date +%F-%T | tr ':-' '_');
    echo "$TS $*"
 }
 
@@ -71,7 +71,7 @@ PO_DIR=""         # Directory with program option spec files
 usage() {
    local file="$1"
 
-   local usage=$(grep '^Usage: ' "$file")
+   local usage="$(grep '^Usage: ' "$file")"
    echo $usage
    echo
    echo "For more information, 'man $TOOL' or 'perldoc $file'."
@@ -121,12 +121,22 @@ usage_or_errors() {
       echo
       echo "Options and values after processing arguments:"
       echo
-      for opt in $(ls "$PO_DIR"); do
-         local varname="OPT_$(echo "$opt" | tr a-z- A-Z_)"
-         local varvalue="${!varname}"
-         printf -- "  --%-30s %s" "$opt" "${varvalue:-(No value)}"
-         echo
-      done
+      (
+         cd "$PO_DIR"
+         for opt in *; do
+            local varname="OPT_$(echo "$opt" | tr a-z- A-Z_)"
+            eval local varvalue=\$$varname
+            if ! grep -q "type:" "$PO_DIR/$opt" >/dev/null; then
+               if [ "$varvalue" -a "$varvalue" = "yes" ];
+                  then varvalue="TRUE"
+               else
+                  varvalue="FALSE"
+               fi
+            fi
+            printf -- "  --%-30s %s" "$opt" "${varvalue:-(No value)}"
+            echo
+         done
+      )
       return 1
    fi
 
@@ -186,7 +196,7 @@ parse_options() {
       _parse_config_files "/etc/percona-toolkit/percona-toolkit.conf" "/etc/percona-toolkit/$TOOL.conf" "$HOME/.percona-toolkit.conf" "$HOME/.$TOOL.conf"
    fi
 
-   _parse_command_line "$@"
+   _parse_command_line "${@:-""}"
 }
 
 _parse_pod() {
@@ -233,7 +243,7 @@ _eval_po() {
       while read key val; do
          case "$key" in
             long)
-               opt=$(echo $val | sed 's/-/_/g' | tr [:lower:] [:upper:])
+               opt=$(echo $val | sed 's/-/_/g' | tr '[:lower:]' '[:upper:]')
                ;;
             default)
                default_val="$val"
@@ -278,7 +288,7 @@ _eval_po() {
 
 _parse_config_files() {
 
-   for config_file in "$@"; do
+   for config_file in "${@:-""}"; do
       test -f "$config_file" || continue
 
       while read config_opt; do
@@ -312,7 +322,7 @@ _parse_command_line() {
    local required_arg=""
    local spec=""
 
-   for opt in "$@"; do
+   for opt in "${@:-""}"; do
       if [ "$opt" = "--" -o "$opt" = "----" ]; then
          HAVE_EXT_ARGV=1
          continue
@@ -346,12 +356,23 @@ _parse_command_line() {
 
          real_opt="$opt"
 
-         if $(echo $opt | grep '^--no-' >/dev/null); then
-            opt_is_negated=1
-            opt=$(echo $opt | sed 's/^--no-//')
+         if $(echo $opt | grep '^--no[^-]' >/dev/null); then
+            local base_opt=$(echo $opt | sed 's/^--no//')
+            if [ -f "$PT_TMPDIR/po/$base_opt" ]; then
+               opt_is_negated=1
+               opt="$base_opt"
+            else
+               opt_is_negated=""
+               opt=$(echo $opt | sed 's/^-*//')
+            fi
          else
-            opt_is_negated=""
-            opt=$(echo $opt | sed 's/^-*//')
+            if $(echo $opt | grep '^--no-' >/dev/null); then
+               opt_is_negated=1
+               opt=$(echo $opt | sed 's/^--no-//')
+            else
+               opt_is_negated=""
+               opt=$(echo $opt | sed 's/^-*//')
+            fi
          fi
 
          if $(echo $opt | grep '^[a-z-][a-z-]*=' >/dev/null 2>&1); then
@@ -391,7 +412,7 @@ _parse_command_line() {
       fi
 
       if [ "$opt_is_ok" ]; then
-         opt=$(cat "$spec" | grep '^long:' | cut -d':' -f2 | sed 's/-/_/g' | tr [:lower:] [:upper:])
+         opt=$(cat "$spec" | grep '^long:' | cut -d':' -f2 | sed 's/-/_/g' | tr '[:lower:]' '[:upper:]')
 
          if grep "^type:size" "$spec" >/dev/null; then
             val=$(size_to_bytes $val)
@@ -627,18 +648,18 @@ remove_pid_file() {
 
 set -u
 
-CMD_GDB="$(_which gdb)"
-CMD_IOSTAT="$(_which iostat)"
-CMD_MPSTAT="$(_which mpstat)"
-CMD_MYSQL="$(_which mysql)"
-CMD_MYSQLADMIN="$(_which mysqladmin)"
-CMD_OPCONTROL="$(_which opcontrol)"
-CMD_OPREPORT="$(_which opreport)"
-CMD_PMAP="$(_which pmap)"
-CMD_STRACE="$(_which strace)"
-CMD_SYSCTL="$(_which sysctl)"
-CMD_TCPDUMP="$(_which tcpdump)"
-CMD_VMSTAT="$(_which vmstat)"
+CMD_GDB="${CMD_GDB:-"$(_which gdb)"}"
+CMD_IOSTAT="${CMD_IOSTAT:-"$(_which iostat)"}"
+CMD_MPSTAT="${CMD_MPSTAT:-"$(_which mpstat)"}"
+CMD_MYSQL="${CMD_MYSQL:-"$(_which mysql)"}"
+CMD_MYSQLADMIN="${CMD_MYSQLADMIN:-"$(_which mysqladmin)"}"
+CMD_OPCONTROL="${CMD_OPCONTROL:-"$(_which opcontrol)"}"
+CMD_OPREPORT="${CMD_OPREPORT:-"$(_which opreport)"}"
+CMD_PMAP="${CMD_PMAP:-"$(_which pmap)"}"
+CMD_STRACE="${CMD_STRACE:-"$(_which strace)"}"
+CMD_SYSCTL="${CMD_SYSCTL:-"$(_which sysctl)"}"
+CMD_TCPDUMP="${CMD_TCPDUMP:-"$(_which tcpdump)"}"
+CMD_VMSTAT="${CMD_VMSTAT:-"$(_which vmstat)"}"
 
 [ -z "$CMD_SYSCTL" -a -x "/sbin/sysctl" ] && CMD_SYSCTL="/sbin/sysctl"
 
@@ -780,7 +801,7 @@ collect() {
          fi
       fi
 
-      (echo $ts; df -h) >> "$d/$p-df" &
+      (echo $ts; df -k) >> "$d/$p-df" &
 
       (echo $ts; netstat -antp) >> "$d/$p-netstat"   &
       (echo $ts; netstat -s)    >> "$d/$p-netstat_s" &
@@ -789,7 +810,8 @@ collect() {
          >> "$d/$p-processlist" &
 
       if [ "$have_lock_waits_table" ]; then
-         (echo $ts; lock_waits) >>"$d/$p-lock-waits" &
+         (echo $ts; lock_waits)   >>"$d/$p-lock-waits" &
+         (echo $ts; transactions) >>"$d/$p-transactions" &
       fi
    done
    log "Loop end: $(date +'TS %s.%N %F %T')"
@@ -839,6 +861,16 @@ collect() {
    [ "$tcpdump_pid" ]        && kill $tcpdump_pid
 
    hostname > "$d/$p-hostname"
+
+   local slept=0
+   while [ -n "$(jobs)" -a $slept -lt $OPT_RUN_TIME ]; do
+      sleep 1
+      slept=$((slept + 1))
+   done
+
+   for pid in $(jobs -p); do
+      kill $pid >/dev/null 2>&1
+   done
 
    for file in "$d/$p-"*; do
       if [ -z "$(grep -v '^TS ' --max-count 1 "$file")" ]; then
@@ -890,6 +922,12 @@ lock_waits() {
    $CMD_MYSQL $EXT_ARGV -e "$sql2"
 } 
 
+transactions() {
+   $CMD_MYSQL $EXT_ARGV -e "SELECT * FROM INFORMATION_SCHEMA.INNODB_TRX\G"
+   $CMD_MYSQL $EXT_ARGV -e "SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS\G"
+   $CMD_MYSQL $EXT_ARGV -e "SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS\G"
+}
+
 # ###########################################################################
 # End collect package
 # ###########################################################################
@@ -903,6 +941,30 @@ EXIT_REASON=""
 TOOL="pt-stalk"
 OKTORUN=1
 ITER=1
+
+# ###########################################################################
+# Plugin hooks
+# ###########################################################################
+
+before_stalk() {
+   :
+}
+
+before_collect() {
+   :
+}
+
+after_collect() {
+   :
+}
+
+after_collect_sleep() {
+   :
+}
+
+after_stalk() {
+   :
+}
 
 # ###########################################################################
 # Subroutines
@@ -961,7 +1023,7 @@ set_trg_func() {
       return 0  # success
    else
       # Trigger function is name of a built-in function.
-      func=$(echo "$func" | tr [:upper:] [:lower:])
+      func=$(echo "$func" | tr '[:upper:]' '[:lower:]')
       if [ "$func" = "status" -o "$func" = "processlist" ]; then
          TRIGGER_FUNCTION="trg_$func"
          return 0  # success
@@ -988,12 +1050,12 @@ trg_processlist() {
 
 oktorun() {
    if [ $OKTORUN -eq 0 ]; then
-      EXIT_REASON="OKTORUN is false"
+      [ -z "$EXIT_REASON" ] && EXIT_REASON="OKTORUN is false"
       return 1  # stop running
    fi
 
    if [ -n "$OPT_ITERATIONS" ] && [ $ITER -gt $OPT_ITERATIONS ]; then
-      EXIT_REASON="no more iterations"
+      [ -z "$EXIT_REASON" ] && EXIT_REASON="no more iterations"
       return 1  # stop running
    fi
 
@@ -1016,14 +1078,14 @@ purge_samples() {
    local retention_time="$2"
 
    # Delete collect files which more than --retention-time days old.
-   find "$dir" -type f -mtime +$retention_time -exec rm -f '{}' \;
+   find "$dir" -warn -type f -mtime +$retention_time -exec rm -f '{}' \;
 
    local oprofile_dir="/var/lib/oprofile/samples"
    if [ -d "$oprofile_dir" ]; then
       # "pt_collect_" here needs to match $CMD_OPCONTROL --save=pt_collect_$p
       # in collect().  TODO: fix this
-      find "$oprofile_dir" -type d -name 'pt_collect_*' \
-         -depth -mtime +$retention_time -exec rm -rf '{}' \;
+      find "$oprofile_dir" -warn -depth -type d -name 'pt_collect_*' \
+         -mtime +$retention_time -exec rm -rf '{}' \;
    fi
 }
 
@@ -1088,7 +1150,7 @@ stalk() {
          fi
 
          if [ "$OPT_COLLECT" ]; then
-            local prefix="${OPT_PREFIX:-$(date +%F-%T | tr :- _)}"
+            local prefix="${OPT_PREFIX:-$(date +%F-%T | tr ':-' '_')}"
 
             # Check if we'll have enough disk space to collect.  Disk space
             # is also checked every interval while collecting.
@@ -1108,6 +1170,9 @@ stalk() {
                log "pt-stalk ran with $RAN_WITH" >> "$OPT_DEST/$prefix-trigger"
                last_prefix="$prefix"
 
+               # Plugin hook:
+               before_collect
+
                # Fork and background the collect subroutine which will
                # run for --run-time seconds.  We (the parent) sleep
                # while its collecting (hopefully --sleep is longer than
@@ -1115,10 +1180,19 @@ stalk() {
                (
                   collect "$OPT_DEST" "$prefix"
                ) >> "$OPT_DEST/$prefix-output" 2>&1 &
-               log "Collector PID $!"
+               local collector_pid=$!
+               log "Collector PID $collector_pid"
+
+               # Plugin hook:
+               after_collect $collector_pid
             else 
                # There will not be enough disk space, so do not collect.
                warn "Collect canceled because there will not be enough disk space after collecting another $margin MB"
+            fi
+
+            # Purge old collect files.
+            if [ -d "$OPT_DEST" ]; then
+               purge_samples "$OPT_DEST" "$OPT_RETENTION_TIME"
             fi
          fi
 
@@ -1128,16 +1202,50 @@ stalk() {
          ITER=$((ITER + 1))
          cycles_true=0
          sleep_ok "$OPT_SLEEP" "Sleeping $OPT_SLEEP seconds after collect"
+
+         # Plugin hook:
+         after_collect_sleep
       else
          # Trigger/check/value is ok, sleep until next check.
          sleep_ok "$OPT_INTERVAL"
       fi
-
-      # Purge old collect file between checks.
-      if [ -d "$OPT_DEST" ]; then
-         purge_samples "$OPT_DEST" "$OPT_RETENTION_TIME"
-      fi
    done
+
+   # One final purge of old collect files, but only if in collect mode.
+   if [ "$OPT_COLLECT" -a -d "$OPT_DEST" ]; then
+      purge_samples "$OPT_DEST" "$OPT_RETENTION_TIME"
+   fi
+
+   # Before exiting, the last collector may still be running.
+   # Wait for it to finish in case the tool is part of a script,
+   # or part of a test, so the caller has access to the collected
+   # data when the tool exists.  collect() waits an additional
+   # --run-time seconds for itself to complete, which means we
+   # have to wait for 2 * run-time like it plus some overhead else
+   # we may get in sync with the collector and kill it a microsecond
+   # before it kills itself, thus 3 * run-time.
+   # https://bugs.launchpad.net/percona-toolkit/+bug/1070434
+   if [ "$(jobs)" ]; then
+      local sleep_time=$((OPT_RUN_TIME * 3))
+      log "Waiting up to $sleep_time seconds for collectors to finish..."
+      local slept=0
+      while [ -n "$(jobs)" -a $slept -lt $sleep_time ]; do
+         sleep 1
+         slept=$((slept + 1))
+      done
+
+      if [ "$(jobs)" ]; then
+         for pid in $(jobs -p); do
+            # This isn't an warning (we don't want exit status 1) because
+            # the system may be running slowly so it's just "natural" that
+            # a collector may get stuck or run really slowly.
+            log "Killing collector $pid"
+            kill $pid >/dev/null 2>&1
+         done
+      else
+         log "All collectors have finished"
+      fi
+   fi
 }
 
 # ###########################################################################
@@ -1150,7 +1258,7 @@ main() {
    # Note: $$ is the parent's PID, but we're a child proc.
    # Bash 4 has $BASHPID but we can't rely on that.  Consequently,
    # we don't know our own PID.  See the usage of $! below.
-   RAN_WITH="--function=$OPT_FUNCTION --variable=$OPT_VARIABLE --threshold=$OPT_THRESHOLD --match=$OPT_MATCH --cycles=$OPT_CYCLES --interval=$OPT_INTERVAL --iterations=$OPT_ITERATIONS --run-time=$OPT_RUN_TIME --sleep=$OPT_SLEEP --dest=$OPT_DEST --prefix=$OPT_PREFIX --notify-by-email=$OPT_NOTIFY_BY_EMAIL --log=$OPT_LOG --pid=$OPT_PID"
+   RAN_WITH="--function=$OPT_FUNCTION --variable=$OPT_VARIABLE --threshold=$OPT_THRESHOLD --match=$OPT_MATCH --cycles=$OPT_CYCLES --interval=$OPT_INTERVAL --iterations=$OPT_ITERATIONS --run-time=$OPT_RUN_TIME --sleep=$OPT_SLEEP --dest=$OPT_DEST --prefix=$OPT_PREFIX --notify-by-email=$OPT_NOTIFY_BY_EMAIL --log=$OPT_LOG --pid=$OPT_PID --plugin=$OPT_PLUGIN"
 
    log "Starting $0 $RAN_WITH"
 
@@ -1162,8 +1270,14 @@ main() {
    # Make a secure tmpdir.
    mk_tmpdir
 
+   # Plugin hook:
+   before_stalk
+
    # Stalk while oktorun.
    stalk
+
+   # Plugin hook:
+   after_stalk
 
    # Clean up.
    rm_tmpdir
@@ -1182,11 +1296,20 @@ if    [ "${0##*/}" = "$TOOL" ] \
    # Parse command line options.  We must do this first so we can
    # see if --daemonize was specified.
    mk_tmpdir
-   parse_options "$0" "$@"
+   parse_options "$0" "${@:-""}"
 
    # Verify and set TRIGGER_FUNCTION based on --function.
    if ! set_trg_func "$OPT_FUNCTION"; then
       option_error "Invalid --function value: $OPT_FUNCTION"
+   fi
+
+   # Verify and source the --plugin.
+   if [ "$OPT_PLUGIN" ]; then
+      if [ -f "$OPT_PLUGIN" ]; then
+         . "$OPT_PLUGIN"
+      else
+         option_error "Invalid --plugin value: $OPT_PLUGIN is not a file"
+      fi
    fi
 
    if [ -z "$OPT_STALK" -a "$OPT_COLLECT" ]; then
@@ -1249,7 +1372,7 @@ if    [ "${0##*/}" = "$TOOL" ] \
       # the child's PID.
       make_pid_file "$OPT_PID" $$
 
-      main "$@" </dev/null 1>>"$OPT_LOG" 2>&1 &
+      main "${@:-""}" </dev/null 1>>"$OPT_LOG" 2>&1 &
 
       # Update PID file with the child's PID.
       # The child PID is $BASHPID but that special var is only
@@ -1258,7 +1381,7 @@ if    [ "${0##*/}" = "$TOOL" ] \
       echo "$!" > "$OPT_PID"
    else
       [ "$OPT_STALK" ] && make_pid_file "$OPT_PID" $$
-      main "$@"
+      main "${@:-""}"
    fi
 fi
 
@@ -1583,6 +1706,66 @@ type: string; default: /var/run/pt-stalk.pid
 
 Create a PID file when daemonized.
 
+=item --plugin
+
+type: string
+
+Load a plugin to hook into the tool and extend is functionality.
+The specified file does not need to be executable, nor does its first line
+need to be shebang line.  It only needs to define one or more of these
+Bash functions:
+
+=over
+
+=item before_stalk
+
+Called before stalking.
+
+=item before_collect
+
+Called when the stalk condition is triggered, before running a collector
+process as a backgrounded subshell.
+
+=item after_collect
+
+Called after running a collector process.  The PID of the collector process
+is passed as the first argument.  This hook is called before
+C<after_collect_sleep>.
+
+=item after_collect_sleep
+
+Called after sleeping L<"--sleep"> seconds for the collector process to finish.
+This hook is called after C<after_collect>.
+
+=item after_stalk
+
+Called after stalking.  Since pt-stalk stalks forever by default,
+this hook is only called if L<"--iterations"> is specified.
+
+=back
+
+For example, a very simple plugin that touches a file when a collector
+process is triggered:
+
+   before_colllect() {
+      touch /tmp/foo
+   }
+
+Since the plugin is completely sourced (imported) into the tool's namespace,
+be careful not to define other functions or global variables that already
+exist in the tool.  You should prefix all plugin-specific functions and
+global variables with C<plugin_> or C<PLUGIN_>.
+
+Plugins have access to all command line options but they should not modify
+them.  Each option is a global variable like C<$OPT_DEST> which corresponds
+to L<"--dest">.  Therefore, the global variable for each command line option
+is C<OPT_> plus the option name in all caps with hyphens replaced by
+underscores.
+
+Plugins can stop the tool by setting the global variable C<OKTORUN>
+to C<1>.  In this case, the global variable C<EXIT_REASON> should also
+be set to indicate why the tool was stopped.
+
 =item --prefix 
 
 type: string
@@ -1606,6 +1789,18 @@ How long the tool will collect data when it triggers.  This should not be longer
 than L<"--sleep">. It is usually not necessary to change this; if the default 30
 seconds hasn't gathered enough diagnostic data, running longer is not likely to
 do so. In fact, in many cases a shorter collection period is appropriate.
+
+This value is used two other times.  After collecting, the collect subprocess
+will wait another L<"--run-time"> seconds for its commands to finish.  Some
+commands can take awhile if the system is running very slowly (which can
+likely be the case given that a collection was triggered).  Since empty files
+are deleted, the extra wait gives commands time to finish and write their
+data.  The value is potentially used again just before the tool exits to wait
+again for any collect subprocesses to finish.  In most cases this won't
+happen because of the aforementioned extra wait.  If it happens, the tool
+will log "Waiting up to N seconds for collectors to finish..." where N is
+three times L<"--run-time">.  In both cases, after waiting, the tool kills
+all of its subprocesses.
 
 =item --sleep
 
@@ -1653,11 +1848,65 @@ Print tool's version and exit.
 
 =head1 ENVIRONMENT
 
-This tool does not use any environment variables for configuration.
+This tool does not require any environment variables for configuration,
+although it can be influenced to work differently by through several
+variables.  Keep in mind that these are expert settings, and should not
+be used in most cases.
+
+Specifically, the variables that can be set are:
+
+=over
+
+=item CMD_GDB
+
+=item CMD_IOSTAT
+
+=item CMD_MPSTAT
+
+=item CMD_MYSQL
+
+=item CMD_MYSQLADMIN
+
+=item CMD_OPCONTROL
+
+=item CMD_OPREPORT
+
+=item CMD_PMAP
+
+=item CMD_STRACE
+
+=item CMD_SYSCTL
+
+=item CMD_TCPDUMP
+
+=item CMD_VMSTAT
+
+=back
+
+For example, during collection iostat is called with a -dx argument, but
+because you have an NFS partition, you also need the -n flag there.  Instead
+of editing the source, you can call pt-stalk as
+
+    CMD_IOSTAT="iostat -n" pt-stalk ...
+
+which will do exactly what you need.  Combined with the plugin hooks, this
+gives you a fine-grained control of what the tool does.
 
 =head1 SYSTEM REQUIREMENTS
 
-This tool requires Bash v3 or newer.
+This tool requires Bash v3 or newer.  Certain options require other programs:
+
+=over
+
+=item L<"--collect-gdb"> requires C<gdb>
+
+=item L<"--collect-oprofile"> requires C<opcontrol> and C<opreport>
+
+=item L<"--collect-strace"> requires C<strace>
+
+=item L<"--collect-tcpdump"> requires C<tcpdump>
+
+=back
 
 =head1 BUGS
 
@@ -1716,8 +1965,8 @@ L<http://www.percona.com/software/> for more software developed by Percona.
 
 =head1 COPYRIGHT, LICENSE, AND WARRANTY
 
-This program is copyright 2010-2011 Baron Schwartz, 2011-2012 Percona Inc.
-Feedback and improvements are welcome.
+This program is copyright 2011-2013 Percona Ireland Ltd,
+2010-2011 Baron Schwartz.
 
 THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
@@ -1735,7 +1984,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-stalk 2.1.2
+pt-stalk 2.1.8
 
 =cut
 

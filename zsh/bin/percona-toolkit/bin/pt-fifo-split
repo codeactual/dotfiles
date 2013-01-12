@@ -6,7 +6,17 @@
 
 use strict;
 use warnings FATAL => 'all';
-use constant PTDEBUG => $ENV{PTDEBUG} || 0;
+
+# This tool is "fat-packed": most of its dependent modules are embedded
+# in this file.  Setting %INC to this file for each module makes Perl aware
+# of this so it will not try to load the module from @INC.  See the tool's
+# documentation for a full list of dependencies.
+BEGIN {
+   $INC{$_} = __FILE__ for map { (my $pkg = "$_.pm") =~ s!::!/!g; $pkg } (qw(
+      OptionParser
+      Daemon
+   ));
+}
 
 # ###########################################################################
 # OptionParser package
@@ -483,7 +493,7 @@ sub get_opts {
       else {
          print "Error parsing version.  See the VERSION section of the tool's documentation.\n";
       }
-      exit 0;
+      exit 1;
    }
 
    if ( @ARGV && $self->{strict} ) {
@@ -738,7 +748,7 @@ sub usage_or_errors {
    }
    elsif ( scalar @{$self->{errors}} ) {
       print $self->print_errors() or die "Cannot print errors: $OS_ERROR";
-      exit 0 unless $return;
+      exit 1 unless $return;
    }
 
    return;
@@ -806,7 +816,7 @@ sub print_usage {
             $desc .= ".  Optional suffix s=seconds, m=minutes, h=hours, "
                    . "d=days; if no suffix, $s is used.";
          }
-         $desc = join("\n$rpad", grep { $_ } $desc =~ m/(.{0,$rcol})(?:\s+|$)/g);
+         $desc = join("\n$rpad", grep { $_ } $desc =~ m/(.{0,$rcol}(?!\W))(?:\s+|(?<=\W)|$)/g);
          $desc =~ s/ +$//mg;
          if ( $short ) {
             $usage .= sprintf("  --%-${maxs}s -%s  %s\n", $long, $short, $desc);
@@ -1131,8 +1141,13 @@ sub check_PID_file {
    PTDEBUG && _d('Checking PID file', $PID_file);
    if ( $PID_file && -f $PID_file ) {
       my $pid;
-      eval { chomp($pid = `cat $PID_file`); };
-      die "Cannot cat $PID_file: $OS_ERROR" if $EVAL_ERROR;
+      eval {
+         chomp($pid = (slurp_file($PID_file) || ''));
+      };
+      if ( $EVAL_ERROR ) {
+         die "The PID file $PID_file already exists but it cannot be read: "
+            . $EVAL_ERROR;
+      }
       PTDEBUG && _d('PID file exists; it contains PID', $pid);
       if ( $pid ) {
          my $pid_is_alive = kill 0, $pid;
@@ -1209,6 +1224,13 @@ sub DESTROY {
    return;
 }
 
+sub slurp_file {
+   my ($file) = @_;
+   return unless $file;
+   open my $fh, "<", $file or die "Cannot open $file: $OS_ERROR";
+   return do { local $/; <$fh> };
+}
+
 sub _d {
    my ($package, undef, $line) = caller 0;
    @_ = map { (my $temp = $_) =~ s/\n/\n# /g; $temp; }
@@ -1271,12 +1293,8 @@ sub main {
    if ( $o->get('force') && -e $file ) {
       unlink($file) or die "Can't unlink $file: $OS_ERROR";
    }
-   mkfifo($file, 0777) or die "Can't make fifo $file: $OS_ERROR";
 
    my $fh;
-
-   $fh = IO::File->new($file, '>') or die "Can't open $file: $OS_ERROR";
-   $fh->autoflush(1);
 
    if ( $o->get('statistics') ) {
       printf("%5s %9s %5s %8s %8s\n", qw(chunks lines time overall current));
@@ -1286,21 +1304,25 @@ sub main {
    my $OFFSET = $o->get('offset');
    my $LINES  = $o->get('lines');
 
-   my $lines  = 0;
-   my $chunks = 0;
-   my $start  = time();
-   my $cstart = time();
+   my $chunks  = 0;
+   my $start   = time();
+   my $cstart  = time();
+   my $printed = 0;
    while ( my $line = <> ) {
-      $lines++;
+      my $lines = $INPUT_LINE_NUMBER;
       next if $OFFSET && $lines < $OFFSET;
-      if ( $lines % $LINES == 0 ) {
+      if ( $printed == 0 ) {
+         mkfifo($file, 0777) or die "Can't make fifo $file: $OS_ERROR";
+         $fh = IO::File->new($file, '>') or die "Can't open $file: $OS_ERROR";
+         $fh->autoflush(1);
+      }
+      print $fh $line or die "Can't print: $OS_ERROR";
+      $printed++;
+      if ( ($lines % $LINES) == 0 ) {
          close $fh or die "Can't close: $OS_ERROR";
 
          unlink($file) or die "Can't unlink $file: $OS_ERROR";
-         mkfifo($file, 0777) or die "Can't make fifo $file: $OS_ERROR";
-
-         $fh = IO::File->new($file, '>') or die "Can't open $file: $OS_ERROR";
-         $fh->autoflush(1);
+         $printed = 0;
 
          $chunks++;
          my $end = time();
@@ -1312,11 +1334,10 @@ sub main {
          }
          $cstart = $end;
       }
-      print $fh $line or die "Can't print: $OS_ERROR";
    }
-   close $fh or die "Can't close: $OS_ERROR";
 
-   unlink($file) or die "Can't unlink $file: $OS_ERROR";
+   close $fh or die "Can't close: $OS_ERROR" if $fh && $fh->opened;
+   unlink($file) or die "Can't unlink $file: $OS_ERROR" if -e $file;
 
    return 0;
 }
@@ -1528,8 +1549,8 @@ L<http://www.percona.com/software/> for more software developed by Percona.
 
 =head1 COPYRIGHT, LICENSE, AND WARRANTY
 
-This program is copyright 2007-2011 Baron Schwartz, 2011-2012 Percona Inc.
-Feedback and improvements are welcome.
+This program is copyright 2011-2013 Percona Ireland Ltd,
+2007-2011 Baron Schwartz.
 
 THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
@@ -1547,6 +1568,6 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-fifo-split 2.1.2
+pt-fifo-split 2.1.8
 
 =cut

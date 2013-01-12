@@ -6,7 +6,18 @@
 
 use strict;
 use warnings FATAL => 'all';
-use constant PTDEBUG => $ENV{PTDEBUG} || 0;
+
+# This tool is "fat-packed": most of its dependent modules are embedded
+# in this file.  Setting %INC to this file for each module makes Perl aware
+# of this so it will not try to load the module from @INC.  See the tool's
+# documentation for a full list of dependencies.
+BEGIN {
+   $INC{$_} = __FILE__ for map { (my $pkg = "$_.pm") =~ s!::!/!g; $pkg } (qw(
+      OptionParser
+      DSNParser
+      Daemon
+   ));
+}
 
 # ###########################################################################
 # OptionParser package
@@ -483,7 +494,7 @@ sub get_opts {
       else {
          print "Error parsing version.  See the VERSION section of the tool's documentation.\n";
       }
-      exit 0;
+      exit 1;
    }
 
    if ( @ARGV && $self->{strict} ) {
@@ -738,7 +749,7 @@ sub usage_or_errors {
    }
    elsif ( scalar @{$self->{errors}} ) {
       print $self->print_errors() or die "Cannot print errors: $OS_ERROR";
-      exit 0 unless $return;
+      exit 1 unless $return;
    }
 
    return;
@@ -806,7 +817,7 @@ sub print_usage {
             $desc .= ".  Optional suffix s=seconds, m=minutes, h=hours, "
                    . "d=days; if no suffix, $s is used.";
          }
-         $desc = join("\n$rpad", grep { $_ } $desc =~ m/(.{0,$rcol})(?:\s+|$)/g);
+         $desc = join("\n$rpad", grep { $_ } $desc =~ m/(.{0,$rcol}(?!\W))(?:\s+|(?<=\W)|$)/g);
          $desc =~ s/ +$//mg;
          if ( $short ) {
             $usage .= sprintf("  --%-${maxs}s -%s  %s\n", $long, $short, $desc);
@@ -1212,7 +1223,8 @@ sub get_cxn_params {
          . join(';', map  { "$opts{$_}->{dsn}=$info->{$_}" }
                      grep { defined $info->{$_} }
                      qw(F h P S A))
-         . ';mysql_read_default_group=client';
+         . ';mysql_read_default_group=client'
+         . ($info->{L} ? ';mysql_local_infile=1' : '');
    }
    PTDEBUG && _d($dsn);
    return ($dsn, $info->{u}, $info->{p});
@@ -1241,6 +1253,9 @@ sub get_dbh {
       mysql_enable_utf8 => ($cxn_string =~ m/charset=utf8/i ? 1 : 0),
    };
    @{$defaults}{ keys %$opts } = values %$opts;
+   if (delete $defaults->{L}) { # L for LOAD DATA LOCAL INFILE, our own extension
+      $defaults->{mysql_local_infile} = 1;
+   }
 
    if ( $opts->{mysql_use_result} ) {
       $defaults->{mysql_use_result} = 1;
@@ -1252,7 +1267,7 @@ sub get_dbh {
          . "that Perl searches for DBI.  If DBI is not installed, try:\n"
          . "  Debian/Ubuntu  apt-get install libdbi-perl\n"
          . "  RHEL/CentOS    yum install perl-DBI\n"
-         . "  OpenSolaris    pgk install pkg:/SUNWpmdbi\n";
+         . "  OpenSolaris    pkg install pkg:/SUNWpmdbi\n";
 
    }
 
@@ -1262,51 +1277,10 @@ sub get_dbh {
       PTDEBUG && _d($cxn_string, ' ', $user, ' ', $pass, 
          join(', ', map { "$_=>$defaults->{$_}" } keys %$defaults ));
 
-      eval {
-         $dbh = DBI->connect($cxn_string, $user, $pass, $defaults);
+      $dbh = eval { DBI->connect($cxn_string, $user, $pass, $defaults) };
 
-         if ( $cxn_string =~ m/mysql/i ) {
-            my $sql;
-
-            $sql = 'SELECT @@SQL_MODE';
-            PTDEBUG && _d($dbh, $sql);
-            my ($sql_mode) = $dbh->selectrow_array($sql);
-
-            $sql = 'SET @@SQL_QUOTE_SHOW_CREATE = 1'
-                 . '/*!40101, @@SQL_MODE=\'NO_AUTO_VALUE_ON_ZERO'
-                 . ($sql_mode ? ",$sql_mode" : '')
-                 . '\'*/';
-            PTDEBUG && _d($dbh, $sql);
-            $dbh->do($sql);
-
-            if ( my ($charset) = $cxn_string =~ m/charset=(\w+)/ ) {
-               $sql = "/*!40101 SET NAMES $charset*/";
-               PTDEBUG && _d($dbh, ':', $sql);
-               $dbh->do($sql);
-               PTDEBUG && _d('Enabling charset for STDOUT');
-               if ( $charset eq 'utf8' ) {
-                  binmode(STDOUT, ':utf8')
-                     or die "Can't binmode(STDOUT, ':utf8'): $OS_ERROR";
-               }
-               else {
-                  binmode(STDOUT) or die "Can't binmode(STDOUT): $OS_ERROR";
-               }
-            }
-
-            if ( $self->prop('set-vars') ) {
-               $sql = "SET " . $self->prop('set-vars');
-               PTDEBUG && _d($dbh, ':', $sql);
-               $dbh->do($sql);
-            }
-         }
-      };
       if ( !$dbh && $EVAL_ERROR ) {
-         PTDEBUG && _d($EVAL_ERROR);
-         if ( $EVAL_ERROR =~ m/not a compiled character set|character set utf8/ ) {
-            PTDEBUG && _d('Going to try again without utf8 support');
-            delete $defaults->{mysql_enable_utf8};
-         }
-         elsif ( $EVAL_ERROR =~ m/locate DBD\/mysql/i ) {
+         if ( $EVAL_ERROR =~ m/locate DBD\/mysql/i ) {
             die "Cannot connect to MySQL because the Perl DBD::mysql module is "
                . "not installed or not found.  Run 'perl -MDBD::mysql' to see "
                . "the directories that Perl searches for DBD::mysql.  If "
@@ -1315,9 +1289,62 @@ sub get_dbh {
                . "  RHEL/CentOS    yum install perl-DBD-MySQL\n"
                . "  OpenSolaris    pgk install pkg:/SUNWapu13dbd-mysql\n";
          }
+         elsif ( $EVAL_ERROR =~ m/not a compiled character set|character set utf8/ ) {
+            PTDEBUG && _d('Going to try again without utf8 support');
+            delete $defaults->{mysql_enable_utf8};
+         }
          if ( !$tries ) {
             die $EVAL_ERROR;
          }
+      }
+   }
+
+   if ( $cxn_string =~ m/mysql/i ) {
+      my $sql;
+
+      $sql = 'SELECT @@SQL_MODE';
+      PTDEBUG && _d($dbh, $sql);
+      my ($sql_mode) = eval { $dbh->selectrow_array($sql) };
+      if ( $EVAL_ERROR ) {
+         die "Error getting the current SQL_MODE: $EVAL_ERROR";
+      }
+
+      if ( my ($charset) = $cxn_string =~ m/charset=([\w]+)/ ) {
+         $sql = qq{/*!40101 SET NAMES "$charset"*/};
+         PTDEBUG && _d($dbh, ':', $sql);
+         eval { $dbh->do($sql) };
+         if ( $EVAL_ERROR ) {
+            die "Error setting NAMES to $charset: $EVAL_ERROR";
+         }
+         PTDEBUG && _d('Enabling charset for STDOUT');
+         if ( $charset eq 'utf8' ) {
+            binmode(STDOUT, ':utf8')
+               or die "Can't binmode(STDOUT, ':utf8'): $OS_ERROR";
+         }
+         else {
+            binmode(STDOUT) or die "Can't binmode(STDOUT): $OS_ERROR";
+         }
+      }
+
+      if ( my $var = $self->prop('set-vars') ) {
+         $sql = "SET $var";
+         PTDEBUG && _d($dbh, ':', $sql);
+         eval { $dbh->do($sql) };
+         if ( $EVAL_ERROR ) {
+            die "Error setting $var: $EVAL_ERROR";
+         }
+      }
+
+      $sql = 'SET @@SQL_QUOTE_SHOW_CREATE = 1'
+            . '/*!40101, @@SQL_MODE=\'NO_AUTO_VALUE_ON_ZERO'
+            . ($sql_mode ? ",$sql_mode" : '')
+            . '\'*/';
+      PTDEBUG && _d($dbh, $sql);
+      eval { $dbh->do($sql) };
+      if ( $EVAL_ERROR ) {
+         die "Error setting SQL_QUOTE_SHOW_CREATE, SQL_MODE"
+           . ($sql_mode ? " and $sql_mode" : '')
+           . ": $EVAL_ERROR";
       }
    }
 
@@ -1492,8 +1519,13 @@ sub check_PID_file {
    PTDEBUG && _d('Checking PID file', $PID_file);
    if ( $PID_file && -f $PID_file ) {
       my $pid;
-      eval { chomp($pid = `cat $PID_file`); };
-      die "Cannot cat $PID_file: $OS_ERROR" if $EVAL_ERROR;
+      eval {
+         chomp($pid = (slurp_file($PID_file) || ''));
+      };
+      if ( $EVAL_ERROR ) {
+         die "The PID file $PID_file already exists but it cannot be read: "
+            . $EVAL_ERROR;
+      }
       PTDEBUG && _d('PID file exists; it contains PID', $pid);
       if ( $pid ) {
          my $pid_is_alive = kill 0, $pid;
@@ -1570,6 +1602,13 @@ sub DESTROY {
    return;
 }
 
+sub slurp_file {
+   my ($file) = @_;
+   return unless $file;
+   open my $fh, "<", $file or die "Cannot open $file: $OS_ERROR";
+   return do { local $/; <$fh> };
+}
+
 sub _d {
    my ($package, undef, $line) = caller 0;
    @_ = map { (my $temp = $_) =~ s/\n/\n# /g; $temp; }
@@ -1594,9 +1633,15 @@ sub _d {
 # ###########################################################################
 package pt_show_grants;
 
+use strict;
+use warnings FATAL => 'all';
 use English qw(-no_match_vars);
-
 use constant PTDEBUG => $ENV{PTDEBUG} || 0;
+
+use Data::Dumper;
+$Data::Dumper::Quotekeys = 0;
+$Data::Dumper::Indent    = 1;
+$Data::Dumper::Sortkeys  = 1;
 
 sub main {
    @ARGV = @_;  # set global ARGV for this package
@@ -1715,13 +1760,17 @@ sub main {
          PTDEBUG && _d($EVAL_ERROR);
          $exit_status = 1;
       }
+      PTDEBUG && _d('Grants:', Dumper(\@grants));
       next unless @grants;
 
-      if ( $o->get('separate') ) { # List each grant separately.
+      if ( $o->get('separate') ) {
+         # List each grant separately.
          @grants = map {
             my ( $grants, $on_what ) = $_ =~ m/GRANT (.*?) ON (.*)$/;
-            map { "GRANT $_ ON $on_what" } split(', ', $grants);
+            map { "GRANT $_ ON $on_what" } split_grants($grants);
          } @grants;
+         PTDEBUG && _d('Grants separated:', Dumper(\@grants));
+
          my $count;
          # If the row with IDENTIFIED BY has multiple grants, this will
          # create many such rows; strip it from all but the first.
@@ -1733,12 +1782,15 @@ sub main {
             }
             $_;
          } @grants;
+         PTDEBUG && _d('Grants separated:', Dumper(\@grants));
       }
-      else { # Sort the actual grants lexically within each row for consistency.
+      else {
+         # Sort the actual grants lexically within each row for consistency.
          @grants = map {
-            $_ =~ s/GRANT (.*?) ON (`|\*)/"GRANT " . join(', ', sort(split(', ', $1))) . " ON $2"/e;
+            $_ =~ s/GRANT (.*?) ON (`|\*)/"GRANT " . join(', ', sort(split_grants($1))) . " ON $2"/e;
             $_;
          } @grants;
+         PTDEBUG && _d('Grants grouped:', Dumper(\@grants));
       }
 
       # Sort the grant rows for consistency too, but the one with the password
@@ -1746,6 +1798,7 @@ sub main {
       @grants = sort {
          $b =~ m/IDENTIFIED BY/ <=> $a =~ m/IDENTIFIED BY/ || $a cmp $b
       } @grants;
+      PTDEBUG && _d('Grants sorted:', Dumper(\@grants));
 
       # Print REVOKE statements.
       if ( $o->get('revoke') ) {
@@ -1760,7 +1813,7 @@ sub main {
             my @result;
             if ( $o->get('separate') ) {
                @result = map { "REVOKE $_ ON $on_what FROM $user" }
-                  split(', ', $grants);
+                  split_grants($grants);
             }
             else {
                @result = "REVOKE $grants ON $on_what FROM $user";
@@ -1825,6 +1878,31 @@ sub parse_user {
    return ( $user, $host );
 }
 
+sub split_grants {
+   my ($grants) = @_;
+   return unless $grants;
+   my @grants;
+   if ( $grants =~ m/(?:INSERT|SELECT|UPDATE) \(/ ) {
+      PTDEBUG && _d('Splitting grants on keywords:', $grants);
+      # TODO: the following .+? might break (e.g. on `annoying)column`).
+      # Remember to update this whenever we switch to using
+      # a common SQL regex module
+      @grants = $grants =~ m/
+            (
+                (?:INSERT|SELECT|UPDATE)\s\(.+?\) # a column grants
+              | [A-Z\s]+
+            )
+            (?:,\s)?    # Separted from the next grant, if any, by a comma
+      /xg;
+   }
+   else {
+      PTDEBUG && _d('Splitting grants on comma:', $grants);
+      @grants = split(', ', $grants);
+   }
+   PTDEBUG && _d('Grants split:', Dumper(\@grants));
+   return @grants;
+}
+
 sub _d {
    my ($package, undef, $line) = caller 0;
    @_ = map { (my $temp = $_) =~ s/\n/\n# /g; $temp; }
@@ -1852,7 +1930,7 @@ pt-show-grants - Canonicalize and print MySQL grants so you can effectively repl
 
 =head1 SYNOPSIS
 
-Usage: pt-show-grants [OPTION...] [DSN]
+Usage: pt-show-grants [OPTIONS] [DSN]
 
 pt-show-grants shows grants (user privileges) from a MySQL server.
 
@@ -2207,8 +2285,8 @@ L<http://www.percona.com/software/> for more software developed by Percona.
 
 =head1 COPYRIGHT, LICENSE, AND WARRANTY
 
-This program is copyright 2007-2011 Baron Schwartz, 2011-2012 Percona Inc.
-Feedback and improvements are welcome.
+This program is copyright 2011-2013 Percona Ireland Ltd,
+2007-2011 Baron Schwartz.
 
 THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
@@ -2226,6 +2304,6 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-show-grants 2.1.2
+pt-show-grants 2.1.8
 
 =cut

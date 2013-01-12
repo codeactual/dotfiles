@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # This program is part of Percona Toolkit: http://www.percona.com/software/
 # See "COPYRIGHT, LICENSE, AND WARRANTY" at the end of this file for legal
@@ -23,7 +23,7 @@ PTDEBUG="${PTDEBUG:-""}"
 EXIT_STATUS=0
 
 log() {
-   TS=$(date +%F-%T | tr :- _);
+   TS=$(date +%F-%T | tr ':-' '_');
    echo "$TS $*"
 }
 
@@ -71,7 +71,7 @@ PO_DIR=""         # Directory with program option spec files
 usage() {
    local file="$1"
 
-   local usage=$(grep '^Usage: ' "$file")
+   local usage="$(grep '^Usage: ' "$file")"
    echo $usage
    echo
    echo "For more information, 'man $TOOL' or 'perldoc $file'."
@@ -121,12 +121,22 @@ usage_or_errors() {
       echo
       echo "Options and values after processing arguments:"
       echo
-      for opt in $(ls "$PO_DIR"); do
-         local varname="OPT_$(echo "$opt" | tr a-z- A-Z_)"
-         local varvalue="${!varname}"
-         printf -- "  --%-30s %s" "$opt" "${varvalue:-(No value)}"
-         echo
-      done
+      (
+         cd "$PO_DIR"
+         for opt in *; do
+            local varname="OPT_$(echo "$opt" | tr a-z- A-Z_)"
+            eval local varvalue=\$$varname
+            if ! grep -q "type:" "$PO_DIR/$opt" >/dev/null; then
+               if [ "$varvalue" -a "$varvalue" = "yes" ];
+                  then varvalue="TRUE"
+               else
+                  varvalue="FALSE"
+               fi
+            fi
+            printf -- "  --%-30s %s" "$opt" "${varvalue:-(No value)}"
+            echo
+         done
+      )
       return 1
    fi
 
@@ -186,7 +196,7 @@ parse_options() {
       _parse_config_files "/etc/percona-toolkit/percona-toolkit.conf" "/etc/percona-toolkit/$TOOL.conf" "$HOME/.percona-toolkit.conf" "$HOME/.$TOOL.conf"
    fi
 
-   _parse_command_line "$@"
+   _parse_command_line "${@:-""}"
 }
 
 _parse_pod() {
@@ -233,7 +243,7 @@ _eval_po() {
       while read key val; do
          case "$key" in
             long)
-               opt=$(echo $val | sed 's/-/_/g' | tr [:lower:] [:upper:])
+               opt=$(echo $val | sed 's/-/_/g' | tr '[:lower:]' '[:upper:]')
                ;;
             default)
                default_val="$val"
@@ -278,7 +288,7 @@ _eval_po() {
 
 _parse_config_files() {
 
-   for config_file in "$@"; do
+   for config_file in "${@:-""}"; do
       test -f "$config_file" || continue
 
       while read config_opt; do
@@ -312,7 +322,7 @@ _parse_command_line() {
    local required_arg=""
    local spec=""
 
-   for opt in "$@"; do
+   for opt in "${@:-""}"; do
       if [ "$opt" = "--" -o "$opt" = "----" ]; then
          HAVE_EXT_ARGV=1
          continue
@@ -346,12 +356,23 @@ _parse_command_line() {
 
          real_opt="$opt"
 
-         if $(echo $opt | grep '^--no-' >/dev/null); then
-            opt_is_negated=1
-            opt=$(echo $opt | sed 's/^--no-//')
+         if $(echo $opt | grep '^--no[^-]' >/dev/null); then
+            local base_opt=$(echo $opt | sed 's/^--no//')
+            if [ -f "$PT_TMPDIR/po/$base_opt" ]; then
+               opt_is_negated=1
+               opt="$base_opt"
+            else
+               opt_is_negated=""
+               opt=$(echo $opt | sed 's/^-*//')
+            fi
          else
-            opt_is_negated=""
-            opt=$(echo $opt | sed 's/^-*//')
+            if $(echo $opt | grep '^--no-' >/dev/null); then
+               opt_is_negated=1
+               opt=$(echo $opt | sed 's/^--no-//')
+            else
+               opt_is_negated=""
+               opt=$(echo $opt | sed 's/^-*//')
+            fi
          fi
 
          if $(echo $opt | grep '^[a-z-][a-z-]*=' >/dev/null 2>&1); then
@@ -391,7 +412,7 @@ _parse_command_line() {
       fi
 
       if [ "$opt_is_ok" ]; then
-         opt=$(cat "$spec" | grep '^long:' | cut -d':' -f2 | sed 's/-/_/g' | tr [:lower:] [:upper:])
+         opt=$(cat "$spec" | grep '^long:' | cut -d':' -f2 | sed 's/-/_/g' | tr '[:lower:]' '[:upper:]')
 
          if grep "^type:size" "$spec" >/dev/null; then
             val=$(size_to_bytes $val)
@@ -772,22 +793,21 @@ find_my_cnf_file() {
    local port="${2:-""}"
 
    local cnf_file=""
-   if test -n "$port" && grep -- "/mysqld.*--port=$port" "${file}" >/dev/null 2>&1 ; then
-      cnf_file="$(grep -- "/mysqld.*--port=$port" "${file}" \
-         | awk 'BEGIN{RS=" "; FS="=";} $1 ~ /--defaults-file/ { print $2; }' \
-         | head -n1)"
+
+   if [ "$port" ]; then
+      cnf_file="$(grep --max-count 1 "/mysqld.*--port=$port" "$file" \
+         | awk 'BEGIN{RS=" "; FS="=";} $1 ~ /--defaults-file/ { print $2; }')"
    else
-      cnf_file="$(grep '/mysqld' "${file}" \
-         | awk 'BEGIN{RS=" "; FS="=";} $1 ~ /--defaults-file/ { print $2; }' \
-         | head -n1)"
+      cnf_file="$(grep --max-count 1 '/mysqld' "$file" \
+         | awk 'BEGIN{RS=" "; FS="=";} $1 ~ /--defaults-file/ { print $2; }')"
    fi
 
-   if [ ! -n "${cnf_file}" ]; then
-      cnf_file="/etc/my.cnf";
-      if [ ! -e "${cnf_file}" ]; then
-         cnf_file="/etc/mysql/my.cnf";
-      fi
-      if [ ! -e "${cnf_file}" ]; then
+   if [ -z "$cnf_file" ]; then
+      if [ -e "/etc/my.cnf" ]; then
+         cnf_file="/etc/my.cnf"
+      elif [ -e "/etc/mysql/my.cnf" ]; then
+         cnf_file="/etc/mysql/my.cnf"
+      elif [ -e "/var/db/mysql/my.cnf" ]; then
          cnf_file="/var/db/mysql/my.cnf";
       fi
    fi
@@ -901,7 +921,7 @@ get_mysqldump_args () {
 collect_mysqld_executables () {
    local mysqld_instances="$1"
 
-   for pid in $( grep '/mysqld' "$mysqld_instances" | awk '/^ .*[0-9]/{print $1}' ); do
+   for pid in $( grep '/mysqld' "$mysqld_instances" | awk '/^.*[0-9]/{print $1}' ); do
       ps -o cmd -p $pid | sed -e 's/^\(.*mysqld\) .*/\1/' | grep -v '^CMD$'
    done | sort -u
 }
@@ -933,7 +953,7 @@ collect_mysql_info () {
    local port="$(get_var port "$dir/mysql-variables")"
    local cnf_file="$(find_my_cnf_file "$dir/mysqld-instances" ${port})"
 
-   cat "$cnf_file" > "$dir/mysql-config-file"
+   [ -e "$cnf_file" ] && cat "$cnf_file" > "$dir/mysql-config-file"
 
    local pid_file="$(get_var "pid_file" "$dir/mysql-variables")"
    local pid_file_exists=""
@@ -984,19 +1004,19 @@ feat_on() {
    local varname="$2"
    [ -e "$file" ] || return
 
-   if [ "$( get_var "$varname" "${file}" )" ]; then
+   if [ "$( grep "$varname" "${file}" )" ]; then
       local var="$(awk "\$1 ~ /^$2$/ { print \$2 }" $file)"
       if [ "${var}" = "ON" ]; then
          echo "Enabled"
       elif [ "${var}" = "OFF" -o "${var}" = "0" -o -z "${var}" ]; then
          echo "Disabled"
-      elif [ "$3" = "ne" ]; then
+      elif [ "${3:-""}" = "ne" ]; then
          if [ "${var}" != "$4" ]; then
             echo "Enabled"
          else
             echo "Disabled"
          fi
-      elif [ "$3" = "gt" ]; then
+      elif [ "${3:-""}" = "gt" ]; then
          if [ "${var}" -gt "$4" ]; then
             echo "Enabled"
          else
@@ -1010,6 +1030,21 @@ feat_on() {
    else
       echo "Not Supported"
    fi
+}
+
+feat_on_renamed () {
+   local file="$1"
+   shift;
+
+   for varname in "$@"; do
+      local feat_on="$( feat_on "$file" $varname )"
+      if [ "${feat_on:-"Not Supported"}" != "Not Supported" ]; then
+         echo $feat_on
+         return
+      fi
+   done
+
+   echo "Not Supported"
 }
 
 get_table_cache () {
@@ -1041,9 +1076,10 @@ parse_mysqld_instances () {
    local file="$1"
    local variables_file="$2"
 
-   local socket=${socket:-""}
-   local port=${port:-""}
-   local datadir="${datadir:-""}"
+   local socket=""
+   local port=""
+   local datadir=""
+   local defaults_file=""
 
    [ -e "$file" ] || return
 
@@ -1062,7 +1098,17 @@ parse_mysqld_instances () {
          if echo "${word}" | grep -- "--datadir=" > /dev/null; then
             datadir="$(echo "${word}" | cut -d= -f2)"
          fi
+         if echo "${word}" | grep -- "--defaults-file=" > /dev/null; then
+            defaults_file="$(echo "${word}" | cut -d= -f2)"
+         fi
       done
+      
+      if [ -n "${defaults_file:-""}" -a -r "${defaults_file:-""}" ]; then
+         socket="${socket:-"$(grep "^socket\>" "$defaults_file" | tail -n1 | cut -d= -f2 | sed 's/^[ \t]*//;s/[ \t]*$//')"}"
+         port="${port:-"$(grep "^port\>" "$defaults_file" | tail -n1 | cut -d= -f2 | sed 's/^[ \t]*//;s/[ \t]*$//')"}"
+         datadir="${datadir:-"$(grep "^datadir\>" "$defaults_file" | tail -n1 | cut -d= -f2 | sed 's/^[ \t]*//;s/[ \t]*$//')"}"
+      fi
+
       local nice="$(get_var "internal::nice_of_$pid" "$variables_file")"
       local oom="$(get_var "internal::oom_of_$pid" "$variables_file")"
       if [ -n "${_NO_FALSE_NEGATIVES}" ]; then
@@ -1070,6 +1116,11 @@ parse_mysqld_instances () {
          oom="?"
       fi
       printf "  %5s %-26s %-4s %-3s %s\n" "${port}" "${datadir}" "${nice:-"?"}" "${oom:-"?"}" "${socket}"
+      
+      defaults_file=""
+      socket=""
+      port=""
+      datadir=""
    done
 }
 
@@ -1135,8 +1186,7 @@ format_status_variables () {
       utime2 = ${utime2};
       udays  = utime1 / 86400;
       udiff  = utime2 - utime1;
-      format=\"%-35s %11s %11s %11s\\n\";
-      printf(format, \"Variable\", \"Per day\", \"Per second\", udiff \" secs\");
+      printf(\"%-35s %11s %11s %11s\\n\", \"Variable\", \"Per day\", \"Per second\", udiff \" secs\");
    }
    \$2 ~ /^[0-9]*\$/ {
       if ( \$2 > 0 && \$2 < 18446744073709551615 ) {
@@ -1159,9 +1209,13 @@ format_status_variables () {
          persec = int(persec);
          nowsec = int(nowsec);
          if ( perday + persec + nowsec > 0 ) {
-            if ( perday == 0 ) { perday = \"\"; }
-            if ( persec == 0 ) { persec = \"\"; }
-            if ( nowsec == 0 ) { nowsec = \"\"; }
+            perday_format=\"%11.f\";
+            persec_format=\"%11.f\";
+            nowsec_format=\"%11.f\";
+            if ( perday == 0 ) { perday = \"\"; perday_format=\"%11s\"; }
+            if ( persec == 0 ) { persec = \"\"; persec_format=\"%11s\"; }
+            if ( nowsec == 0 ) { nowsec = \"\"; nowsec_format=\"%11s\"; }
+            format=\"%-35s \" perday_format \" \" persec_format \" \" nowsec_format \"\\n\";
             printf(format, \$1, perday, persec, nowsec);
          }
       }
@@ -1520,7 +1574,7 @@ format_overall_db_stats () {
             dbs[0]      = db;
          }
          engine=substr($2, index($2, "=") + 1);
-         if ( engine_seen[engine]++ == 0 ) {
+         if ( engine_seen[tolower(engine)]++ == 0 ) {
             engines[num_engines] = engine;
             num_engines++;
          }
@@ -1722,25 +1776,40 @@ section_percona_server_features () {
    [ -e "$file" ] || return
 
    name_val "Table & Index Stats"   \
-            "$(feat_on "$file" userstat_running)"
+            "$(feat_on_renamed "$file" userstat_running userstat)"
    name_val "Multiple I/O Threads"  \
             "$(feat_on "$file" innodb_read_io_threads gt 1)"
+
    name_val "Corruption Resilient"  \
-            "$(feat_on "$file" innodb_pass_corrupt_table)"
+            "$(feat_on_renamed "$file" innodb_pass_corrupt_table innodb_corrupt_table_action)"
+
    name_val "Durable Replication"   \
-            "$(feat_on "$file" innodb_overwrite_relay_log_info)"
+            "$(feat_on_renamed "$file" innodb_overwrite_relay_log_info innodb_recovery_update_relay_log)"
+
    name_val "Import InnoDB Tables"  \
-            "$(feat_on "$file" innodb_expand_import)"
+            "$(feat_on_renamed "$file" innodb_expand_import innodb_import_table_from_xtrabackup)"
+
    name_val "Fast Server Restarts"  \
-            "$(feat_on "$file" innodb_auto_lru_dump)"
+            "$(feat_on_renamed "$file" innodb_auto_lru_dump innodb_buffer_pool_restore_at_startup)"
+   
    name_val "Enhanced Logging"      \
             "$(feat_on "$file" log_slow_verbosity ne microtime)"
    name_val "Replica Perf Logging"  \
             "$(feat_on "$file" log_slow_slave_statements)"
+
    name_val "Response Time Hist."   \
-            "$(feat_on "$file" enable_query_response_time_stats)"
-   name_val "Smooth Flushing"       \
-            "$(feat_on "$file" innodb_adaptive_checkpoint ne none)"
+            "$(feat_on_renamed "$file" enable_query_response_time_stats query_response_time_stats)"
+
+   local smooth_flushing="$(feat_on_renamed "$file" innodb_adaptive_checkpoint innodb_adaptive_flushing_method)"
+   if  [ "${smooth_flushing:-""}" != "Not Supported" ]; then
+      if [ -n "$(get_var innodb_adaptive_checkpoint "$file")" ]; then
+         smooth_flushing="$(feat_on "$file" "innodb_adaptive_checkpoint" ne none)"
+      else
+         smooth_flushing="$(feat_on "$file" "innodb_adaptive_flushing_method" ne native)"
+      fi
+   fi
+   name_val "Smooth Flushing" "$smooth_flushing"
+   
    name_val "HandlerSocket NoSQL"   \
             "$(feat_on "$file" handlersocket_port)"
    name_val "Fast Hash UDFs"   \
@@ -1958,6 +2027,42 @@ section_mysql_files () {
    done
 }
 
+section_percona_xtradb_cluster () {
+   local mysql_var="$1"
+   local mysql_status="$2"
+
+   name_val "Cluster Name"    "$(get_var "wsrep_cluster_name" "$mysql_var")"
+   name_val "Cluster Address" "$(get_var "wsrep_cluster_address" "$mysql_var")"
+   name_val "Cluster Size"    "$(get_var "wsrep_cluster_size" "$mysql_status")"
+   name_val "Cluster Nodes"   "$(get_var "wsrep_incoming_addresses" "$mysql_status")"
+
+   name_val "Node Name"       "$(get_var "wsrep_node_name" "$mysql_var")"
+   name_val "Node Status"     "$(get_var "wsrep_cluster_status" "$mysql_status")"
+
+   name_val "SST Method"      "$(get_var "wsrep_sst_method" "$mysql_var")"
+   name_val "Slave Threads"   "$(get_var "wsrep_slave_threads" "$mysql_var")"
+   
+   name_val "Ignore Split Brain" "$( parse_wsrep_provider_options "pc.ignore_sb" "$mysql_var" )"
+   name_val "Ignore Quorum" "$( parse_wsrep_provider_options "pc.ignore_quorum" "$mysql_var" )"
+   
+   name_val "gcache Size"      "$( parse_wsrep_provider_options "gcache.size" "$mysql_var" )"
+   name_val "gcache Directory" "$( parse_wsrep_provider_options "gcache.dir" "$mysql_var" )"
+   name_val "gcache Name"      "$( parse_wsrep_provider_options "gcache.name" "$mysql_var" )"
+}
+
+parse_wsrep_provider_options () {
+   local looking_for="$1"
+   local mysql_var_file="$2"
+
+   grep wsrep_provider_options "$mysql_var_file" \
+   | perl -Mstrict -le '
+      my $provider_opts = scalar(<STDIN>);
+      my $looking_for   = $ARGV[0];
+      my %opts          = $provider_opts =~ /(\S+)\s*=\s*(\S*)(?:;|$)/g;
+      print $opts{$looking_for};
+   ' "$looking_for"
+}
+
 report_mysql_summary () {
    local dir="$1"
 
@@ -2023,6 +2128,17 @@ report_mysql_summary () {
 
    section "Key Percona Server features"
    section_percona_server_features "$dir/mysql-variables"
+
+   section "Percona XtraDB Cluster"
+   local has_wsrep="$(get_var "wsrep_on" "$dir/mysql-variables")"
+   if [ -n "${has_wsrep:-""}" ]; then
+      local wsrep_on="$(feat_on "$dir/mysql-variables" "wsrep_on")"
+      if [ "${wsrep_on:-""}" = "Enabled" ]; then
+         section_percona_xtradb_cluster "$dir/mysql-variables" "$dir/mysql-status"
+      else
+         name_val "wsrep_on" "OFF"
+      fi
+   fi
 
    section "Plugins"
    name_val "InnoDB compression" "$(get_plugin_status "$dir/mysql-plugins" "INNODB_CMP")"
@@ -2216,8 +2332,10 @@ report_mysql_summary () {
 
 TOOL="pt-mysql-summary"
 
-CMD_MYSQL="$(_which mysql)"
-CMD_MYSQLDUMP="$( _which mysqldump )"
+# These vars are declared earlier in the collect_mysql_info package,
+# but if they're still undefined here, try to find them in PATH.
+[ "$CMD_MYSQL" ]     || CMD_MYSQL="$(_which mysql)"
+[ "$CMD_MYSQLDUMP" ] || CMD_MYSQLDUMP="$( _which mysqldump )"
 
 check_mysql () {
    # Check that mysql and mysqldump are in PATH.  If not, we're
@@ -2299,7 +2417,7 @@ if    [ "${0##*/}" = "$TOOL" ] \
    # Set up temporary dir.
    mk_tmpdir
    # Parse command line options.
-   parse_options "$0" "$@"
+   parse_options "$0" "${@:-""}"
 
    # Verify that --sleep, if present, is positive
    if [ -n "$OPT_SLEEP" ] && [ "$OPT_SLEEP" -lt 0 ]; then
@@ -2320,7 +2438,7 @@ if    [ "${0##*/}" = "$TOOL" ] \
    # a connection then.
    [ "$OPT_READ_SAMPLES" ] || check_mysql
 
-   main "$@"
+   main "${@:-""}"
 fi
 
 # ############################################################################
@@ -2865,8 +2983,8 @@ L<http://www.percona.com/software/> for more software developed by Percona.
 
 =head1 COPYRIGHT, LICENSE, AND WARRANTY
 
-This program is copyright 2010-2011 Baron Schwartz, 2011-2012 Percona Inc.
-Feedback and improvements are welcome.
+This program is copyright 2011-2013 Percona Ireland Ltd,
+2010-2011 Baron Schwartz.
 
 THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
@@ -2884,7 +3002,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
 
 =head1 VERSION
 
-pt-mysql-summary 2.1.2
+pt-mysql-summary 2.1.8
 
 =cut
 
