@@ -179,6 +179,9 @@ function installDependencies {
     libssl-dev
     libv8-3.7.12.22
 
+    # percona tools
+    libdbd-mysql-perl
+
     # php
     graphviz
     libcurl4-gnutls-dev
