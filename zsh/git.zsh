@@ -42,7 +42,7 @@ alias glsi="git ls-files --others -i --exclude-standard"            # Ignore fil
 alias glsm="git ls-files -m"                                        # Modified files.
 alias glsu="git ls-files -o --exclude-standard"                     # Untracked files.
 alias glt="git log --graph --decorate --branches --pretty=oneline"  # Timeline.
-alias gm="git merge --no-commit"
+alias gm="git merge --no-ff --no-commit"
 alias gmv='git mv'
 alias gp='git push'
 alias gs='git status'
