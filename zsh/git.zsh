@@ -13,7 +13,6 @@ alias gbr='git branch -r'
 alias gba='git branch -a'                                           # Include remote-tracking and local.
 alias gbnmm="git branch --no-merged master"                         # List branches not yet merged into master.
 alias gci='git commit -v'                                           # Verbose commit.
-alias gcom="git checkout master"
 alias gcin='git commit -v --no-verify'
 alias gcatchup="git fetch && git rebase origin/master"              # Catch up local snapshot of origin/master. But don't modify local master.
 alias gcop='git checkout --patch'
@@ -54,7 +53,7 @@ alias gsha='git stash apply'                                        # Like pop b
 alias gu="git reset HEAD"                                           # Unstage.
 
 # Check out a new timestamped branch.
-function gcob() {
+function gcob {
   local date=`date "+%Y-%m-%d"`
 
   # Ex. fix-tests-2012-12-17
@@ -62,4 +61,25 @@ function gcob() {
 
   # Append all remaining arguments, ex. source branch name.
   git checkout -b $branch ${@:2}
+
+  save_current_git_branch $branch
+}
+
+function gco {
+  git checkout $1
+  save_current_git_branch $1
+}
+
+function gcom {
+  gco "master"
+}
+
+function save_current_git_branch {
+  export GIT_PREVIOUS_BRANCH=$GIT_CURRENT_BRANCH
+  export GIT_CURRENT_BRANCH=$1
+}
+
+function gmp {
+  echo "Merging $GIT_PREVIOUS_BRANCH into $GIT_CURRENT_BRANCH"
+  gm $GIT_PREVIOUS_BRANCH
 }
