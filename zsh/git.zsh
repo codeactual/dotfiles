@@ -13,6 +13,7 @@ alias gbr='git branch -r'
 alias gba='git branch -a'                                           # Include remote-tracking and local.
 alias gbnmm="git branch --no-merged master"                         # List branches not yet merged into master.
 alias gci='git commit -v'                                           # Verbose commit.
+alias gcom="git checkout master"
 alias gcin='git commit -v --no-verify'
 alias gcatchup="git fetch && git rebase origin/master"              # Catch up local snapshot of origin/master. But don't modify local master.
 alias gcop='git checkout --patch'
