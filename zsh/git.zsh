@@ -15,7 +15,7 @@ alias gbnmm="git branch --no-merged master"                         # List branc
 alias gci='git commit -v'                                           # Verbose commit.
 alias gcin='git commit -v --no-verify'
 alias gcatchup="git fetch && git rebase origin/master"              # Catch up local snapshot of origin/master. But don't modify local master.
-alias gcop='git checkout --patch'
+alias gcopatch='git checkout --patch'
 alias gd='git diff'
 alias gda="git diff; git diff --cached"
 alias gdaw="gdw; gdcw"
@@ -72,6 +72,10 @@ function gco {
 
 function gcom {
   gco "master"
+}
+
+function gcop {
+  gco $GIT_PREVIOUS_BRANCH
 }
 
 function save_current_git_branch {
