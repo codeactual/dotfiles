@@ -16,6 +16,7 @@ alias gci='git commit -v'                                           # Verbose co
 alias gcin='git commit -v --no-verify'
 alias gcatchup="git fetch && git rebase origin/master"              # Catch up local snapshot of origin/master. But don't modify local master.
 alias gcopatch='git checkout --patch'
+alias gcp="git cherry-pick --no-commit"
 alias gd='git diff'
 alias gda="git diff; git diff --cached"
 alias gdaw="gdw; gdcw"
@@ -51,6 +52,11 @@ alias gss='git status -sb'
 alias gsh='git stash'
 alias gsha='git stash apply'                                        # Like pop but w/out modifying stash list.
 alias gu="git reset HEAD"                                           # Unstage.
+
+# Delete the last line to undo the last commit.
+# To restage the undone commit for correction, gcp <hash from removed line>.
+# Rebase target wrapped in quotes for zsh.
+alias gundo="git rebase -i 'HEAD^^'"
 
 # Check out a new timestamped branch.
 function gcob {
