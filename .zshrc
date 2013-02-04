@@ -202,6 +202,9 @@ function installDependencies {
     #rake
     #ruby1.8-dev
 
+    # uuencode, etc.
+    sharutils
+
     # util
     curl
     htop
@@ -209,6 +212,7 @@ function installDependencies {
     multitail
     net-tools
     nmap
+    nmon
     pv
     renameutils
     screen
