@@ -29,6 +29,7 @@ alias hgrep="history | cgrep -i $1"
 alias lsdir="find . -maxdepth 1 -type d -not -name '.'"
 alias wcgrep-nocolor="wcgrep-base --color=never"
 alias wcgrep="wcgrep-base --color=always"
+alias higrep="egrep --color=always --context=10000"
 
 ######################
 ##### APT / DPKG #####
