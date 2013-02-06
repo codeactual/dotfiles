@@ -29,6 +29,8 @@ hi IncSearch cterm=NONE ctermfg=white ctermbg=darkgrey
 " Highlight line numbers
 hi LineNr cterm=NONE ctermfg=234 ctermbg=black
 
+hi MatchParen cterm=none ctermbg=darkgrey ctermfg=white
+
 " Set some syntax highlight colors
 hi comment ctermfg=lightblue
 hi constant ctermfg=darkred
