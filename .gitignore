@@ -29,6 +29,7 @@
 .local/
 .macromedia*
 .mission-control/
+.mongorc.js
 .mozilla/
 .node-gyp/
 .npm/
