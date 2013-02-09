@@ -47,6 +47,7 @@
 .thunderbird/
 .tumblr
 .viminfo
+.vim/sessions
 .zzz*
 workspace/
 .xsession-errors
