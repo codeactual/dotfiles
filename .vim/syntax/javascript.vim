@@ -113,7 +113,7 @@ syntax keyword javaScriptBranch         break continue
 syntax keyword javaScriptLabel          case default
 syntax keyword javaScriptStatement      return with
 
-syntax keyword javaScriptGlobalObjects  Array Boolean Date Function Infinity Math Number NaN Object Packages RegExp String netscape
+syntax keyword javaScriptGlobalObjects  Array Boolean Date Function Infinity Math Number NaN Object Packages RegExp String netscape console process module Module window document root GLOBAL describe it sinon mocha debugger require define before after beforeEach afterEach fs path child_process util _ async grunt
 
 syntax keyword javaScriptExceptions     try catch throw finally Error EvalError RangeError ReferenceError SyntaxError TypeError URIError
 
@@ -284,7 +284,7 @@ if version >= 508 || !exists("did_javascript_syn_inits")
 
 	HiLink javaScriptFuncDef            Title
     HiLink javaScriptFuncArg            Special
-    HiLink javaScriptFuncComma          Operator  
+    HiLink javaScriptFuncComma          Operator
 
 	HiLink javaScriptHtmlEvents         Special
 	HiLink javaScriptHtmlElemProperties Type
