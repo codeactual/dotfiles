@@ -39,6 +39,7 @@
 .pki/
 .pulse-cookie
 .pulse/
+.rnd
 .shotwell/
 .ssh/
 .subversion/
