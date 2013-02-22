@@ -224,4 +224,10 @@ function installDependencies {
 
 export NODE_PATH=/usr/local/lib/node_modules
 
-ll
+echo "\n$(ll)\n"
+
+if which tmux &> /dev/null; then
+  tmux list-session
+else
+  echo "tmux not installed"
+fi
