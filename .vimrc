@@ -221,3 +221,6 @@ map <right> <nop>
 let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
 let g:session_command_aliases = 1
+
+" Always show the status bar (vs. only when viewing multiple files).
+set laststatus=2
