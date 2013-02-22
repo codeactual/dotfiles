@@ -215,7 +215,7 @@ function installDependencies {
     nmon
     pv
     renameutils
-    screen
+    tmux
     tree
     wget
   )
