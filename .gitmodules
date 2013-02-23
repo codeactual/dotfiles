@@ -37,6 +37,3 @@
 [submodule ".vim/bundle/vim-session"]
 	path = .vim/bundle/vim-session
 	url = git://github.com/xolox/vim-session.git
-[submodule ".vim/bundle/vim-markdown"]
-	path = .vim/bundle/vim-markdown
-	url = git://github.com/plasticboy/vim-markdown.git
