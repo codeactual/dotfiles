@@ -224,3 +224,7 @@ let g:session_command_aliases = 1
 
 " Always show the status bar (vs. only when viewing multiple files).
 set laststatus=2
+
+" vim-gitgutter
+highlight clear SignColumn
+map <C-G> :ToggleGitGutter<CR>
