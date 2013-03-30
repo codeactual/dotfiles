@@ -1,4 +1,5 @@
 doc/tags
 mytags/all
+mytags/*.sources
 .netrwhist
 .VimballRecord

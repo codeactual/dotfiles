@@ -94,3 +94,7 @@ function gmp {
   echo "Merging $GIT_PREVIOUS_BRANCH into $GIT_CURRENT_BRANCH"
   gm $GIT_PREVIOUS_BRANCH
 }
+
+function gcatbr {
+  git show $1:$2
+}
