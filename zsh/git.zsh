@@ -57,7 +57,9 @@ alias gu="git reset HEAD"                                           # Unstage.
 # Delete the last line to undo the last commit.
 # To restage the undone commit for correction, gcp <hash from removed line>.
 # Rebase target wrapped in quotes for zsh.
-alias gundo="git rebase -i 'HEAD^^'"
+alias gundorebase="git rebase -i 'HEAD^^'"
+
+alias gundoreset="git reset --soft 'HEAD^'"
 
 # Check out a new timestamped branch.
 function gcob {
