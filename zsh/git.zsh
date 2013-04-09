@@ -74,17 +74,17 @@ function gcob {
   save_current_git_branch $branch
 }
 
-function gco {
+function gitCheckout {
   git checkout $1
   save_current_git_branch $1
 }
 
-function gcom {
-  gco "master"
+function gitCheckoutm {
+  gitCheckout "master"
 }
 
-function gcop {
-  gco $GIT_PREVIOUS_BRANCH
+function gitCheckoutp {
+  gitCheckout $GIT_PREVIOUS_BRANCH
 }
 
 function save_current_git_branch {
