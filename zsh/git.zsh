@@ -79,11 +79,11 @@ function gitCheckout {
   save_current_git_branch $1
 }
 
-function gitCheckoutm {
+function gcom {
   gitCheckout "master"
 }
 
-function gitCheckoutp {
+function gcop {
   gitCheckout $GIT_PREVIOUS_BRANCH
 }
 
