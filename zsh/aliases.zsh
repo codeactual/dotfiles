@@ -63,6 +63,7 @@ function curl-final-url {
 ##### MISC #####
 ################
 
+alias cdzshlocal="cd ~/zsh/local"
 alias resetfonts="sudo fc-cache -fv"
 alias rm="rm -i"
 alias vimsafe="vim -RMm"
