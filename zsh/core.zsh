@@ -81,7 +81,19 @@ setopt nocorrectall     # Do not correct arguments, only commands.
 setopt nohup            # Don't kill bg processes on exit.
 setopt pushdignoredups  # Don't auto-add duplicate dirs for `pushd`/popd` use.
 
-set -o vi
+###################
+##### VI MODE #####
+###################
+
+# http://zshwiki.org/home/zle/vi-mode
+setopt vi
+
+bindkey -a u undo # Undo via 'u' in command mode
+bindkey -a U redo  # Use 'U' to avoid control-key in tmux
+
+# Allow backspacing beyond insert starting position
+bindkey '^?' backward-delete-char
+bindkey '^H' backward-delete-char
 
 export EDITOR="vim"
 
