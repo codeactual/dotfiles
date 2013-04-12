@@ -12,6 +12,9 @@ set undolevels=1000      " use many muchos levels of undo
 set title                " change the terminal's title
 set noerrorbells         " don't beep
 
+set modelines=0
+set nomodeline
+
 " Disable visual bell
 set noeb vb t_vb=
 
@@ -225,4 +228,4 @@ let g:session_command_aliases = 1
 " Always show the status bar (vs. only when viewing multiple files).
 set laststatus=2
 
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+"set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
