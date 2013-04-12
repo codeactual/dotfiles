@@ -55,8 +55,17 @@ export GIT_PS1_SHOWSTASHSTATE=1
 source ~/zsh/completion/git-completion.zsh
 source ~/zsh/completion/git-prompt.zsh
 
+# http://hamberg.no/erlend/posts/2010-10-17-show-current-vi-mode-in-zsh-prompt.html
+# set VIMODE according to the current mode (default “[i]”)
+VIMODE='[i]'
+function zle-keymap-select {
+ VIMODE="${${KEYMAP/vicmd/[n]}/(main|viins)/[i]}"
+ zle reset-prompt
+}
+zle -N zle-keymap-select
+
 # Color list: /etc/X11/rgb.txt
-export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %n @ %{$fg[yellow]%}%M%{$reset_color%} : %{$fg[magenta]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)")\n: '
+export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %n @ %{$fg[yellow]%}%M%{$reset_color%} : %{$fg[magenta]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)") ${VIMODE}\n: '
 
 ########################
 ##### MISC OPTIONS #####
@@ -71,6 +80,8 @@ setopt extendedglob     # Extended patterns, e.g. exclude JS files: `ls ^*.js`
 setopt nocorrectall     # Do not correct arguments, only commands.
 setopt nohup            # Don't kill bg processes on exit.
 setopt pushdignoredups  # Don't auto-add duplicate dirs for `pushd`/popd` use.
+
+set -o vi
 
 export EDITOR="vim"
 
