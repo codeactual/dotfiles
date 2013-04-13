@@ -15,8 +15,21 @@ setopt prompt_subst
 ##### HISTORY #####
 ###################
 
+# Use egrep to mimic HISTIGNORE in zsh.
+export __ZSH_HISTIGNORE_EXACT="(h?top|exit|reset|clear|gci|node|vim?)"
+export __ZSH_HISTIGNORE_EXIST="shutdown"
+export __ZSH_HISTIGNORE="(^..$"
+export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^l[sl] "
+export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^export TEAMOCIL"
+export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^[^.$/a-z:]"
+export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|$__ZSH_HISTIGNORE_EXIST"
+export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^$__ZSH_HISTIGNORE_EXACT$"
+export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE)"
+egrep -v "$__ZSH_HISTIGNORE" ~/.zsh_history > /tmp/.zsh_history_filtered
+echo ".zsh_history_filtered diff count: $(diff ~/.zsh_history /tmp/.zsh_history_filtered | egrep "^<" | wc -l)"
+cp /tmp/.zsh_history_filtered ~/.zsh_history
+
 export HISTFILE=~/.zsh_history
-export HISTIGNORE="&:ls:ll:top:[bf]g:exit:reset:clear:cd:cd ..:cd..:cd ~:gs:gss:gl:gci:gco:fg:vim:update:sudo shutdown*:node"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
