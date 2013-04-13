@@ -16,11 +16,11 @@ setopt prompt_subst
 ###################
 
 # Use egrep to mimic HISTIGNORE in zsh.
-export __ZSH_HISTIGNORE_EXACT="(h?top|exit|reset|clear|gci|node|vim?)"
+export __ZSH_HISTIGNORE_EXACT="(h?top|exit|reset|clear|gci|node|replpad|vim?)"
 export __ZSH_HISTIGNORE_EXIST="shutdown"
 export __ZSH_HISTIGNORE="(^..$"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^l[sl] "
-export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^export TEAMOCIL"
+export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^export"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^[^.$/a-z:]"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|$__ZSH_HISTIGNORE_EXIST"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^$__ZSH_HISTIGNORE_EXACT$"
