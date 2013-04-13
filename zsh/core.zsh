@@ -53,6 +53,10 @@ setopt SHARE_HISTORY
 # https://github.com/nickstenning/dotfiles/blob/master/zsh/lib/keys.zsh
 history-incremental-pattern-search-backward-with-buffer() {
   zle history-incremental-pattern-search-backward $BUFFER
+
+  # Hack to move the cursor to EOL if the search is cancelled in order
+  # to modify the last-displayed result before executing it.
+  CURSOR=1000
 }
 zle -N history-incremental-pattern-search-backward-with-buffer
 
