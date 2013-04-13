@@ -46,11 +46,24 @@ setopt HIST_VERIFY
 # Allow history sharing between terminals.
 setopt SHARE_HISTORY
 
-bindkey "\e[A" history-beginning-search-backward
-bindkey "\e[B" history-beginning-search-forward
 # iTerm fixes (http://dotfiles.org/~brendano/.zshrc)
-bindkey "\eOA" history-beginning-search-backward
-bindkey "\eOB" history-beginning-search-forward
+#bindkey "\eOA" history-beginning-search-backward
+#bindkey "\eOB" history-beginning-search-forward
+
+# https://github.com/nickstenning/dotfiles/blob/master/zsh/lib/keys.zsh
+history-incremental-pattern-search-backward-with-buffer() {
+  zle history-incremental-pattern-search-backward $BUFFER
+}
+zle -N history-incremental-pattern-search-backward-with-buffer
+
+# Seed (bck|fwd)-i-search with current buffer.
+bindkey -M vicmd '/' history-incremental-pattern-search-backward-with-buffer
+bindkey -M viins '^R' history-incremental-pattern-search-backward-with-buffer
+
+# After (bck|fwd)-i-search has been seeded, in insert or command mode, browse results.
+# (vim-directional alternative to default backspace/shift-backspace).
+bindkey -M viins '^K' history-incremental-pattern-search-backward
+bindkey -M viins '^J' history-incremental-pattern-search-forward
 
 ######################
 ##### COMPLETION #####
