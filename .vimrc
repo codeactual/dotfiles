@@ -48,6 +48,7 @@ au VimEnter * nohls
 set tags=~/.vim/mytags/all
 
 set fenc=utf-8
+set fencs=utf-8
 set encoding=utf-8
 
 " Allow future highlights
