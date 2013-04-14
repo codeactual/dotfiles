@@ -25,9 +25,15 @@ export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^[^.$/a-z:]"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|$__ZSH_HISTIGNORE_EXIST"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^$__ZSH_HISTIGNORE_EXACT$"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE)"
-egrep -v "$__ZSH_HISTIGNORE" ~/.zsh_history > /tmp/.zsh_history_filtered
-echo ".zsh_history_filtered diff count: $(diff ~/.zsh_history /tmp/.zsh_history_filtered | egrep "^<" | wc -l)"
-cp /tmp/.zsh_history_filtered ~/.zsh_history
+
+__ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered"
+# If a filter result is missing or old.
+if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find $__ZSH_HISTIGNORE_RESULT -mmin +1 > /dev/null 2>&1` ]; then
+  egrep -v "$__ZSH_HISTIGNORE" ~/.zsh_history > $__ZSH_HISTIGNORE_RESULT
+  echo "ZSH history cleanup: $(diff ~/.zsh_history $__ZSH_HISTIGNORE_RESULT | egrep "^<" | wc -l)"
+  cp $__ZSH_HISTIGNORE_RESULT ~/.zsh_history
+  rm -f $__ZSH_HISTIGNORE_RESULT
+fi
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
