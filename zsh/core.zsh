@@ -25,8 +25,7 @@ export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^[^.$/a-z:]"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|$__ZSH_HISTIGNORE_EXIST"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^$__ZSH_HISTIGNORE_EXACT$"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE)"
-
-__ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered"
+__ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
 # If a filter result is missing or old.
 if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find $__ZSH_HISTIGNORE_RESULT -mmin +1 > /dev/null 2>&1` ]; then
   egrep -v "$__ZSH_HISTIGNORE" ~/.zsh_history > $__ZSH_HISTIGNORE_RESULT
