@@ -52,10 +52,6 @@ setopt HIST_VERIFY
 # Allow history sharing between terminals.
 setopt SHARE_HISTORY
 
-# iTerm fixes (http://dotfiles.org/~brendano/.zshrc)
-#bindkey "\eOA" history-beginning-search-backward
-#bindkey "\eOB" history-beginning-search-forward
-
 # https://github.com/nickstenning/dotfiles/blob/master/zsh/lib/keys.zsh
 history-incremental-pattern-search-backward-with-buffer() {
   zle history-incremental-pattern-search-backward $BUFFER
@@ -75,14 +71,15 @@ bindkey -M viins '^R' history-incremental-pattern-search-backward-with-buffer
 bindkey -M viins '^K' history-incremental-pattern-search-backward
 bindkey -M viins '^J' history-incremental-pattern-search-forward
 
-# https://github.com/pda/dotzsh/blob/master/keyboard.zsh:
-# Debian / Ubuntu sets these to vi-up-line-or-history etc,
-# which places the cursor at the start of line, not end of line.
-# See: http://www.zsh.org/mla/users/2009/msg00878.html
-bindkey -M viins "\e[A" up-line-or-history
-bindkey -M viins "\e[B" down-line-or-history
-bindkey -M viins "\eOA" up-line-or-history
-bindkey -M viins "\eOB" down-line-or-history
+# Browse history using current buffer and place cursor at EOL.
+# https://bbs.archlinux.org/viewtopic.php?pid=1170272#p1170272
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey -M viins "\e[A" history-beginning-search-backward-end
+bindkey -M viins "\e[B" history-beginning-search-forward-end
+bindkey -M viins "\eOA" history-beginning-search-backward-end
+bindkey -M viins "\eOB" history-beginning-search-forward-end
 
 ######################
 ##### COMPLETION #####
