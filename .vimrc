@@ -20,6 +20,9 @@ set noeb vb t_vb=
 
 set nofoldenable
 
+set cursorline
+hi CursorLine cterm=NONE ctermfg=NONE ctermbg=232
+
 " Highlight search matches (original fg, dark grey bg)
 hi Search cterm=NONE ctermfg=white ctermbg=darkgrey
 
