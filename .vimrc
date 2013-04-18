@@ -224,6 +224,9 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
+" Disable built-in manual keyword lookup
+map <S-K> <nop>
+
 " vim-session
 let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
