@@ -100,7 +100,7 @@ source ~/zsh/completion/git-prompt.zsh
 # set VIMODE according to the current mode (default “[i]”)
 VIMODE='[i]'
 function zle-keymap-select {
- VIMODE="${${KEYMAP/vicmd/[n]}/(main|viins)/[i]}"
+ VIMODE="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
  zle reset-prompt
 }
 zle -N zle-keymap-select
