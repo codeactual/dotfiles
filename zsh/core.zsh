@@ -116,9 +116,9 @@ setopt alwaystoend      # After completion from in-word, move cursor to end.
 # setopt autocd           # Change directory without 'cd ' prepended.
 setopt autopushd        # Auto-pop dirs to stack for `pushd`/`popd` use.
 setopt completeinword   # Enable completion mid-word, ex. apache<tab>tl -> apachectl.
-setopt correct          # Correction prompt when command not found.
+unsetopt correct          # Correction prompt when command not found.
 setopt extendedglob     # Extended patterns, e.g. exclude JS files: `ls ^*.js`
-setopt nocorrectall     # Do not correct arguments, only commands.
+unsetopt correctall     # Do not correct arguments, only commands.
 setopt nohup            # Don't kill bg processes on exit.
 setopt pushdignoredups  # Don't auto-add duplicate dirs for `pushd`/popd` use.
 
