@@ -1,0 +1,1 @@
+[rel link](.vim/syntax)
