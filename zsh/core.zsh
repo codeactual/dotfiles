@@ -105,6 +105,16 @@ function zle-keymap-select {
 }
 zle -N zle-keymap-select
 
+# Prevent buffer from cycling through tab-completion candiates. Only show the menu.
+# http://unix.stackexchange.com/questions/12035/zsh-equivalent-of-bash-show-all-if-ambiguous
+setopt bash_auto_list
+setopt no_auto_menu
+unsetopt ALWAYS_LAST_PROMPT
+
+##################
+##### PROMPT #####
+##################
+
 # Color list: /etc/X11/rgb.txt
 export PROMPT="%D{%a %m/%d} %{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S} %D{%Z} %n @ %{$fg[yellow]%}%M%{$reset_color%} : %{$fg[magenta]%}%d%{$reset_color%} %! "$'$(__git_ps1 "(%s)") ${VIMODE}\n: '
 
