@@ -97,6 +97,8 @@ function gmp {
   gm $GIT_PREVIOUS_BRANCH
 }
 
-function gcatbr {
-  git show $1:$2
+function gcat {
+  local FILE=$1
+  local BRANCH_OR_COMMIT=$2
+  git show $BRANCH_OR_COMMIT:$FILE
 }
