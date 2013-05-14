@@ -97,8 +97,8 @@ source ~/zsh/completion/git-completion.zsh
 source ~/zsh/completion/git-prompt.zsh
 
 # http://hamberg.no/erlend/posts/2010-10-17-show-current-vi-mode-in-zsh-prompt.html
-# set VIMODE according to the current mode (default “[i]”)
-VIMODE='[i]'
+# set VIMODE according to the current mode (default “[INSERT]”)
+VIMODE='[INSERT]'
 function zle-keymap-select {
  VIMODE="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
  zle reset-prompt
