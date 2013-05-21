@@ -280,6 +280,12 @@ echo "Loading $0"
 # Run last command with all matches replaced.
 # !!:gs/search/replace
 
+# Retry the previous command until it exits successfully
+# until !!; do :; done
+
+# Debug how files are being accessed by a process
+# inotifywait -m -r .
+
 ################################
 ## superuser / stackoverflow ##
 ################################
