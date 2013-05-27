@@ -102,3 +102,7 @@ function gcat {
   local BRANCH_OR_COMMIT=$2
   git show $BRANCH_OR_COMMIT:$FILE
 }
+
+function glfromtag {
+  gl $1.. | sed 's/\* [a-z0-9]\+ \((HEAD, master) \)\?//g'
+}
