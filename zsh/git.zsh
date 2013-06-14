@@ -31,7 +31,7 @@ alias gdv='git diff | $EDITOR -R - '
 alias gdw="git diff --word-diff"
 alias gi="git info"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative"
-alias gla="gl --all"
+alias gla="git log --all --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative"
 alias glc="git log --stat -n 1"                                     # Log of last commit.
 alias gld="git log -- \$1"                                          # Search log for a deleted path.
 alias glf="git log --follow -p"                                     # Search log for changes to a path w/ diffs.
