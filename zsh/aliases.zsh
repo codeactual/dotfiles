@@ -6,7 +6,7 @@ echo "Loading $0"
 
 alias ll="ls -l --almost-all --color=always --classify --time-style=long-iso --human-readable"
 alias lsbigdir="perl -le 'opendir DIR, \".\" or die; print while \$_ = readdir DIR; closedir DIR'" # http://www.commandlinefu.com/commands/view/8227/listing-directory-content-of-a-directory-with-a-lot-of-entrie
-alias tt='tree -pFCf -I "components|tmp|node_modules" . | grep "$1" | less -RgIKNs'
+alias tt='tree -pFCfh -I "components|tmp|node_modules" . | grep "$1" | less -RgIKNs'
 
 ###############################
 ##### LSOF / NETSTAT / PS #####
