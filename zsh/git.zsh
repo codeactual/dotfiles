@@ -29,6 +29,7 @@ alias gddi="git diff origin/develop \^develop"
 alias gddo="git diff develop \^origin/develop"
 alias gdv='git diff | $EDITOR -R - '
 alias gdw="git diff --word-diff"
+alias gg="git grep --line-number --show-function --context=4 --heading --color=always"
 alias gi="git info"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative"
 alias gla="git log --all --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative"
