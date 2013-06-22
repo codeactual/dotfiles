@@ -106,8 +106,6 @@ function installDependencies {
   "${packages[@]}"
 }
 
-export NODE_PATH=/usr/local/lib/node_modules
-
 if which tmux &> /dev/null; then
   echo "tmux sessions:"
   tmux list-session
