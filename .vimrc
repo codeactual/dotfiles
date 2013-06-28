@@ -235,4 +235,8 @@ let g:session_command_aliases = 1
 " Always show the status bar (vs. only when viewing multiple files).
 set laststatus=2
 
+" Opens the split in a new tab. Kind like 'distraction free' mode. (f)
+" https://github.com/Wolfy87/vim-config/commit/707e062fe1fb756c84aa3ffe7b0652c4a0676970
+nmap <leader>f :tab sp<CR>
+
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
