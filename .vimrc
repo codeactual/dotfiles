@@ -30,7 +30,7 @@ hi Search cterm=NONE ctermfg=white ctermbg=darkgrey
 hi Visual cterm=NONE ctermfg=white ctermbg=darkgrey
 
 " Highlight incremental serach matches (white fg, dark grey bg)
-hi IncSearch cterm=NONE ctermfg=white ctermbg=238
+hi IncSearch cterm=NONE ctermfg=white ctermbg=blue
 
 " Highlight line numbers
 hi LineNr cterm=NONE ctermfg=234 ctermbg=black
