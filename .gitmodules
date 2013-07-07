@@ -7,9 +7,6 @@
 [submodule ".vim/bundle/vim-css3-syntax"]
 	path = .vim/bundle/vim-css3-syntax
 	url = https://github.com/hail2u/vim-css3-syntax.git
-[submodule "zsh/bin/redis-faina"]
-	path = zsh/bin/redis-faina
-	url = https://github.com/Instagram/redis-faina.git
 [submodule ".vim/bundle/vim-json"]
 	path = .vim/bundle/vim-json
 	url = git://github.com/helino/vim-json.git
