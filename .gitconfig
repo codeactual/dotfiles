@@ -18,6 +18,6 @@
 [push]
 	default = tracking
 [core]
-	pager = less -r +g
+  pager = less --raw-control-chars --quit-if-one-screen --no-init
 [merge]
 	ff = false
