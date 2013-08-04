@@ -18,6 +18,6 @@
 [push]
 	default = tracking
 [core]
-	pager = less -r
+	pager = less -r +g
 [merge]
 	ff = false
