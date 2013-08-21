@@ -16,6 +16,7 @@ source ~/zsh/ruby.zsh
 source ~/zsh/node.zsh
 source ~/zsh/git.zsh
 source ~/zsh/svn.zsh
+source ~/zsh/ssh-agent.zsh
 
 ##########################
 ##### LOCAL INCLUDES #####
