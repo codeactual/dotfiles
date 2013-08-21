@@ -4,6 +4,9 @@ echo "Loading $0"
 ##### commandlinefu.com #####
 #############################
 
+## Open an SSH tunnel from local A to remote B in order to access local port X that maps to remote port Y bound to remote's 127.0.0.1.
+# ssh -L X:127.0.0.1:Y B
+
 # Compare a remote dir with a local dir
 # diff -y <(ssh user@host find /boot|sort) <(find /boot|sort)
 
