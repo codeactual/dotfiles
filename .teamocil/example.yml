@@ -1,0 +1,30 @@
+# - Append '-' to names that are also prefixes of related projects. Allows find-window to exact match.
+# - Prepend 'v' to vim windows.
+# - Prepend 't' to terminal-only windows.
+session:
+  name: "dev"
+  windows:
+    - name: "vdef"
+      root: "/path/to"
+      panes:
+      - cmd: "vim -c 'OpenSession default'"
+    - name: "tdef"
+      root: "/path/to"
+      panes:
+      - cmd: "clear; echo 'Loaded tdef'"
+    - name: "t2"
+      root: "/path/to"
+      panes:
+      - cmd: "clear; echo 'Loaded t3'"
+    - name: "t3"
+      root: "/path/to"
+      panes:
+      - cmd: "clear; echo 'Loaded t3'"
+    - name: "t4"
+      root: "/path/to"
+      panes:
+      - cmd: "clear; echo 'Loaded t4'"
+    - name: "t5"
+      root: "/path/to"
+      panes:
+      - cmd: "clear; echo 'Loaded t5'"
