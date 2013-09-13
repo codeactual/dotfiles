@@ -53,6 +53,7 @@ alias gs='git status'
 alias gss='git status -sb'
 alias gsh='git stash'
 alias gsha='git stash apply'                                        # Like pop but w/out modifying stash list.
+alias gshol='git show HEAD'
 alias gu="git reset HEAD"                                           # Unstage.
 
 # Delete the last line to undo the last commit.
