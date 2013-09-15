@@ -108,3 +108,22 @@ function gcat {
 function glfromtag {
   gl $1.. | sed 's/\* [a-z0-9]\+ \((HEAD, master) \)\?//g'
 }
+
+# Ex. find which branch a commit came from, which branches have it,
+# what commit merged it in, etc.
+function gtracecommit {
+  FROM=`git reflog show --all | grep $1`
+
+  if [ -z "$FROM" ]; then
+    echo "Not found."
+    return
+  fi
+
+  IN=`git branch --contains $1`
+  MERGED=`git log --merges $1`
+  echo "[Added to repo]\n$FROM"
+  echo "---------------------"
+  echo "[Present in branch(es)]\n$IN"
+  echo "---------------------"
+  echo "[Merged into other branch(s) via]\n$MERGED"
+}
