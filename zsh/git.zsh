@@ -22,7 +22,7 @@ alias gda="git diff; git diff --cached"
 alias gdaw="gdw; gdcw"
 alias gdc="git diff --cached"
 alias gdcw="git diff --cached --word-diff"
-alias gdl="git diff HEAD\^ HEAD"                                    # Diff of last commit.
+alias gdl="git diff HEAD\^ HEAD"                                    # Diff from last commit.
 alias gdmi="git diff origin/master \^master"
 alias gdmo="git diff master \^origin/master"
 alias gddi="git diff origin/develop \^develop"
@@ -126,4 +126,12 @@ function gtracecommit {
   echo "[Present in branch(es)]\n$IN"
   echo "---------------------"
   echo "[Merged into other branch(s) via]\n$MERGED"
+}
+
+function gdln {
+  OUTPUT=`git --no-pager diff HEAD~$1 HEAD`
+  OUTPUT+="\n\n"
+  OUTPUT+="Showed changes from these last $1 commits\n"
+  OUTPUT+=`git log --oneline -$1`
+  echo $OUTPUT | vim -
 }
