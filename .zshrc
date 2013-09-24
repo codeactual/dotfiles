@@ -106,10 +106,3 @@ function installDependencies {
   )
   "${packages[@]}"
 }
-
-if which tmux &> /dev/null; then
-  echo "tmux sessions:"
-  tmux list-session
-else
-  echo "tmux not installed"
-fi
