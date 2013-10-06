@@ -5,6 +5,7 @@ source ~/zsh/core.zsh
 #########################
 
 source ~/zsh/aliases.zsh
+source ~/zsh/irc.zsh
 source ~/zsh/android.zsh
 source ~/zsh/funcs.zsh
 source ~/zsh/gnome.zsh
