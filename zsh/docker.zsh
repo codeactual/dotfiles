@@ -1,8 +1,8 @@
 echo "Loading $0"
 
 alias dk="docker"
-alias dki="docker"
+alias dki="docker images"
 alias dklid="docker ps -l -q"
-alias dkps="docker ps"
+alias dkps="docker ps -a -s"
 alias dki="docker images -a -tree"
-alias dkri="docker run -i -t \$1 /bin/sh"
+alias dkr="docker run"
