@@ -27,3 +27,5 @@ if [ -d $LOCAL_ZSH_DIR ]; then
     source $file
   done
 fi
+
+PATH=$PATH:$HOME/docker/bin
