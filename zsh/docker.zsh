@@ -16,6 +16,9 @@ alias dkps="docker ps -a -s"
 alias dkr="docker run -rm=true"
 alias dkrnewest="dkr \`dkinewest\`"
 
+alias dkt="docker tag"
+alias dktnewest="dkt \$1 \`dkinewest\`"
+
 # Delete the oldest 20 containers that are at least about 1 hour old.
 alias dkrmold="docker ps -a | egrep 'day|week|hour' | tail -n 20 | awk '{print \$1}' | xargs docker rm; docker ps -a"
 
