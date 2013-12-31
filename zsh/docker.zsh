@@ -7,12 +7,14 @@ alias dkb="docker build -rm"
 
 alias dki="docker images -a"
 alias dkit="docker images -a -tree"
+alias dkinewest="docker images | grep '<none>' | head -1 | awk '{print \$3}'"
 
 # ID of last container
 alias dklc="docker ps -l -q"
 
 alias dkps="docker ps -a -s"
-alias dkr="docker run"
+alias dkr="docker run -rm=true"
+alias dkrnewest="dkr \`dkinewest\`"
 
 # Delete the oldest 20 containers that are at least about 1 hour old.
 alias dkrmold="docker ps -a | egrep 'day|week|hour' | tail -n 20 | awk '{print \$1}' | xargs docker rm; docker ps -a"
