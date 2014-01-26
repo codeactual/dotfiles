@@ -14,4 +14,5 @@
       au! BufRead,BufNewFile    *.wiki          setfiletype text|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    php-fpm.conf          setfiletype dosini|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufReadPost           /tmp/crontab.*  set backupcopy=yes
+      au BufRead,BufNewFile     */nginx/* if &ft == '' | setfiletype nginx | endif
     augroup END
