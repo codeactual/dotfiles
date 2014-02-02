@@ -12,7 +12,8 @@ alias dkinewest="docker images | grep '<none>' | head -1 | awk '{print \$3}'"
 # ID of last container
 alias dklc="docker ps -l -q"
 
-alias dkps="docker ps -a -s"
+alias dkps="docker ps -s"
+alias dkpsa="docker ps -a -s"
 alias dkr="docker run -rm=true"
 alias dkrnewest="dkr \`dkinewest\`"
 
