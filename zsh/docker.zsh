@@ -5,6 +5,7 @@ alias dk="docker"
 # -rm: Remove intermediate containers
 alias dkb="docker build -rm"
 
+alias dkd="docker diff"
 alias dki="docker images -a"
 alias dkit="docker images -a -tree"
 alias dkilast="docker images | grep '<none>' | head -1 | awk '{print \$3}'"
