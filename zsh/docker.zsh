@@ -25,7 +25,7 @@ alias dktlast="dkt \`dkilast\` \$1"
 alias dkrmold="docker ps -a | egrep 'day|week|hour' | tail -n 20 | awk '{print \$1}' | xargs docker rm; docker ps -a"
 
 # Delete the oldest 20 images that are at least about 1 hour old.
-alias dkrmiold="docker images | egrep '<none>.*day|week|hour' | tail -n 20 | sort --reverse | awk '{print \$1}' | xargs docker rmi; docker images"
+alias dkrmiold="docker images | egrep '<none>.*(day|week|hour)' | tail -n 20 | sort --reverse | awk '{print \$3}' | xargs docker rmi; docker images"
 
 LOCAL_ZSH_DIR=$HOME/docker/zsh
 if [ -d $LOCAL_ZSH_DIR ]; then
