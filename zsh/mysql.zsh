@@ -1,5 +1,11 @@
 echo "Loading $0"
 
+# Unpack tarballs here with x.y.z directory names.
+export SANDBOX_BINARY"=/opt/mysql/msb_binaries"
+
+# MySQL Sandbox CLI will install new servers here.
+export SANDBOX_HOME="/opt/mysql/msb_sandboxes"
+
 function mysqltail {
   if [ -z "$1" ]; then
     echo "Line count missing."
