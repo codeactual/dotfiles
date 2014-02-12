@@ -22,9 +22,12 @@ our @EXPORT_OK= qw( is_port_open
                     get_ranges
                     use_env
                     sbinstr
-                    get_option_file_contents ) ;
+                    get_json_from_dirs
+                    get_option_file_contents 
+                    validate_json_object
+                    ) ;
 
-our $VERSION="3.0.26";
+our $VERSION="3.0.43";
 our $DEBUG;
 
 BEGIN {
@@ -54,11 +57,15 @@ BEGIN {
         if ( -d "$ENV{HOME}/opt/mysql") {
             $ENV{SANDBOX_BINARY} = "$ENV{HOME}/opt/mysql";
         }
+        else
+        {
+            $ENV{SANDBOX_BINARY} = '';
+        }
     }
 }
 
 my @supported_versions = qw( 3.23 4.0 4.1 5.0 5.1 5.2 5.3 5.4 
-    5.5 5.6 5.7 5.8 6.0);
+    5.5 5.6 5.7 5.8 6.0 10.0);
 
 our $sandbox_options_file    = "my.sandbox.cnf";
 # our $sandbox_current_options = "current_options.conf";
@@ -119,16 +126,16 @@ sub find_safe_port_and_directory {
     my ($wanted_port, $wanted_dir, $upper_directory) = @_;
     my $chosen_port = $wanted_port;
     my ($ports, undef) = get_sb_info( $ENV{SANDBOX_HOME}, undef); 
-    print Dumper($ports);
+    # print Dumper($ports);
     while ( is_port_open($chosen_port) or exists $ports->{$chosen_port}) {
         $chosen_port++;
         $chosen_port = first_unused_port($chosen_port);
-        print "checking -> $chosen_port\n";
+        # print "checking -> $chosen_port\n";
     }
     my $suffix = 'a';
     my $chosen_dir = $wanted_dir;
     while ( -d "$upper_directory/$chosen_dir" ) {
-        print "checking -> $chosen_dir\n";
+        # print "checking -> $chosen_dir\n";
         $chosen_dir = $wanted_dir . '_' . $suffix;
         $suffix++;
     }
@@ -226,8 +233,127 @@ sub credits {
     my ($self) = @_;
     my $CREDITS = 
           qq(    The MySQL Sandbox,  version $VERSION\n) 
-        . qq(    (C) 2006-2012 Giuseppe Maxia\n);
+        . qq(    (C) 2006-2013 Giuseppe Maxia\n);
     return $CREDITS;
+}
+
+sub validate_json_object {
+    my ($json_filename, $json_text) = @_;
+
+    eval "use JSON;";
+    if ($@)
+    {
+        # print "# JSON module not installed - skipped evaluation\n";
+        return -1;
+    }
+
+    unless ($json_text)
+    {
+        $json_text = slurp($json_filename);
+    }
+    my $json = JSON->new->allow_nonref;
+
+    my $perl_value;
+    eval {
+        $perl_value = $json->decode( $json_text );
+    };
+    if ($@)
+    {
+        # print "error decoding json object\n";
+        return ;
+    }
+    return 1;
+}
+
+sub slurp {
+    my ($filename, $skip_blanks, $skip_comments ) = @_;
+    open my $FH , q{<}, $filename
+        or die "file '$filename' not found\n";
+    my @text_array = ();
+    my $text='';
+    while (my $line = <$FH>)
+    {
+        if ($skip_blanks)
+        {
+            next if $line =~ /^\s*$/;
+        }
+        if ($skip_comments)
+        {
+            next if $line =~ /^\s*#/;
+        }
+        if (wantarray)
+        {
+            push @text_array, $line;
+        }
+        else
+        {
+            $text .= $line;
+        }
+    }
+    close $FH;
+    if (wantarray)
+    { 
+        return @text_array;
+    }
+    else
+    {
+        return $text;
+    }
+}
+
+sub get_json_from_dirs {
+    my ($directories, $json_file) = @_;
+    my $collective_json = '';
+    my $indent = '    ';
+    for my $dir (@$directories)
+    {
+        my $filename = "$dir/$json_file";
+        if ($collective_json)
+        {
+            $collective_json .= ",\n"
+        }
+        else
+        {
+            $collective_json = "{\n";
+        }
+        $collective_json .= qq("$dir":  \n);
+        if ( -f $filename)
+        {
+            # get the contents
+            my @json_lines = slurp($filename, 'skip_blanks');
+            for my $jl (@json_lines)
+            {
+                $collective_json .= $indent . $jl;
+            }
+        }
+        else
+        {
+            if ($DEBUG)
+            {
+                warn "# No connection.json found in $dir\n";
+                my ($package, $filename, $line) = caller;
+                warn "# called from $package - $filename - $line \n";
+            }
+            $collective_json .= "{}";
+        }
+    }
+    $collective_json .= "}";
+    my $is_valid_json = validate_json_object(undef, $collective_json);
+    if ($is_valid_json && ($is_valid_json == -1))
+    {
+        if ($DEBUG)
+        {
+            warn "# Could not validate JSON object\n";
+        }
+    }
+    elsif ( ! $is_valid_json)
+    {
+        warn "Invalid JSON object in $ENV{PWD} from [@$directories] \n";
+        $collective_json = qq({ "comment": "WARNING: invalid JSON object", "original" : )
+            . $collective_json 
+            . "\n}";
+    }
+    return $collective_json;
 }
 
 #sub get_version {
@@ -929,54 +1055,54 @@ The test suite, C<test_sandbox>, recognizes two environment variables
    sandboxes created by test_sandbox. It is useful to inspect sandboxes
    if a test fails.
 
-=head2 sb - the Sandbox shortcut
+=head2 msb - the Sandbox shortcut
 
 When you have many sandboxes, even the simple exercise of typing the path to the appropriate 'use' script can be tedious and seemingly slow.
 
-If saving a few keystrokes is important, you may consider using C<sb>, the sandbox shortcut.
-You invoke 'sb' with a version number, without dots or underscores. The shortcut script will try its best at finding the right directory.
+If saving a few keystrokes is important, you may consider using C<msb>, the sandbox shortcut.
+You invoke 'msb' with a version number, without dots or underscores. The shortcut script will try its best at finding the right directory.
 
-  $ sb 5135
+  $ msb 5135
   # same as calling 
   # $SANDBOX_HOME/msb_5_1_35/use
 
 Every option that you use after the version is passed to the 'use' script.
 
-  $ sb 5135 -e "SELECT VERSION()"
+  $ msb 5135 -e "SELECT VERSION()"
   # same as calling 
   # $SANDBOX_HOME/msb_5_1_35/use -e "SELECT VERSION()"
 
 Prepending a "r" to the version number indicates a replication sandbox. If the directory is found, the script will call the master.
 
-  $ sb r5135
+  $ msb r5135
   # same as calling 
   # $SANDBOX_HOME/rsandbox_5_1_35/m
 
 To use a slave, use the corresponding number immediately after the version.
 
-  $ sb r5135 2
+  $ msb r5135 2
   # same as calling 
   # $SANDBOX_HOME/rsandbox_5_1_35/s2
 
 Options for the destination script are added after the node indication.
 
-  $ sb r5135 2 -e "SELECT 1"
+  $ msb r5135 2 -e "SELECT 1"
   # same as calling 
   # $SANDBOX_HOME/rsandbox_5_1_35/s2 -e "SELECT 1"
 
 Similar to replication, you can call multiple sandboxes, using an 'm' before the version number.
 
-  $ sb m5135
+  $ msb m5135
   # same as calling 
   # $SANDBOX_HOME/multi_msb_5_1_35/n1
 
-  $ sb m5135 2
+  $ msb m5135 2
   # same as calling 
   # $SANDBOX_HOME/multi_msb_5_1_35/n2
 
 If your sandbox has a non-standard name and you pass such name instead of a version, the script will attempt to open a single sandbox with that name.
 
-  $ sb testSB
+  $ msb testSB
   # same as calling 
   # $SANDBOX_HOME/testSB/use
 
@@ -984,9 +1110,9 @@ If the identified sandbox is not active, the script will attempt to start it.
 
 This shortcut script doesn't deal with any sandbox script other than the ones listed in the above examples.
 
-But the sb can do even more. If you invoke it with a dotted version number, the script will run the appropriate make*sandbox script and then use the sandbox itself.
+But the msb can do even more. If you invoke it with a dotted version number, the script will run the appropriate make*sandbox script and then use the sandbox itself.
 
-  $ sb 5.1.35
+  $ msb 5.1.35
   # same as calling 
   # make_sandbox 5.1.35 --no_confirm
   # and then
@@ -994,7 +1120,7 @@ But the sb can do even more. If you invoke it with a dotted version number, the 
 
 It works for group sandboxes as well.
 
-  $ sb r5.1.35
+  $ msb r5.1.35
   # same as calling 
   # make_replication_sandbox 5.1.35 
   # and then
@@ -1002,13 +1128,13 @@ It works for group sandboxes as well.
 
 And finally, it also does What You Expect when using a tarball instead of a version.
 
-  $ sb mysql-5.1.35-YOUR_OS.tar.gz
+  $ msb mysql-5.1.35-YOUR_OS.tar.gz
   # creates and uses a single sandbox from this tarball
 
-  $ sb r mysql-5.1.35-YOUR_OS.tar.gz
+  $ msb r mysql-5.1.35-YOUR_OS.tar.gz
   # creates and uses a replication sandbox from this tarball
 
-  $ sb m mysql-5.1.35-YOUR_OS.tar.gz
+  $ msb m mysql-5.1.35-YOUR_OS.tar.gz
   # creates and uses a multiple sandbox from this tarball
 
 Using a MySQL server has never been easier.
@@ -1363,7 +1489,7 @@ Bash shell
 
 Version 3.0
 
-Copyright (C) 2006-2012 Giuseppe Maxia
+Copyright (C) 2006-2013 Giuseppe Maxia
 
 Home Page  http://launchpad.net/mysql-sandbox/
 

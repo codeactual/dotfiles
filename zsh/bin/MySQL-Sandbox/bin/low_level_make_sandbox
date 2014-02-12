@@ -246,12 +246,61 @@ my %replace_options = (
     _MORE_OPTIONS_      => 'more_options',
     _MYSQL_PROMPT_      => 'mysql_prompt',
     _MYSQLDSAFE_        => 'mysqld_safe',
+    _EVENTS_OPTIONS_    => 'events_options',
+    _SLOW_QUERY_LOG_    => 'slow_query_log',
+    _GENERAL_LOG_       => 'general_log',
+    _BIND_ADDRESS_      => 'bind_address',
+    _MSB_VERSION_       =>  'msb_version',
 );
+
+$msb->{options}{msb_version} = $MySQL::Sandbox::VERSION;
 
 if ($msb->{options}{db_user} =~ /\@/) {
     my ($user, $host) = split /\@/, $msb->{options}{db_user};
     $msb->{options}{db_user} = $user;
     $msb->{options}{remote_access} = $host; 
+}
+
+
+if (
+       ($msb->{options}{remote_access} eq $MySQL::Sandbox::default_users{remote_access}) 
+    && ($msb->{options}{bind_address} eq '127.0.0.1')
+    ) 
+{
+    # Do nothing.
+    # Make sure that we honor the defaults
+    #
+}
+elsif (
+       ($msb->{options}{remote_access} ne $MySQL::Sandbox::default_users{remote_access}) 
+    && ($msb->{options}{bind_address} ne '127.0.0.1')
+    ) 
+{
+    # Do nothing.
+    # Both defaults were changed.
+    # Make sure that we let user change both values
+    #
+}
+elsif (
+       ($msb->{options}{remote_access} ne $MySQL::Sandbox::default_users{remote_access}) 
+    && ($msb->{options}{remote_access} ne '127.0.0.1') 
+    && ($msb->{options}{bind_address} eq '127.0.0.1')
+    ) 
+{
+    # remote_access changed. Make sure that we can access the server
+    $msb->{options}{bind_address} = '0.0.0.0';
+}
+elsif (
+       ($msb->{options}{bind_address} ne '0.0.0.0') 
+    && ($msb->{options}{remote_access} ne '%')
+    ) 
+{
+    # Customized bind address
+    # We adjust the remote access to match it
+    $msb->{options}{remote_access} = $msb->{options}{bind_address};
+}
+elsif ($msb->{options}{bind_address} ne '127.0.0.1') {
+    $msb->{options}{remote_access} = $msb->{options}{bind_address};
 }
 
 for my $opt (qw(db_user remote_access ro_user rw_user repl_user db_password repl_password)) {
@@ -356,6 +405,32 @@ die "server version required.\n" unless $msb->{options}{'install_version'};
 
 unless (grep {$_ eq $msb->{options}{'install_version'} } @supported_versions ) {
     get_help( "specified version ($msb->{options}{'install_version'}) not allowed. Currently accepted are [@supported_versions] ");
+}
+
+#
+# 
+#
+# print "<<$msb->{options}{ 'install_version' }>>\n";
+if ($msb->{options}{ 'install_version' } ge '5.5' ) {
+    $msb->{options}{events_options} = ' --events ';
+}
+else
+{
+    $msb->{options}{events_options} = '';
+}
+
+my $sb_datadir = qq($msb->{options}{upper_directory}/$msb->{options}{sandbox_directory}/data);
+if ($msb->{options}{ 'install_version' } ge '5.1' ) {
+    $msb->{options}{'slow_query_log'} = 
+          qq(slow-query-log = on\n)
+        . qq(# slow-query-log-file=$sb_datadir/msandbox-slow.log);
+    $msb->{options}{'general_log'} = 
+          qq(general-log = on\n)
+        . qq(# general-log-file=$sb_datadir/msandbox-general.log);
+} 
+else {
+    $msb->{options}{'slow_query_log'} = qq(log-slow-queries = $sb_datadir/msandbox-slow.log);
+    $msb->{options}{'general_log'} = qq(log = $sb_datadir/msandbox-general.log) ;
 }
 
 if ($msb->{options}{ 'install_version' } eq '3.23' ) {
@@ -543,9 +618,16 @@ if ($msb->{options}{datadir_from} eq 'script' ) {
         if ($DEBUG) {
             print "$cmd $additional_options\n";
         }
-        my $result = qx($cmd $additional_options);
-        if ($CHILD_ERROR) {
+        my $result = qx($cmd $additional_options 2>&1);
+        if (($CHILD_ERROR) or ($result && ($result =~ /\berror\b/i))) {
             die "error while creating grant tables\n$result\n";
+        }
+        if ($DEBUG)
+        {
+            while ($result =~/(.*warning.*)/ig)
+            {
+                print "++ $1\n";
+            }
         }
         for my $table_name (qw(user db tables_priv columns_priv)) {
             die "table $table_name not installed\n"
@@ -701,7 +783,7 @@ sub copy_and_replace {
             and ($destination_filename =~ /my\.sandbox.cnf/)) {
             $new_value =~ s/\@.*//g; 
         }
-        unless ($new_value)
+        unless (defined $new_value)
         {
             die "can't find a value for '$key'\n";
         }
@@ -715,6 +797,19 @@ sub copy_and_replace {
         my $better_name = $newname;
         $better_name =~ s/\.(?:sh|pl)$//;
         rename $newname, $better_name;
+    }
+    elsif ($newname =~ /\.json$/ )
+    {
+        print "#validating $newname for JSON contents\n" if $DEBUG;
+        my $is_json = MySQL::Sandbox::validate_json_object($newname);
+        if ($is_json && ($is_json == -1))
+        {
+            warn "Can't validate JSON in $newname\n" if $DEBUG;
+        }
+        elsif (! $is_json)
+        {
+            warn "# JSON object inside newname is not valid\n";
+        }
     }
     return;
 }
@@ -837,7 +932,7 @@ sub check_sandbox_dir {
 
 sub check_tmp_dir {
     my $tmpdir = $ENV{'TMPDIR'} || $ENV{'TEMPDIR'};
-    print ">>$tmpdir\n";
+    # print ">>$tmpdir\n";
     if (! -d $tmpdir) {
         die ("can't find tmp directory $tmpdir\n");    
     }

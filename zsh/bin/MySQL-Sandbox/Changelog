@@ -1,6 +1,91 @@
+3.0.43	24-Oct-2013
+	- Fixed bug#1155517 The "my" scripts excludes mysql_upgrade from
+	--default-options incorrectly 
+	- Also added mysql_config_editor to the scripts that should not get
+	defaults-options
+3.0.42	30-Sep-2013
+	- Fixed bug in sb renaming. The new name was not updated in the MANIFEST
+3.0.41	30-Sep-2013
+	- INCOMPATIBLE CHANGE: Renamed 'sb' to 'msb' to avoid name clashes in
+	- INCOMPATIBLE CHANGE: Renamed 'sb' to 'msb' to avoid name clashes in
+	Linux distributions
+3.0.40	12-Jul-2013
+	- enhanced deploy_to_remote_sandboxes.sh with the ability of using a
+	template my.cnf for remote deployment (-y file-name)
+3.0.39	29-May-2013
+	- added server_id option to deploy_to_remote_sandboxes
+	- added info about group directory to multiple sandbox 'start/stop/clear'
+	scripts
+	- added ruby connection info to connection.json
+	- Fixed display bug in credits (were reported twice in replication README)
+3.0.38	05-May-2013
+	- Fixed typos and formatting in embedded docs.
+3.0.37	05-May-2013
+	- Added connection samples (for PHP, Perl, Python, Java, shell) to 'connection.json'
+	- Added validation tests for JSON contents
+3.0.36	04-May-2013
+	- IMPORTANT CHANGES:
+	  - Added connection.json to each sandbox (simple or multiple) The file
+	  contains information to use the sandbox with third party applications.
+	  - Added default_connection.json to each sandbox (it has only the default
+	  items from connection.json)
+	  - Added README file to each sandbox (simple or multiple)
+	- enhanced check_slaves. It now includes "show master status";
+	- Fixed bug in circular replication: enable_gtid was not created;
+	- Added 25 more integrity tests;
+	- Changed default version for testing. It now looks for MySQL 5.5.31
+3.0.35	03-May-2013
+	- Fixed bug in the 'check_slaves' script created with circular replication
+	- Fixed bug in 'clear_all' script created in circular replication
+	- added 50 new integrity tests to test_sandbox
+3.0.34	29-Apr-2013
+	- Added option --bind_address, to define how MySQL::Sandbox servers
+	connect to TCP/IP
+	- Fixed bug with handling 5.7 builds. Replicated systems did not create
+	the script enable_gtid 	(BUG#1171977)
+	- The changes made by enable_gtid are now durable (Bug#1171986)
+	- Fixed various patterns that prevented MariaDB 10.0 builds from being
+	recognized.
+	- Fixed bug in test_sandbox, where warning messages were mixed with the
+	test output in MYSQL 5.5.30+
+	- Fixed bug in test_sandbox, where a test that skips innodb was being
+	wrongly applied to MySQL 5.7
+	- Added 10.0 among supported versions
+	- Added documentation about remote sandboxes (in MySQL::Sandbox::Recipes)
+	- Added a test that checks if enable_gtid is created when needed.
+3.0.33	11-Apr-2013
+	- Fixed Bug #1167794 '--log option deprecated'
+	- fixed minot working issue in deploy_to_remote_sandboxes.sh
+3.0.32	12-Mar-2013
+	- Fixed minor bug in deploy_to_remote_sandboxes.sh
+	- Added deploy_to_remote_sandboxes.sh to the list of scripts to install
+3.0.31	08-Mar-2013
+	- Fixed Bug#1133186 make_sandbox_from_source does not recognize version
+	- removed diagnostic lines that printed MySQL version and temporary
+	directory
+	- removed diagnostic lines that printed ports and directories being
+	searched when the option --check_port was used
+	- added bin/deploy_to_remote_sandboxes.sh, which installs sandboxes to
+	remote hosts
+3.0.30	06-Feb-2013
+	- Fixed Bug#1116760 Uninitalized $ENV{"SANDBOX_BINARY"} 
+	- Removed obnoxious warning introduced in MySQL 5.5.30 when using
+	mysqldump
+3.0.29	24-Jan-2013
+	- fixed bug#1103918 (affects sandboxes using MySQL 4.1)
+3.0.28	06-Jan-2013
+	- changed initialization scripts to avoid most of the annoying messages
+	that MySQL 5.6 creates during tests 
+	- Added script to enable GTID in MySQL 5.6
+3.0.27	05-Jan-2013
+	- added compatibility features to use MySQL 5.6
+	  # improved 'clear' and 'start' scripts to handle innodb tables in the
+	  'mysql' database
+	  # fixed usage of deprecated features in tests 
+	  # removed obnoxious listing when data directory is created
 3.0.26	30-Sep-2012
 	- Removed dependency on table mysql.host, which can't be found anymore in
-	MySQL 5.6.7
+		MySQL 5.6.7
 3.0.25	01-Feb-2012
 	- fixed typos and credits. (Thanks to Mateusz Kijowski for noticing)
 3.0.24	17-Dec-2011

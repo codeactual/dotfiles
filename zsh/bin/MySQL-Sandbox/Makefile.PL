@@ -11,7 +11,7 @@ WriteMakefile(
                             'Socket'     => 1.7,
                          }, 
     EXE_FILES         => [
-                            'bin/sb',
+                            'bin/msb',
                             'bin/msandbox',
                             'bin/sbtool',
                             'bin/test_sandbox',
@@ -22,7 +22,9 @@ WriteMakefile(
                             'bin/make_replication_sandbox',
                             'bin/make_multiple_sandbox',
                             'bin/make_multiple_custom_sandbox',
+                            'bin/deploy_to_remote_sandboxes.sh',
                          ],
+    LICENSE         => 'gpl',
     ($] >= 5.005 ?     
       (
        ABSTRACT_FROM  => 'lib/MySQL/Sandbox.pm',

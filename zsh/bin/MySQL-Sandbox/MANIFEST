@@ -5,10 +5,11 @@ bin/make_replication_sandbox
 bin/make_sandbox
 bin/make_sandbox_from_source
 bin/make_sandbox_from_installed
-bin/sb
+bin/msb
 bin/msandbox
 bin/sbtool
 bin/test_sandbox
+bin/deploy_to_remote_sandboxes.sh
 Changelog
 COPYING
 lib/MySQL/Sandbox.pm
@@ -17,7 +18,6 @@ lib/MySQL/Sandbox/Recipes.pm
 Makefile.PL
 MANIFEST
 README
-META.yml                                 Module meta-data (added by MakeMaker)
 t/01_modules.t
 t/02_test_binaries.t
 t/03_test_sandbox.t
@@ -49,3 +49,4 @@ t/innodb_plugin_install.sb.pl
 t/semi_synch_plugin_install.sb.pl
 t/16_replication_options.t
 t/replication_options.sb.pl
+META.yml                                 Module meta-data (added by MakeMaker)
