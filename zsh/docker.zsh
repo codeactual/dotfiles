@@ -16,6 +16,7 @@ alias dklc="docker ps -l -q"
 alias dkps="docker ps -s"
 alias dkpsa="docker ps -a -s"
 alias dkr="docker run -rm=true"
+alias dkrd="docker run -d"
 alias dkrlast="dkr \`dkilast\`"
 
 alias dkt="docker tag"
