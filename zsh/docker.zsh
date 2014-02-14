@@ -28,6 +28,8 @@ alias dkrmold="docker ps -a | egrep 'day|week|hour' | tail -n 20 | awk '{print \
 # Delete the oldest 20 images that are at least about 1 hour old.
 alias dkrmiold="docker images | egrep '<none>.*(day|week|hour)' | tail -n 20 | sort --reverse | awk '{print \$3}' | xargs docker rmi; docker images"
 
+alias dk-master-install="docker -v; sudo service docker stop ; sudo cp \$(which docker) \$(which docker)_ ; sudo cp ./bundles/*-dev/binary/docker-*-dev $(which docker); sudo service docker start; docker -v"
+
 LOCAL_ZSH_DIR=$HOME/docker/zsh
 if [ -d $LOCAL_ZSH_DIR ]; then
   for file in $LOCAL_ZSH_DIR/*.zsh
