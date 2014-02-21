@@ -6,8 +6,9 @@ alias dk="docker"
 alias dkb="docker build -rm"
 
 alias dkd="docker diff"
-alias dki="docker images -a"
-alias dkit="docker images -a -tree"
+alias dki="docker images"
+alias dkia="docker images -a"
+alias dkiat="docker images -a -tree"
 alias dkilast="docker images | grep '<none>' | head -1 | awk '{print \$3}'"
 
 alias dkinip="docker inspect -format '{{ .NetworkSettings.IPAddress }}' \$1"
