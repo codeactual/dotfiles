@@ -83,3 +83,4 @@ push
 docker
 .config
 .google_authenticator
+*.pyc
