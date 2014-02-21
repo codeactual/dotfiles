@@ -15,5 +15,5 @@
       au! BufRead,BufNewFile    php-fpm.conf          setfiletype dosini|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufReadPost           /tmp/crontab.*  set backupcopy=yes
       au BufRead,BufNewFile     */nginx/* if &ft == '' | setfiletype nginx | endif
-      au BufRead,BufNewFile     */etcd/*.conf if &ft == '' | setfiletype toml | endif
+      au BufRead,BufNewFile     */\(etc\|conf\)d/*.conf if &ft == '' | setfiletype toml | endif
     augroup END
