@@ -34,10 +34,14 @@ alias dkrmiold="docker images | egrep '<none>.*(minute|day|week|hour)' | tail -n
 alias dk-master-install="docker -v; sudo service docker stop ; sudo cp \$(which docker) \$(which docker)_ ; sudo cp ./bundles/*-dev/binary/docker-*-dev $(which docker); sudo service docker start; docker -v"
 
 LOCAL_ZSH_DIR=$HOME/docker/zsh
+FIRST="$LOCAL_ZSH_DIR/vars.zsh"
 if [ -d $LOCAL_ZSH_DIR ]; then
+  source $FIRST
   for file in $LOCAL_ZSH_DIR/*.zsh
   do
-    source $file
+    if [[ "$file" != "$FIRST" ]]; then
+      source $file
+    fi
   done
 fi
 
