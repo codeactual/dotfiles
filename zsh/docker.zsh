@@ -3,7 +3,7 @@ echo "Loading $0"
 alias dk="docker"
 
 # -rm: Remove intermediate containers
-alias dkb="docker build -rm"
+alias dkb="docker build"
 
 alias dkd="docker diff"
 alias dki="docker images"
@@ -18,7 +18,7 @@ alias dklc="docker ps -l -q"
 
 alias dkps="docker ps -s"
 alias dkpsa="docker ps -a -s"
-alias dkr="docker run -rm=true"
+alias dkr="docker run --rm=true"
 alias dkrd="docker run -d"
 alias dkrlast="dkr \`dkilast\`"
 
