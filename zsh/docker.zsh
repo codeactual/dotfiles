@@ -11,7 +11,7 @@ alias dkia="docker images -a"
 alias dkiat="docker images -a -tree"
 alias dkilast="docker images | grep '<none>' | head -1 | awk '{print \$3}'"
 
-alias dkinip="docker inspect -format '{{ .NetworkSettings.IPAddress }}' \$1"
+alias dkinip="docker inspect --format '{{ .NetworkSettings.IPAddress }}' \$1"
 
 # ID of last container
 alias dklc="docker ps -l -q"
