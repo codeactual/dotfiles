@@ -16,6 +16,7 @@ alias connected_ips="netstat -lantp | grep ESTABLISHED |awk '{print \$5}' | awk 
 alias lsof-inet="lsof -i -U"
 alias lsof-open-owners="lsof -i -P | grep -i 'listen'"
 alias resmem="ps -Aely --sort:rss | awk '{print \$NF\": \"\$8/1024\" MB\"}' | column -t"  # http://www.commandlinefu.com/commands/view/9847/find-and-sort-by-resident-size-of-each-process-on-the-system-in-mb
+alias topmem="ps -eo rss,pid,user,command --sort -rss | tail -n +2 | head -n \$1"
 alias top="top -c"
 alias psnow="ps auxf | egrep --color=always --context=10 \$@"
 
