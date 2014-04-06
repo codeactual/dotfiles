@@ -21,3 +21,5 @@
   pager = less --raw-control-chars --quit-if-one-screen --no-init
 [merge]
 	ff = false
+[alias]
+    checkpoint = git stash; git stash apply

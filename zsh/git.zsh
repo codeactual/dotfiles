@@ -7,6 +7,7 @@ alias g=git
 alias ga='git add'
 alias gamend="git commit --amend"                                   # Amend last commit.
 alias gap='git add --patch'
+alias gcheckpoint='git stash && git stash apply'                            # http://stackoverflow.com/questions/1981830/undo-part-of-unstaged-changes-in-git
 alias gble="git blame -C"                                           # Blame last editor (not last mover/copier).
 alias gb='git branch'
 alias gbr='git branch -r'
