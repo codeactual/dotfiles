@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+
+/**
+ * Because `david` and `npm update` aren't mind readers.
+ */
+
+var fs = require('fs');
+var child_process = require('child_process');
+var filename = './package.json';
+var sprintf = require('util').format;
+
+function abort() {
+  console.error.apply(console, arguments);
+  process.exit(1);
+}
+
+if (!fs.existsSync(filename)) {
+  abort('not found: package.json');
+}
+
+var type = process.argv[2];
+var validTypes = {
+  prod: {
+    section: 'dependencies',
+    flag: 'save',
+  },
+  dev: {
+    section: 'devDependencies',
+    flag: 'save-dev'
+  }
+};
+var validTypeNames = Object.keys(validTypes);
+var selectedTypes = {};
+
+if (type) {
+  if (validTypeNames.indexOf(type) === -1) {
+    abort('invalid type: %s', type);
+  } else {
+    selectedTypes[type] = true;
+  }
+} else {
+  validTypeNames.forEach(function(t) {
+    selectedTypes[t] = true;
+  });
+}
+
+var manifest = require(filename);
+var cmds = [];
+
+Object.keys(selectedTypes).forEach(function(t) {
+  var section = validTypes[t].section;
+  var flag = validTypes[t].flag;
+
+  if (!manifest[section]) {
+    abort('not found: %s', t);
+  }
+
+  var toUpgrade = [];
+  Object.keys(manifest[section]).forEach(function(name) {
+    toUpgrade.push(name);
+  });
+
+  if (toUpgrade.length) {
+    cmds.push(['install', '--' + flag].concat(toUpgrade));
+  }
+});
+
+(function runCmds(list) {
+  if (list.length) {
+    var args = list.pop();
+    console.log('\nnpm %s\n', args.join(' '));
+    var proc = child_process.spawn('npm', args, {stdio: 'inherit'});
+    proc.on('close', function (code) {
+      if (code) {
+        abort('exited with %d: npm %s', code, args.join(' '));
+      }
+      runCmds(list);
+    });
+  }
+})(cmds);
