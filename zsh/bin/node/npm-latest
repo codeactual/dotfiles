@@ -6,7 +6,7 @@
 
 var fs = require('fs');
 var child_process = require('child_process');
-var filename = './package.json';
+var filename = process.cwd() + '/package.json';
 var sprintf = require('util').format;
 
 function abort() {
@@ -52,11 +52,15 @@ Object.keys(selectedTypes).forEach(function(t) {
   var flag = validTypes[t].flag;
 
   if (!manifest[section]) {
-    abort('not found: %s', t);
+    return;
   }
 
   var toUpgrade = [];
   Object.keys(manifest[section]).forEach(function(name) {
+    var semver = manifest[section][name];
+    if (/^(http:|https:|git:|\/)/.test(semver)) {
+      return;
+    }
     toUpgrade.push(name);
   });
 
