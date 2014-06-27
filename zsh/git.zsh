@@ -24,8 +24,6 @@ alias gdaw="gdw; gdcw"
 alias gdc="git diff --cached"
 alias gdcw="git diff --cached --word-diff"
 alias gdl="git diff HEAD\^ HEAD"                                    # Diff from last commit.
-alias gdmi="git diff origin/master \^master"
-alias gdmo="git diff master \^origin/master"
 alias gddi="git diff origin/develop \^develop"
 alias gddo="git diff develop \^origin/develop"
 alias gdv='git diff | $EDITOR -R - '
@@ -39,8 +37,6 @@ alias gld="git log -- \$1"                                          # Search log
 alias glf="git log --follow -p"                                     # Search log for changes to a path w/ diffs.
 alias gln="git log --name-status"
 alias glp="git log -p -40 | vim - -R -c 'set foldmethod=syntax' -O1"
-alias glmi="git log --name-status origin/master \^master"
-alias glmo="git log --name-status master \^origin/master"
 alias glsfi="git ls-files --others -i --exclude-standard"            # Ignore files.
 alias glsfm="git ls-files -m"                                        # Modified files.
 alias glst="git log --stat"
@@ -108,6 +104,28 @@ function gcat {
 
 function glfromtag {
   gl $1.. | sed 's/\* [a-z0-9]\+ \((HEAD, master) \)\?//g'
+}
+
+function get_current_branch {
+  local CUR_BRANCH=`git branch 2>/dev/null| sed -n '/^\*/s/^\* //p'`
+  echo $CUR_BRANCH
+}
+
+function gdo {
+  CUR_BRANCH=$(get_current_branch)
+  git diff $@ $CUR_BRANCH \^origin/$CUR_BRANCH
+}
+
+function gdoi {
+  git diff $@ \^origin/$CUR_BRANCH $CUR_BRANCH
+}
+
+function glo {
+  git log $@ --name-status $CUR_BRANCH \^origin/$CUR_BRANCH
+}
+
+function gloi {
+  git log $@ --name-status \^origin/$CUR_BRANCH $CUR_BRANCH
 }
 
 # Ex. find which branch a commit came from, which branches have it,
