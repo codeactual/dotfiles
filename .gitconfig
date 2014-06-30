@@ -21,5 +21,8 @@
   pager = less --raw-control-chars --quit-if-one-screen --no-init
 [merge]
 	ff = false
+  renamelimit = 1000
+[clean]
+  requireForce = true
 [alias]
     checkpoint = git stash; git stash apply
