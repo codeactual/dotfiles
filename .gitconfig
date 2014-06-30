@@ -21,7 +21,7 @@
   pager = less --raw-control-chars --quit-if-one-screen --no-init
 [merge]
 	ff = false
-  renamelimit = 1000
+  renamelimit = 10000
 [clean]
   requireForce = true
 [alias]
