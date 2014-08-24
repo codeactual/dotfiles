@@ -244,3 +244,6 @@ nmap <leader>f :tab sp<CR>
 nmap <leader>c :tabclose<CR>
 
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
+set nottyfast
+set lazyredraw
