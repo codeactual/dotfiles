@@ -1,3 +1,3 @@
-# Post install
+# Post installation
 
 - `ln -s ~/config/.config .`
