@@ -16,7 +16,7 @@ alias dkinip="docker inspect --format '{{ .NetworkSettings.IPAddress }}' \$1"
 # ID of last container
 alias dklc="docker ps -l -q"
 
-alias dkps="docker ps -s"
+alias dkps="docker ps"
 alias dkpsa="docker ps -a -s"
 alias dkr="docker run --rm=true"
 alias dkrd="docker run -d"
