@@ -5,6 +5,7 @@
 .compiz*
 .dbshell
 .dbus/
+.dockercfg
 .eclipse*
 .ecryptfs
 .esd_auth
@@ -36,6 +37,7 @@
 .opera/
 .pearrc
 .pki/
+.profile
 .pulse-cookie
 .pulse/
 .rnd
@@ -84,3 +86,9 @@ docker
 .config
 .google_authenticator
 *.pyc
+*.pem
+*.bak
+*.bz2
+*.tmp
+*.csr
+npm_home/
