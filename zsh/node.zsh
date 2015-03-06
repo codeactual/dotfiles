@@ -4,8 +4,8 @@ echo "Loading $0"
 alias lnpm='npm --no-registry'
 
 function ganodemodules {
-  local EXT=".*\.\(yml\|ttf\|md\|html\|css\|.*ignore\|gitmodules\|eot\|otf\|woff\|png\|gif\|txt\|zip\|gz\)$"
-  local DIRS=".*/\(tests?\|examples?\|specs?\|fonts?\|docs?\)/.*"
-  local EXACT=".*/\(Gruntfile.*\|Makefile\|test.js\|component.json\)$"
+  local EXT=".*\.\(yml\|ttf\|md\|markdown\|html\|css\|.*ignore\|gitmodules\|eot\|otf\|woff\|png\|gif\|txt\|zip\|gz\|.*~.*\|el\|.*intrc\|old\|bak\|orig\|min\.js\|cc?\|gnu\|log\)$"
+  local DIRS=".*/\(tests?\|examples?\|specs?\|fonts?\|docs?\|man\)/.*"
+  local EXACT=".*/\(\(grunt\|gulp\|.*ake\)file.*\|test.js\|\(component\|bower\).json\|CONTRIBUTORS\|.*-min\.js\|build\)$"
   find ./node_modules -type f -not -regex $EXT -not -iregex $DIRS -not -iregex $EXACT -exec git add {} \;
 }
