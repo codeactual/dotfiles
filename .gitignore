@@ -91,4 +91,4 @@ docker
 *.bz2
 *.tmp
 *.csr
-npm_home/
+npm_*/
