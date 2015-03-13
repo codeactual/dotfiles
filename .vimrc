@@ -33,7 +33,10 @@ hi Visual cterm=NONE ctermfg=white ctermbg=darkgrey
 hi IncSearch cterm=NONE ctermfg=white ctermbg=blue
 
 " Highlight line numbers
-hi LineNr cterm=NONE ctermfg=234 ctermbg=black
+hi LineNr cterm=NONE ctermfg=239 ctermbg=black
+
+" Location list paths (match prompt color for cwd)
+hi Directory cterm=NONE ctermfg=magenta ctermbg=black
 
 hi MatchParen cterm=none ctermbg=darkgrey ctermfg=white
 
