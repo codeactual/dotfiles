@@ -4,12 +4,15 @@
   },
   "ecmaFeatures": {
     "blockBindings": true,
+    "generators": true,
     "templateStrings": true
   },
   "rules": {
     "camelcase": 0,
+    "key-spacing": 0,
     "no-process-exit": 0,
     "no-shadow": 0,
+    "no-use-before-define": ["nofunc"],
     "quotes": [2, "single", "avoid-escape"]
   }
 }
