@@ -40,6 +40,14 @@ hi Directory cterm=NONE ctermfg=magenta ctermbg=black
 
 hi MatchParen cterm=none ctermbg=darkgrey ctermfg=white
 
+" Easier to read exact error/warning sites marked by syntastic which
+" links Spell* groups to its own in plugin/syntastic/highlighting.vim
+hi SpellCap cterm=NONE ctermfg=NONE ctermbg=236
+hi SpellBad cterm=NONE ctermfg=NONE ctermbg=236
+
+" Less distracting when syntastic signs are present
+hi SignColumn cterm=NONE ctermfg=4 ctermbg=black
+
 " Set some syntax highlight colors
 hi comment ctermfg=lightblue
 hi constant ctermfg=darkred
