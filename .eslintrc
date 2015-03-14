@@ -12,6 +12,7 @@
     "key-spacing": 0,
     "no-process-exit": 0,
     "no-shadow": 0,
+    "no-var": 1,
     "no-use-before-define": ["nofunc"],
     "quotes": [2, "single", "avoid-escape"]
   }
