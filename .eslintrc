@@ -33,12 +33,12 @@
     "vars-on-top": 1,
     "wrap-iife": 1
   },
-  "globals": [
+  "globals": {
     "describe",
     "it",
     "before",
     "beforeEach",
     "after",
     "afterEach"
-  ]
+  }
 }
