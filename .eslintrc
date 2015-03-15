@@ -16,12 +16,12 @@
     "no-use-before-define": ["nofunc"],
     "quotes": [2, "single", "avoid-escape"]
   },
-  "globals": {
+  "globals": [
     "describe",
     "it",
     "before",
     "beforeEach",
     "after",
     "afterEach"
-  }
+  ]
 }
