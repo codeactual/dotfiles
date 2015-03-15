@@ -34,11 +34,11 @@
     "wrap-iife": 1
   },
   "globals": {
-    "describe",
-    "it",
-    "before",
-    "beforeEach",
-    "after",
-    "afterEach"
+    describe: true,
+    it: true,
+    before: true,
+    beforeEach: true,
+    after: true,
+    afterEach: true
   }
 }
