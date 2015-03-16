@@ -271,3 +271,6 @@ let g:syntastic_javascript_checkers = ['eslint']
 " syntastic-compatible way to close a buffer and its location list
 nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
 cabbrev <silent> bd lclose\|bdelete
+
+" Move to the next error/warning cite
+nmap <C-L> :lne<CR>
