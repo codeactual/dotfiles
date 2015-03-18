@@ -69,31 +69,10 @@ function gcob {
 
   # Append all remaining arguments, ex. source branch name.
   git checkout -b $branch ${@:2}
-
-  save_current_git_branch $branch
 }
 
 function gitCheckout {
   git checkout $1
-  save_current_git_branch $1
-}
-
-function gcom {
-  gitCheckout "master"
-}
-
-function gcop {
-  gitCheckout $GIT_PREVIOUS_BRANCH
-}
-
-function save_current_git_branch {
-  export GIT_PREVIOUS_BRANCH=$GIT_CURRENT_BRANCH
-  export GIT_CURRENT_BRANCH=$1
-}
-
-function gmp {
-  echo "Merging $GIT_PREVIOUS_BRANCH into $GIT_CURRENT_BRANCH"
-  gm $GIT_PREVIOUS_BRANCH
 }
 
 function gcat {
