@@ -133,3 +133,7 @@ function gdln {
   OUTPUT+=`git log --oneline -$1`
   echo $OUTPUT | vim -
 }
+
+function gpob {
+  git push -u origin `get_current_branch`
+}
