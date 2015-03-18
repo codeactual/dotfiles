@@ -62,14 +62,13 @@ alias gundoreset="git reset --soft 'HEAD^'"
 
 # Check out a new timestamped branch.
 function gcob {
-  local date=`date "+%Y-%m-%d"`
+  local date=`date "+%Y_%m_%d"`
 
-  # Ex. 2012-12-17-fix-tests
-  local branch="$date-$1"
+  # Ex. 2012_12_17_fix_tests
+  local branch="${date}_$1"
 
   # Append all remaining arguments, ex. source branch name.
-  echo "git checkout -b $branch ${@:2}"
-  #git checkout -b $branch ${@:2}
+  git checkout -b $branch ${@:2}
 }
 
 function gitCheckout {
