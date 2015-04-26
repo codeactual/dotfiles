@@ -9,34 +9,34 @@
 	url = https://github.com/hail2u/vim-css3-syntax.git
 [submodule ".vim/bundle/vim-json"]
 	path = .vim/bundle/vim-json
-	url = git://github.com/helino/vim-json.git
+	url = https://github.com/helino/vim-json.git
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
-	url = git://github.com/scrooloose/nerdtree.git
+	url = https://github.com/scrooloose/nerdtree.git
 [submodule ".vim/bundle/nerdcommenter"]
 	path = .vim/bundle/nerdcommenter
-	url = git://github.com/scrooloose/nerdcommenter.git
+	url = https://github.com/scrooloose/nerdcommenter.git
 [submodule ".vim/bundle/tagbar"]
 	path = .vim/bundle/tagbar
-	url = git://github.com/majutsushi/tagbar.git
+	url = https://github.com/majutsushi/tagbar.git
 [submodule ".vim/bundle/vim-handlebars"]
 	path = .vim/bundle/vim-handlebars
-	url = git://github.com/nono/vim-handlebars.git
+	url = https://github.com/nono/vim-handlebars.git
 [submodule ".vim/bundle/vim-session"]
 	path = .vim/bundle/vim-session
-	url = git://github.com/xolox/vim-session.git
+	url = https://github.com/xolox/vim-session.git
 [submodule ".vim/bundle/vim-markdown"]
 	path = .vim/bundle/vim-markdown
-	url = git://github.com/codeactual/vim-markdown.git
+	url = https://github.com/codeactual/vim-markdown.git
 [submodule ".vim/bundle/powerline"]
 	path = .vim/bundle/powerline
-	url = git://github.com/Lokaltog/powerline.git
+	url = https://github.com/Lokaltog/powerline.git
 [submodule ".vim/bundle/vim-javascript"]
 	path = .vim/bundle/vim-javascript
-	url = git://github.com/pangloss/vim-javascript.git
+	url = https://github.com/pangloss/vim-javascript.git
 [submodule ".vim/bundle/vim-easymotion"]
 	path = .vim/bundle/vim-easymotion
-	url = git://github.com/Lokaltog/vim-easymotion.git
+	url = https://github.com/Lokaltog/vim-easymotion.git
 [submodule ".vim/bundle/Dockerfile"]
 	path = .vim/bundle/Dockerfile
 	url = https://github.com/ekalinin/Dockerfile.vim.git
