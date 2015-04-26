@@ -1,30 +1,36 @@
 # - Append '-' to names that are also prefixes of related projects. Allows find-window to exact match.
 # - Prepend 'v' to vim windows.
 # - Prepend 't' to terminal-only windows.
-session:
-  name: "dev"
-  windows:
-    - name: "vdef"
-      root: "/path/to"
-      panes:
-      - cmd: "vim -c 'OpenSession default'"
-    - name: "tdef"
-      root: "/path/to"
-      panes:
-      - cmd: "clear; echo 'Loaded tdef'"
-    - name: "t2"
-      root: "/path/to"
-      panes:
-      - cmd: "clear; echo 'Loaded t3'"
-    - name: "t3"
-      root: "/path/to"
-      panes:
-      - cmd: "clear; echo 'Loaded t3'"
-    - name: "t4"
-      root: "/path/to"
-      panes:
-      - cmd: "clear; echo 'Loaded t4'"
-    - name: "t5"
-      root: "/path/to"
-      panes:
-      - cmd: "clear; echo 'Loaded t5'"
+windows:
+  - name: "vdef"
+    root: "/var/dev/"
+    panes:
+      - vim
+  - name: "tdef"
+    root: "/var/dev/"
+    panes:
+      - clear; echo "Loaded tdef"
+  - name: "t4"
+    root: "/var/dev"
+    panes:
+      - clear; echo "Loaded t4"
+  - name: "t5"
+    root: "/var/dev"
+    panes:
+      - clear; echo "Loaded t5"
+  - name: "t6"
+    root: "/var/dev"
+    panes:
+      - clear; echo "Loaded t6"
+  - name: "t7"
+    root: "/var/dev"
+    panes:
+      - clear; echo "Loaded t8"
+  - name: "t8"
+    root: "/var/dev"
+    panes:
+      - clear; echo "Loaded t8"
+  - name: "t9"
+    root: "/var/dev"
+    panes:
+      - clear; echo "Loaded t9"
