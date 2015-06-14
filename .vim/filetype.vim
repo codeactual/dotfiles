@@ -3,7 +3,7 @@
       finish
     endif
     augroup filetypedetect
-      au! BufRead,BufNewFile    *.py         setfiletype python|set softtabstop=4|set tabstop=4|set shiftwidth=4
+      au! BufRead,BufNewFile    *.py         setfiletype python|set softtabstop=4|set tabstop=4|set shiftwidth=4|set nonumber
       au! BufRead,BufNewFile    *.phtml         setfiletype php|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.html         setfiletype html|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.css         setfiletype css|set softtabstop=2|set tabstop=2|set shiftwidth=2
