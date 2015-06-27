@@ -35,7 +35,7 @@ alias dk-master-install="docker -v; sudo service docker stop ; sudo cp \$(which 
 
 LOCAL_ZSH_DIR=$HOME/docker/zsh
 if [ -d $LOCAL_ZSH_DIR ]; then
-  for file in $LOCAL_ZSH_DIR/*.zsh
+  for file in $LOCAL_ZSH_DIR/*.*sh
   do
     source $file
   done
