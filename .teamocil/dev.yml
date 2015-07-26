@@ -1,11 +1,12 @@
 # - Append '-' to names that are also prefixes of related projects. Allows find-window to exact match.
 # - Prepend 'v' to vim windows.
 # - Prepend 't' to terminal-only windows.
+#  - Set VIM_PORT for dockerized-vim wrapper script
 windows:
   - name: "vdef"
     root: "/var/dev/"
     panes:
-      - vim
+      - VIM_PORT=3000 vim
   - name: "tdef"
     root: "/var/dev/"
     panes:
