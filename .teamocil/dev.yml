@@ -6,7 +6,7 @@ windows:
   - name: "vdef"
     root: "/var/dev/"
     panes:
-      - VIM_PORT=3000 vim
+      - VIM_PORT=3000 VIM_NAME=vim vim
   - name: "tdef"
     root: "/var/dev/"
     panes:
