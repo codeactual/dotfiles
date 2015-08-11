@@ -47,7 +47,13 @@ setopt HIST_IGNORE_ALL_DUPS
 # Ignore lines that begin with a space.
 setopt HIST_IGNORE_SPACE
 # Strip extra blanks from added lines.
-setopt HIST_REDUCE_BLANKS
+#
+# Disabled due to bug where long lines get mangled. Should be fixed when ubuntu has zsh 5.05.
+#
+# - https://bugs.launchpad.net/ubuntu/+source/zsh/+bug/1334858
+# - https://bugzilla.novell.com/show_bug.cgi?id=902509
+#setopt HIST_REDUCE_BLANKS
+unsetopt HIST_REDUCE_BLANKS
 # Perform history expansion but don't execute yet. Let it be edited first.
 setopt HIST_VERIFY
 # Allow history sharing between terminals.
