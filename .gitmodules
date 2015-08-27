@@ -52,3 +52,6 @@
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule ".vim/bundle/Vim-Jinja2-Syntax"]
+	path = .vim/bundle/Vim-Jinja2-Syntax
+	url = https://github.com/Glench/Vim-Jinja2-Syntax.git
