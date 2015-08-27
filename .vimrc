@@ -277,3 +277,9 @@ cabbrev <silent> bd lclose\|bdelete
 
 " Move to the next error/warning cite
 nmap <C-L> :lne<CR>
+
+" python-mode
+"
+" Disable default behavior of enabling line numbers
+" (https://github.com/klen/python-mode/issues/356#issuecomment-33260767)
+autocmd FileType python setlocal nonumber
