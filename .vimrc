@@ -283,3 +283,8 @@ nmap <C-L> :lne<CR>
 " Disable default behavior of enabling line numbers
 " (https://github.com/klen/python-mode/issues/356#issuecomment-33260767)
 autocmd FileType python setlocal nonumber
+
+" vim-go
+"
+" Format and run goimports
+let g:go_fmt_command = "goimports"
