@@ -59,6 +59,9 @@ hi PmenuSel ctermfg=black ctermbg=lightgray
 " Highlight only the character that marks the line-length limit boundary.
 hi ColorColumn cterm=none ctermfg=242 ctermbg=NONE
 
+" Reduce veritical split visibility
+hi VertSplit cterm=NONE ctermfg=black ctermbg=black
+
 " turn off any existing search
 au VimEnter * nohls
 
