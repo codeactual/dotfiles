@@ -62,6 +62,12 @@ hi ColorColumn cterm=none ctermfg=242 ctermbg=NONE
 " Reduce veritical split visibility
 hi VertSplit cterm=NONE ctermfg=black ctermbg=black
 
+" Increase readability of quickfix lines
+hi qfFileName cterm=NONE ctermfg=lightgray ctermbg=NONE
+hi qfSeparator cterm=NONE ctermfg=black ctermbg=NONE
+hi qfLineNr cterm=NONE ctermfg=darkgreen ctermbg=NONE
+hi qfError cterm=NONE ctermfg=darkgray ctermbg=NONE
+
 " turn off any existing search
 au VimEnter * nohls
 
