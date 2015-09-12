@@ -15,6 +15,11 @@ set noerrorbells         " don't beep
 set modelines=0
 set nomodeline
 
+" Search case-insensitive by default ...
+set ignorecase
+" ... when the query contains no upper-case
+set smartcase
+
 " Disable visual bell
 set noeb vb t_vb=
 
