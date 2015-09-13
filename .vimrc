@@ -165,30 +165,11 @@ map <C-O> :CtrlPClearCache<CR>
 " Open NERDtree file explorer
 map <C-T> :NERDTreeToggle<CR>
 
-" The completion dictionary is provided by Rasmus:
-" http://lerdorf.com/funclist.txt
-set dictionary-=~/.vim/funclist.txt dictionary+=~/.vim/funclist.txt
-" Use the dictionary completion
-set complete-=k complete+=k
-
-" if we want to try autocompletion
-function InsertTabWrapper()
-   let col = col('.') - 1
-   if !col || getline('.')[col - 1] !~ '\k'
-       return "\<tab>"
-   else
-       return "\<c-p>"
-   endif
-endfunction
-
 " Don't make a # force column zero.
 :inoremap # X<BS>#
 
 " In normal mode, jj escapes
 :inoremap jj <Esc>
-
-" Remap the tab key to select action with InsertTabWrapper
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
