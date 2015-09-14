@@ -133,7 +133,14 @@ PRMT_DATE="%D{%a %m/%d}"
 PRMT_TIME="%{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S}"
 PRMT_TZ="%D{%Z}"
 PRMT_USER="%n"
-PRMT_HOST="%{$fg[yellow]%}%M%{$reset_color%}"
+
+if [[ -z "$HOSTNAME" ]]; then
+  PRMT_HOST_PREFIX=""
+else
+  PRMT_HOST_PREFIX="CONTAINER ---- "
+fi
+PRMT_HOST="%{$fg[yellow]%}$PRMT_HOST_PREFIX%M%{$reset_color%}"
+
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
 PRMT_HISTNUM="%!"
 PRMT_BRANCH=""$'$(__git_ps1 "(%s)")'
