@@ -283,3 +283,8 @@ autocmd FileType python setlocal nonumber
 "
 " Format and run goimports
 let g:go_fmt_command = "goimports"
+" Prevent double syntax checks on save
+let g:syntastic_mode_map = {
+      \ "mode": "active",
+      \ "active_filetypes": [],
+      \ "passive_filetypes": ["go"] }
