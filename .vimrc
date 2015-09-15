@@ -281,10 +281,8 @@ autocmd FileType python setlocal nonumber
 
 " vim-go
 "
-" Format and run goimports
-let g:go_fmt_command = "goimports"
 " Prevent double syntax checks on save
-let g:syntastic_mode_map = {
-      \ "mode": "active",
-      \ "active_filetypes": [],
-      \ "passive_filetypes": ["go"] }
+let g:go_fmt_autosave = 0
+" Delegate post-save checks to syntastic
+let g:syntastic_go_checkers = ['golint', 'govet', 'gotype', 'gofmt']
+let g:syntastic_aggregate_errors = 1
