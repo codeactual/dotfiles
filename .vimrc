@@ -199,9 +199,9 @@ let $VIMRUNTIME = "~/.vim"
 highlight RedundantWhitespace ctermbg=red guibg=red
 match RedundantWhitespace /\s\+$\| \+\ze\t/
 
-" autocmd VimEnter * nested TagbarOpen
-
 let g:tagbar_width = 30
+let g:tagbar_left = 1
+let g:tagbar_autofocus = 1
 
 abbreviate teh the
 abbreviate whitesapce whitespace
