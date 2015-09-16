@@ -58,8 +58,8 @@ hi comment ctermfg=lightblue
 hi constant ctermfg=darkred
 
 " Change the autocompletion menu colors
-hi Pmenu ctermfg=lightgray ctermbg=black
-hi PmenuSel ctermfg=black ctermbg=lightgray
+hi Pmenu cterm=NONE ctermfg=red ctermbg=black
+hi PmenuSel cterm=NONE ctermfg=green ctermbg=black
 
 " Highlight only the character that marks the line-length limit boundary.
 hi ColorColumn cterm=none ctermfg=242 ctermbg=NONE
