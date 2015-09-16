@@ -76,8 +76,6 @@ hi qfError cterm=NONE ctermfg=darkgray ctermbg=NONE
 " turn off any existing search
 au VimEnter * nohls
 
-set tags=~/.vim/mytags/all
-
 set fenc=utf-8
 set fencs=utf-8
 set encoding=utf-8
@@ -125,10 +123,6 @@ set showmatch
 
 " Searching
 set incsearch
-
-" Use the cool tab complete menu
-set wildmenu
-set wildignore=*.bak,*.bz2,*.class,*.gif,*.git,*.gz,*.jar,*.jpg,*.lock,*.log,*.o,*.png,*.pyc,*.so,*.svn,*.swp,*.tgz,*.tmp,*.zip,*~
 
 " Allow edit buffers to be hidden
 set hidden
