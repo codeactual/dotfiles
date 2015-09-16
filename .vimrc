@@ -280,3 +280,7 @@ let g:go_fmt_fail_silently = 1
 " Delegate post-save checks to syntastic
 let g:syntastic_go_checkers = ['golint', 'govet', 'gotype', 'gofmt']
 let g:syntastic_aggregate_errors = 1
+
+" YouCompleteMe
+let g:ycm_complete_in_comments = 1
+let g:ycm_seed_identifiers_with_syntax = 1
