@@ -282,5 +282,10 @@ let g:syntastic_go_checkers = ['golint', 'govet', 'gotype', 'gofmt']
 let g:syntastic_aggregate_errors = 1
 
 " YouCompleteMe
+"
 let g:ycm_complete_in_comments = 1
 let g:ycm_seed_identifiers_with_syntax = 1
+" Prevent pane from popping up with the same signature info as the
+" autocompletion content.
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt =  0
