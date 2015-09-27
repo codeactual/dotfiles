@@ -18,16 +18,15 @@ alias gcin='git commit -v --no-verify'
 alias gcatchup="git fetch && git rebase origin/master"              # Catch up local snapshot of origin/master. But don't modify local master.
 alias gcopatch='git checkout --patch'
 alias gcp="git cherry-pick --no-commit"
-alias gd='git diff'
-alias gda="git diff; git diff --cached"
+alias gda="gd; gd --cached"
 alias gdaw="gdw; gdcw"
-alias gdc="git diff --cached"
-alias gdcw="git diff --cached --word-diff"
-alias gdl="git diff HEAD\^ HEAD"                                    # Diff from last commit.
-alias gddi="git diff origin/develop \^develop"
-alias gddo="git diff develop \^origin/develop"
-alias gdv='git diff | $EDITOR -R - '
-alias gdw="git diff --word-diff"
+alias gdc="gd --cached"
+alias gdcw="gd --cached --word-diff"
+alias gdl="gd HEAD\^ HEAD"                                    # Diff from last commit.
+alias gddi="gd origin/develop \^develop"
+alias gddo="gd develop \^origin/develop"
+alias gdv='gd | $EDITOR -R - '
+alias gdw="gd --word-diff"
 alias gg="git grep --line-number --show-function --context=4 --heading --color=always"
 alias gi="git info"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen%cD (%cr)%Creset'"
@@ -136,4 +135,24 @@ function gdln {
 
 function gpob {
   git push -u origin `get_current_branch`
+}
+
+# From https://github.com/paulirish/dotfiles/commit/6743b907ff586c28cd36e08d1e1c634e2968893e
+function strip_diff_leading_symbols(){
+  color_code_regex="(\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K])"
+
+  # simplify the unified patch diff header
+  sed -r "s/^($color_code_regex)diff --git .*$//g" | \
+    sed -r "s/^($color_code_regex)index .*$/\n\1$(rule)/g" | \
+    sed -r "s/^($color_code_regex)\+\+\+(.*)$/\1+++\5\n\1$(rule)\x1B\[m/g" |\
+
+  # actually strips the leading symbols
+    sed -r "s/^($color_code_regex)[\+\-]/\1 /g"
+}
+rule () {
+  printf "${(r:$COLUMNS::_:)}"
+}
+
+function gd () {
+  git diff $@ | diff-highlight | strip_diff_leading_symbols
 }

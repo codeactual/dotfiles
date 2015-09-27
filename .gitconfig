@@ -17,8 +17,6 @@
 	stat = true
 [push]
 	default = tracking
-[core]
-  pager = less --raw-control-chars --quit-if-one-screen --no-init
 [merge]
 	ff = false
   renamelimit = 10000
@@ -26,3 +24,8 @@
   requireForce = true
 [alias]
     checkpoint = git stash; git stash apply
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
