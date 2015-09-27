@@ -154,5 +154,5 @@ rule () {
 }
 
 function gd () {
-  git diff $@ | diff-highlight | strip_diff_leading_symbols
+  git diff --color $@ | diff-highlight | strip_diff_leading_symbols
 }
