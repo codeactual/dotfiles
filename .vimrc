@@ -140,9 +140,6 @@ set formatoptions=qroct
 " Disable F1 help
 nmap <F1> <nop>
 
-" press f9 to check the current file for php syntax errors
-map <C-P> :w<CR>:!php -l %<CR>
-
 " Switch to the Buffer Explorer list
 map <C-\> :BufExplorer<CR>
 
