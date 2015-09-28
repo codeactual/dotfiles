@@ -91,11 +91,11 @@ function get_current_branch {
 
 function gdo {
   CUR_BRANCH=$(get_current_branch)
-  git diff $@ $CUR_BRANCH \^origin/$CUR_BRANCH
+  gd $@ $CUR_BRANCH \^origin/$CUR_BRANCH
 }
 
 function gdoi {
-  git diff $@ \^origin/$CUR_BRANCH $CUR_BRANCH
+  gd $@ \^origin/$CUR_BRANCH $CUR_BRANCH
 }
 
 function glo {
