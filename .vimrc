@@ -153,7 +153,7 @@ map <C-K> :tabnext<CR>
 " ctrlp plugin configuration
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = 'components\/\|node_modules\|DS_Store\|\.git\|target\|dist\|jsgen\|\.svn\|release\|\.min\|docroot\|instrumented\|tmp\|vendor'
+let g:ctrlp_user_command = 'find %s -not -regex ".*\/vendor.*" -not -regex ".*\/\..*\/.*" -not -regex ".*\/coverage.*" -not -regex ".*\/log.*" -not -regex ".*\/tmp.*" -not -regex ".*\/cache.*" -not -regex ".*\.min\..*" -not -regex ".*\/target.*" -not -regex ".*\/dist.*" -not -regex ".*SNAPSHOT.*" -not -regex ".*\/release.*" -not -regex ".*\/jsgen.*" -not -regex ".*\/node_modules.*" -not -regex ".*\/components.*" -not -regex ".*\/instrumented.*" -type f'
 map <C-O> :CtrlPClearCache<CR>
 
 " Open NERDtree file explorer
