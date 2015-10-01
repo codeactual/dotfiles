@@ -3,35 +3,71 @@
 # - Prepend 't' to terminal-only windows.
 #  - Set VIM_PORT for dockerized-vim wrapper script
 windows:
-  - name: "vdef"
-    root: "/var/dev/"
+  - name: "t1"
+    root: "~/"
+    layout: even-vertical
+    panes:
+      - clear
+      - commands:
+          - clear
+        focus: true
+  - name: "vim"
+    root: "~/"
     panes:
       - viminit && VIM_PORT=3000 VIM_NAME=vim vim
-  - name: "tdef"
-    root: "/var/dev/"
+  - name: "t3"
+    root: "~/"
+    layout: even-vertical
     panes:
-      - clear; echo "Loaded tdef"
+      - clear
+      - commands:
+          - clear
+        focus: true
   - name: "t4"
-    root: "/var/dev"
+    root: "~/"
+    layout: even-vertical
     panes:
-      - clear; echo "Loaded t4"
+      - clear
+      - commands:
+          - clear
+        focus: true
   - name: "t5"
-    root: "/var/dev"
+    root: "~/"
+    layout: even-vertical
     panes:
-      - clear; echo "Loaded t5"
+      - clear
+      - commands:
+          - clear
+        focus: true
   - name: "t6"
-    root: "/var/dev"
+    root: "~/"
+    layout: even-vertical
     panes:
-      - clear; echo "Loaded t6"
+      - clear
+      - commands:
+          - clear
+        focus: true
   - name: "t7"
-    root: "/var/dev"
+    root: "~/"
+    layout: even-vertical
     panes:
-      - clear; echo "Loaded t8"
+      - clear
+      - commands:
+          - clear
+        focus: true
   - name: "t8"
-    root: "/var/dev"
+    root: "~/"
+    layout: even-vertical
     panes:
-      - clear; echo "Loaded t8"
+      - clear
+      - commands:
+          - clear
+        focus: true
   - name: "t9"
-    root: "/var/dev"
+    root: "~/"
+    layout: even-vertical
     panes:
-      - clear; echo "Loaded t9"
+      - clear
+      - commands:
+          - clear
+        focus: true
