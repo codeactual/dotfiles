@@ -76,6 +76,20 @@ hi qfSeparator cterm=NONE ctermfg=black ctermbg=NONE
 hi qfLineNr cterm=NONE ctermfg=darkgreen ctermbg=NONE
 hi qfError cterm=NONE ctermfg=darkgray ctermbg=NONE
 
+" Increase readability of gitcommit
+hi diffAdded cterm=NONE ctermfg=green ctermbg=NONE
+hi diffRemoved cterm=NONE ctermfg=red ctermbg=NONE
+hi diffSubName cterm=NONE ctermfg=darkgrey ctermbg=NONE
+hi diffFile cterm=NONE ctermfg=cyan ctermbg=NONE
+hi gitcommitComment cterm=NONE ctermfg=234 ctermbg=NONE
+hi gitcommitOnBranch cterm=NONE ctermfg=234 ctermbg=NONE
+hi gitcommitHeader cterm=NONE ctermfg=234 ctermbg=NONE
+hi gitcommitBranch cterm=NONE ctermfg=cyan ctermbg=NONE
+hi gitcommitType cterm=NONE ctermfg=white ctermbg=NONE
+hi gitcommitSelectedFile cterm=NONE ctermfg=cyan ctermbg=NONE
+hi gitcommitUntrackedFile cterm=NONE ctermfg=gray ctermbg=NONE
+hi gitcommitSummary cterm=NONE ctermfg=cyan ctermbg=NONE
+
 " turn off any existing search
 au VimEnter * nohls
 
@@ -195,9 +209,6 @@ syntax enable
 filetype plugin indent on
 
 let $VIMRUNTIME = "~/.vim"
-
-highlight RedundantWhitespace ctermbg=red guibg=red
-match RedundantWhitespace /\s\+$\| \+\ze\t/
 
 let g:tagbar_width = 30
 let g:tagbar_left = 1
