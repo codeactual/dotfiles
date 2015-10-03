@@ -295,7 +295,7 @@ let g:go_fmt_fail_silently = 1
 " Delegate post-save checks to syntastic
 let g:syntastic_go_checkers = ['golint', 'govet', 'gotype', 'gofmt']
 let g:syntastic_aggregate_errors = 1
-nmap <C-G> :GoImports<CR>
+autocmd FileType go autocmd BufWritePre silent! <buffer> :%! goimports
 
 " YouCompleteMe
 "
