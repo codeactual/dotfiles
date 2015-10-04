@@ -90,6 +90,14 @@ hi gitcommitSelectedFile cterm=NONE ctermfg=cyan ctermbg=NONE
 hi gitcommitUntrackedFile cterm=NONE ctermfg=gray ctermbg=NONE
 hi gitcommitSummary cterm=NONE ctermfg=cyan ctermbg=NONE
 
+" Only show CursorLine the active buffer
+" http://stackoverflow.com/a/12018552
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
 " turn off any existing search
 au VimEnter * nohls
 
