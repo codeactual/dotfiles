@@ -290,6 +290,9 @@ cabbrev <silent> bd lclose\|bdelete
 " Move to the next error/warning cite
 nmap <C-L> :lne<CR>
 
+" Change the cwd of the active buffer to the file's
+nmap <C-C> :lcd %:p:h<CR>
+
 " python-mode
 "
 " Disable default behavior of enabling line numbers
