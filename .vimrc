@@ -46,7 +46,7 @@ hi Directory cterm=NONE ctermfg=magenta ctermbg=black
 hi MatchParen cterm=none ctermbg=darkgrey ctermfg=white
 
 " tildes
-hi NonText cterm=none ctermfg=darkgrey ctermbg=black
+hi NonText cterm=none ctermfg=233 ctermbg=black
 
 " Easier to read exact error/warning sites marked by syntastic which
 " links Spell* groups to its own in plugin/syntastic/highlighting.vim
