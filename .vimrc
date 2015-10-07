@@ -290,8 +290,8 @@ cabbrev <silent> bd lclose\|bdelete
 " Move to the next error/warning cite
 nmap <C-L> :lne<CR>
 
-" Change the cwd of the active buffer to the file's
-nmap <C-C> :lcd %:p:h<CR>
+" Change the cwd to the file's
+nmap <C-C> :cd %:p:h<CR>
 
 " python-mode
 "
