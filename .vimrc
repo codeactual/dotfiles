@@ -39,6 +39,7 @@ hi IncSearch cterm=NONE ctermfg=white ctermbg=blue
 
 " Highlight line numbers
 hi LineNr cterm=NONE ctermfg=239 ctermbg=black
+hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
 
 " Location list paths (match prompt color for cwd)
 hi Directory cterm=NONE ctermfg=magenta ctermbg=black
