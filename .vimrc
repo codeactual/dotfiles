@@ -57,8 +57,7 @@ hi SpellBad cterm=NONE ctermfg=NONE ctermbg=236
 " Less distracting when syntastic signs are present
 hi SignColumn cterm=NONE ctermfg=4 ctermbg=black
 
-" Set some syntax highlight colors
-hi comment ctermfg=lightblue
+hi comment ctermfg=darkgray
 hi constant ctermfg=darkred
 
 " Change the autocompletion menu colors
