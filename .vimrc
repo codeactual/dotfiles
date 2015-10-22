@@ -58,7 +58,7 @@ hi SpellBad cterm=NONE ctermfg=NONE ctermbg=236
 hi SignColumn cterm=NONE ctermfg=4 ctermbg=black
 
 hi comment ctermfg=darkgray
-hi constant ctermfg=darkred
+hi string cterm=NONE ctermfg=136 ctermbg=NONE
 
 " Change the autocompletion menu colors
 hi Pmenu cterm=NONE ctermfg=red ctermbg=black
