@@ -304,7 +304,12 @@ autocmd FileType python setlocal nonumber
 " Prevent two location lists from popping up on save if `gofmt` fails
 " Delegate post-save checks to syntastic
 autocmd BufWritePost *.go silent :GoImports
-let g:go_metalinter_command = "gometalinter --disable=gotype ./..."
+
+" - Disable gotype until there is better vendor support.
+" - Disable aligncheck because it's relatively slow for the benefit in most
+"   projects. Probably better for CI-based use.
+let g:go_metalinter_command = "gometalinter --disable=gotype --disable=aligncheck --deadline=10s"
+au FileType go nmap <Leader>l <Plug>(go-metalinter)
 
 " YouCompleteMe
 "
