@@ -90,6 +90,14 @@ hi gitcommitSelectedFile cterm=NONE ctermfg=cyan ctermbg=NONE
 hi gitcommitUntrackedFile cterm=NONE ctermfg=gray ctermbg=NONE
 hi gitcommitSummary cterm=NONE ctermfg=cyan ctermbg=NONE
 
+" Reduce tab bar distraction
+hi TabLineFill cterm=NONE ctermfg=NONE ctermbg=NONE
+hi TabLine cterm=NONE ctermfg=234 ctermbg=NONE
+hi TabLineSel cterm=NONE ctermfg=white ctermbg=NONE
+" (For the per-tab window counter. However other styles, ex. markdown, will inherit
+" from Title for headings.)
+hi Title cterm=NONE ctermfg=darkgray ctermbg=NONE
+
 " Only show CursorLine the active buffer
 " http://stackoverflow.com/a/12018552
 augroup CursorLine
