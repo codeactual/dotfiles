@@ -307,9 +307,9 @@ autocmd BufWritePost *.go silent :GoImports
 autocmd BufWritePost *.go silent :GoMetaLinter
 
 " - Disable gotype until there is better vendor support.
-" - Disable structcheck/varcheck/errcheck/aligncheck because they're
-"   relatively slow. Run them from Makefile.
-let g:go_metalinter_command = "gometalinter --disable=gotype --disable=structcheck --disable=varcheck --disable=errcheck --disable=aligncheck"
+" - Disable structcheck/varcheck/errcheck/aligncheck/vet because they're
+"   relatively slow. Run them from Makefile or reflex.
+let g:go_metalinter_command = "gometalinter --disable=gotype --disable=structcheck --disable=varcheck --disable=errcheck --disable=aligncheck --disable=vet"
 
 " YouCompleteMe
 "
