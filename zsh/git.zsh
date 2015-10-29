@@ -45,6 +45,7 @@ alias gm="git merge --no-ff --no-commit"
 alias gmv='git mv'
 alias gp='git push'
 alias gpu='git fetch origin -v; git fetch upstream -v; git merge upstream/master' # http://gitready.com/intermediate/2009/02/12/easily-fetching-upstream-changes.html
+alias grmmerged="git branch --merged | awk '{print \$1}' | xargs git branch -d"
 alias gs='git status'
 alias gss='git status -sb'
 alias gsh='git stash'
