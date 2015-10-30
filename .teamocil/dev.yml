@@ -13,8 +13,12 @@ windows:
         focus: true
   - name: "vim"
     root: "~/"
+    layout: even-vertical
     panes:
-      - viminit && VIM_PORT=3000 VIM_NAME=vim vim
+      - clear
+      - commands:
+          - viminit && VIM_PORT=3000 VIM_NAME=vim vim
+        focus: true
   - name: "t3"
     root: "~/"
     layout: even-vertical
