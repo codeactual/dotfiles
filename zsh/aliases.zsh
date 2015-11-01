@@ -34,7 +34,7 @@ alias wcgrep="wcgrep-base --color=always"
 alias higrep="egrep --color=always --context=10000"
 function findnew() {
     # http://stackoverflow.com/questions/5566310/how-to-recursively-find-and-list-the-latest-modified-files-in-a-directory-with-s
-  find $1 -type f -exec stat --format "%Y :%y %n" {} \; | sort -nr | cut -d: -f2- | head
+  find $1 -type f -exec stat --format "%Y :%y %n" {} \; | sort -nr | cut -d: -f2- | head ${@:2}
 }
 function md5dir() {
     find $1 -not -regex ".*\.git/\(index\|COMMIT_EDITMSG\|modules/\).*" -exec md5sum --binary {} \; 2>&1 | md5sum - | awk '{ print $1 }'
