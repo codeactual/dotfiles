@@ -291,7 +291,7 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_yaml_checkers = ['yamlxs']
 let g:syntastic_aggregate_errors = 1
-" Don't conflict with vim-go checks
+" Don't conflict with vim-go/gometalinter checks
 let g:syntastic_go_checkers = []
 
 " syntastic-compatible way to close a buffer and its location list
@@ -312,8 +312,6 @@ autocmd FileType python setlocal nonumber
 
 " vim-go
 "
-" Prevent two location lists from popping up on save if `gofmt` fails
-let g:go_fmt_fail_silently = 1
 " Run goimports on save
 autocmd BufWritePost *.go silent :GoImports
 
