@@ -291,6 +291,8 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_yaml_checkers = ['yamlxs']
 let g:syntastic_aggregate_errors = 1
+" Don't conflict with vim-go checks
+let g:syntastic_go_checkers = []
 
 " syntastic-compatible way to close a buffer and its location list
 nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
