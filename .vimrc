@@ -98,6 +98,12 @@ hi TabLineSel cterm=NONE ctermfg=white ctermbg=NONE
 " from Title for headings.)
 hi Title cterm=NONE ctermfg=darkgray ctermbg=NONE
 
+" Print syntax highlighting group used at cursor
+" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " Only show CursorLine the active buffer
 " http://stackoverflow.com/a/12018552
 augroup CursorLine
