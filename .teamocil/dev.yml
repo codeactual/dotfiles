@@ -17,7 +17,7 @@ windows:
     panes:
       - clear
       - commands:
-          - viminit && VIM_PORT=3000 VIM_NAME=vim vim
+          - viminit && VIM_NAME=vim vim
         focus: true
   - name: "t3"
     root: "~/"
