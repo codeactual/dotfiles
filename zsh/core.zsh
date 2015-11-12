@@ -144,14 +144,7 @@ PRMT_HOST="%{$fg[yellow]%}$PRMT_HOST_PREFIX%M%{$reset_color%}"
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
 PRMT_HISTNUM="%!"
 PRMT_BRANCH=""$'$(__git_ps1 "(%s)")'
-# http://blogs.atlassian.com/2013/07/git-upstreams-forks/
-function ahead_behind {
-    curr_branch=$(git rev-parse --abbrev-ref HEAD);
-    curr_remote=$(git config branch.$curr_branch.remote);
-    curr_merge_branch=$(git config branch.$curr_branch.merge | cut -d / -f 3);
-    git rev-list --left-right --count $curr_branch...$curr_remote/$curr_merge_branch | tr -s '\t' '|';
-}
-export PROMPT="$PRMT_DATE $PRMT_TIME $PRMT_TZ $PRMT_USER @ $PRMT_HOST : $PRMT_DIR $PRMT_HISTNUM $PRMT_BRANCH $(ahead_behind) ${VIMODE}
+export PROMPT="$PRMT_DATE $PRMT_TIME $PRMT_TZ $PRMT_USER @ $PRMT_HOST : $PRMT_DIR $PRMT_HISTNUM $PRMT_BRANCH ${VIMODE}
 : "
 
 ########################
