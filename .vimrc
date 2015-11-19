@@ -322,9 +322,7 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-"
-" Run goimports on save
-autocmd BufWritePost *.go silent :GoImports
+nmap <C-G> :GoImports<CR>
 
 " YouCompleteMe
 "
