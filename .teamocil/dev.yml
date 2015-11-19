@@ -15,9 +15,9 @@ windows:
     root: "~/"
     layout: even-vertical
     panes:
-      - clear
+      - vimsh
       - commands:
-          - viminit && VIM_NAME=vim vim
+          - viminit && vimide
         focus: true
   - name: "t3"
     root: "~/"
@@ -25,7 +25,7 @@ windows:
     panes:
       - clear
       - commands:
-          - clear
+          - vim3000
         focus: true
   - name: "t4"
     root: "~/"
