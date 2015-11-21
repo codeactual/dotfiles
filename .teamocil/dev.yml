@@ -17,7 +17,7 @@ windows:
     panes:
       - vimsh
       - commands:
-          - viminit && vimide
+          - vimide
         focus: true
   - name: "t3"
     root: "~/"
