@@ -282,6 +282,11 @@ set laststatus=2
 nmap <leader>f :tab sp<CR>
 nmap <leader>c :tabclose<CR>
 
+" Clear highlighting on escape in normal mode
+" http://stackoverflow.com/a/1037182
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>^[
+
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 set nottyfast
