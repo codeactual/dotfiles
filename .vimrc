@@ -191,6 +191,9 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_user_command = 'find %s -not -regex ".*\/vendor.*" -not -regex ".*\/\..*\/.*" -not -regex ".*\/coverage.*" -not -regex ".*\/log.*" -not -regex ".*\/tmp.*" -not -regex ".*\/cache.*" -not -regex ".*\.min\..*" -not -regex ".*\/target.*" -not -regex ".*\/dist.*" -not -regex ".*SNAPSHOT.*" -not -regex ".*\/release.*" -not -regex ".*\/jsgen.*" -not -regex ".*\/node_modules.*" -not -regex ".*\/components.*" -not -regex ".*\/instrumented.*" -type f'
 map <C-O> :CtrlPClearCache<CR>
+"
+" Remove default 1s delay so ctrlp-p window opens faster.
+set timeoutlen=0
 
 " Open NERDtree file explorer
 map <C-T> :NERDTreeToggle<CR>
