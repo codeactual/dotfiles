@@ -292,9 +292,6 @@ nnoremap <esc>^[ <esc>^[
 
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
-set nottyfast
-set lazyredraw
-
 " syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
