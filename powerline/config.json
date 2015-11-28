@@ -1,5 +1,6 @@
 {
 	"common": {
+    "default_top_theme": "unicode",
 		"term_truecolor": false
 	},
 	"ext": {
