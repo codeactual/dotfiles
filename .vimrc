@@ -195,8 +195,8 @@ map <C-O> :CtrlPClearCache<CR>
 " Reduce default 1s delay so ctrlp-p window opens faster.
 set timeoutlen=200
 
-" Open NERDtree file explorer
-map <C-T> :NERDTreeToggle<CR>
+" Toggle tag bar
+map <C-T> :Tagbar<CR>
 
 " Don't make a # force column zero.
 :inoremap # X<BS>#
