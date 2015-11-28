@@ -6,6 +6,9 @@
 " Remove any trailing whitespace that is in the file
 autocmd BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
+set term=xterm-256color
+set termencoding=utf-8
+
 " http://nvie.com/posts/how-i-boosted-my-vim/
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
