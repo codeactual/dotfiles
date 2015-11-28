@@ -40,7 +40,8 @@
 			},
 			{
 				"function": "modified_indicator",
-				"before": " "
+				"before": " ",
+				"draw_soft_divider": false
 			},
 			{
 				"exclude_modes": ["i", "R", "Rv"],
@@ -77,7 +78,8 @@
 				"function": "line_percent",
 				"priority": 50,
 				"width": 4,
-				"align": "r"
+				"align": "r",
+				"after": "% "
 			},
 			{
 				"function": "line_current",
