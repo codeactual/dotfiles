@@ -57,21 +57,27 @@
 			{
 				"function": "file_format",
 				"draw_soft_divider": false,
+        "after": " ",
 				"exclude_modes": ["nc"],
 				"priority": 60
 			},
 			{
 				"function": "file_encoding",
+				"draw_soft_divider": false,
+        "after": " ",
 				"exclude_modes": ["nc"],
 				"priority": 60
 			},
 			{
 				"function": "file_type",
+				"draw_soft_divider": false,
+        "after": " ",
 				"exclude_modes": ["nc"],
 				"priority": 60
 			},
 			{
 				"function": "line_percent",
+				"draw_soft_divider": false,
 				"priority": 50,
 				"width": 4,
 				"align": "r",
