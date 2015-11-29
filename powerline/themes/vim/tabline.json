@@ -12,13 +12,14 @@
 						"args": {
 							"display_no_file": true
 						},
-						"priority": 10
+						"priority": 10,
+            "draw_soft_divider": false,
+            "after": " "
 					}
 				]
-
 			}
 		],
 		"right": [
-		]
+    ]
 	}
 }
