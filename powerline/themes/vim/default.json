@@ -2,10 +2,6 @@
 	"segments": {
 		"left": [
 			{
-				"function": "mode",
-				"exclude_modes": ["nc"]
-			},
-			{
 				"function": "visual_range",
 				"include_modes": ["v", "V", "^V", "s", "S", "^S"],
 				"priority": 10
