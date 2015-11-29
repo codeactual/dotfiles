@@ -13,6 +13,8 @@
 			},
 			{
 				"function": "branch",
+				"draw_soft_divider": false,
+        "after": ": ",
 				"exclude_modes": ["nc"],
 				"priority": 30
 			},
