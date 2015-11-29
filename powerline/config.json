@@ -32,7 +32,8 @@
 		"vim": {
 			"colorscheme": "default",
 			"theme": "default",
-			"local_themes": {
+            "local_themes": {
+                "__tabline__": "tabline"
 			}
 		},
 		"wm": {
