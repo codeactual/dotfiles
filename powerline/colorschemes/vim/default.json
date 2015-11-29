@@ -56,23 +56,23 @@
 		},
 		"i": {
 			"colors": {
-				"gray0": "darkestblue",
-				"gray1": "darkestblue",
-				"gray2": "darkestblue",
-				"gray3": "darkblue",
-				"gray4": "darkblue",
-				"gray5": "darkestcyan",
-				"gray6": "darkestcyan",
-				"gray7": "darkestcyan",
-				"gray8": "mediumcyan",
-				"gray9": "mediumcyan",
-				"gray10": "mediumcyan",
+				"gray0": "gray0",
+				"gray1": "gray1",
+				"gray2": "gray2",
+				"gray3": "gray3",
+				"gray4": "gray4",
+				"gray5": "gray5",
+				"gray6": "gray6",
+				"gray7": "gray7",
+				"gray8": "gray7",
+				"gray9": "gray9",
+				"gray10": "gray10",
 				"green_yellow_red": "gray5",
 				"dark_green_gray": "light_green_gray"
 			},
 			"groups": {
 				"mode":               { "fg": "darkestcyan", "bg": "white", "attrs": ["bold"] },
-				"background:divider": { "fg": "darkcyan", "bg": "darkestblue", "attrs": [] },
+				"background:divider": { "fg": "gray0", "bg": "gray0", "attrs": [] },
 				"branch:divider":     { "fg": "darkcyan", "bg": "darkblue", "attrs": [] }
 			}
 		},
