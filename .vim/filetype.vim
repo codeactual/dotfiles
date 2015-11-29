@@ -10,6 +10,7 @@
       au! BufRead,BufNewFile    *.html         setfiletype html|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.css         setfiletype css|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.js         setfiletype javascript|set softtabstop=2|set tabstop=2|set shiftwidth=2
+      au! BufRead,BufNewFile    *.json         setfiletype json|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.handlebars         setfiletype html|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.php           setfiletype php|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.php-dist      setfiletype php|set softtabstop=2|set tabstop=2|set shiftwidth=2
