@@ -189,6 +189,10 @@ map <C-\> :BufExplorer<CR>
 map <C-J> :tabprev<CR>
 map <C-K> :tabnext<CR>
 
+" Disable incrementing/decrementing numbers in the current line.
+nmap <C-A> <nop>
+nmap <C-X> <nop>
+
 " ctrlp plugin configuration
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 0
