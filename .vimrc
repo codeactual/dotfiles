@@ -194,6 +194,7 @@ map <C-K> :tabnext<CR>
 " Disable incrementing/decrementing numbers in the current line.
 nmap <C-A> <nop>
 nmap <C-X> <nop>
+set nrformats=
 
 " ctrlp plugin configuration
 let g:ctrlp_map = '<c-p>'
