@@ -219,15 +219,7 @@ map <C-T> :Tagbar<CR>
 " In normal mode, jj escapes
 :inoremap jj <Esc>
 
-function TogglePasteMode()
-       if &paste
-            set nopaste
-       else
-            set paste
-       endif
-endfunction
-
-nmap <C-M> :call TogglePasteMode()<CR>
+set pastetoggle=<C-M>
 
 " Toggle line numbers.
 nmap <C-N> :set invnumber<CR>
