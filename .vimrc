@@ -265,6 +265,19 @@ map <S-K> <nop>
 let g:session_autoload = 'yes'
 let g:session_autosave = 'yes'
 let g:session_command_aliases = 1
+" skip globals
+set sessionoptions-=globals
+" skip manually created folds
+set sessionoptions-=folds
+" skip blank windows
+set sessionoptions-=blank
+" skip hidden/unloaded buffers
+set sessionoptions-=buffers
+" skip options/mappings
+set sessionoptions-=options
+set sessionoptions-=localoptions
+" skip help windows
+set sessionoptions-=help
 
 " BufExplorer
 "
