@@ -72,6 +72,8 @@ hi ColorColumn cterm=none ctermfg=242 ctermbg=NONE
 
 " Reduce veritical split visibility
 hi VertSplit cterm=NONE ctermfg=black ctermbg=black
+" (Bottom of the vertical split)
+hi StatusLineNC cterm=NONE ctermfg=black ctermbg=black
 
 " Increase readability of quickfix lines
 hi qfFileName cterm=NONE ctermfg=lightgray ctermbg=NONE
