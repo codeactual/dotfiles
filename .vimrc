@@ -133,12 +133,6 @@ set encoding=utf-8
 " Allow future highlights
 set hlsearch
 
-" q: sucks
-nmap q: :q
-
-" Shortcuts
-nmap tn :tabnew
-
 " Don't create backups
 set nobackup
 set nowritebackup
@@ -213,12 +207,6 @@ set timeoutlen=200
 " Toggle tag bar
 map <C-T> :Tagbar<CR>
 
-" Don't make a # force column zero.
-:inoremap # X<BS>#
-
-" In normal mode, jj escapes
-:inoremap jj <Esc>
-
 set pastetoggle=<C-M>
 
 " Toggle line numbers.
@@ -242,12 +230,6 @@ abbreviate expection exception
 abbreviate Expection Exception
 
 execute pathogen#infect()
-
-" web-indent
-let g:js_indent_log = 0
-
-" vim-css-color
-let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " Open NERDtree if there's no initial file to open
 " autocmd vimenter * if !argc() | only | NERDTree | endif
