@@ -6,6 +6,12 @@
 " Remove any trailing whitespace that is in the file
 autocmd BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
+" viminfo
+" '0: don't save marks
+" f0: don't save marks
+" <0: don't save registers
+set viminfo='0,f0,<0
+
 set term=xterm-256color
 set termencoding=utf-8
 
