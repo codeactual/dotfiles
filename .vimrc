@@ -208,8 +208,6 @@ set timeoutlen=200
 " Toggle tag bar
 map <C-T> :Tagbar<CR>
 
-set pastetoggle=<C-M>
-
 " Toggle line numbers.
 nmap <C-N> :set invnumber<CR>
 
