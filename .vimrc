@@ -231,9 +231,6 @@ abbreviate Expection Exception
 
 execute pathogen#infect()
 
-" Open NERDtree if there's no initial file to open
-" autocmd vimenter * if !argc() | only | NERDTree | endif
-
 " Disable arrow keys
 map <up> <nop>
 map <down> <nop>
