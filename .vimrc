@@ -327,3 +327,6 @@ let g:ycm_seed_identifiers_with_syntax = 1
 " autocompletion content.
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt =  0
+
+" gundo
+nmap <leader>g :GundoToggle<CR>

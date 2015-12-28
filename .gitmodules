@@ -37,3 +37,6 @@
 [submodule ".vim/bundle/vim-bracketed-paste"]
 	path = .vim/bundle/vim-bracketed-paste
 	url = https://github.com/ConradIrwin/vim-bracketed-paste
+[submodule "/home/ubuntu/.vim/bundle/gundo"]
+	path = /home/ubuntu/.vim/bundle/gundo
+	url = https://github.com/sjl/gundo.vim.git
