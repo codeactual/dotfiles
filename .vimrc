@@ -250,8 +250,6 @@ set sessionoptions-=globals
 set sessionoptions-=folds
 " skip blank windows
 set sessionoptions-=blank
-" skip hidden/unloaded buffers
-set sessionoptions-=buffers
 " skip options/mappings
 set sessionoptions-=options
 set sessionoptions-=localoptions
@@ -262,7 +260,6 @@ set sessionoptions-=help
 "
 " Ex. to deal with index.js files from many modules
 let g:bufExplorerSplitOutPathName = 0
-let g:bufExplorerShowTabBuffer = 1
 
 " Always show the status bar (vs. only when viewing multiple files).
 set laststatus=2
