@@ -27,7 +27,7 @@ alias dktlast="dkt \`dkilast\` \$1"
 alias dkrmold="docker ps -a --filter=status=exited | egrep 'minute|day|week|hour' | tail -n 20 | awk '{print \$1}' | xargs docker rm; docker ps -a"
 
 # Delete the oldest 20 images that are at least about 1 hour old.
-alias dkrmiold="docker images --filter=dangling=true | egrep '<none>.*(minute|day|week|hour)' | tail -n 20 | sort --reverse | awk '{print \$3}' | xargs docker rmi; docker images"
+alias dkrmiold="docker images --filter=dangling=true | egrep '<none>' | tail -n 20 | sort --reverse | awk '{print \$3}' | xargs docker rmi; docker images"
 
 alias dk-master-install="docker -v; sudo service docker stop ; sudo cp \$(which docker) \$(which docker)_ ; sudo cp ./bundles/*-dev/binary/docker-*-dev $(which docker); sudo service docker start; docker -v"
 
