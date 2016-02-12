@@ -287,6 +287,7 @@ let g:syntastic_yaml_checkers = ['yamlxs']
 let g:syntastic_aggregate_errors = 1
 " Don't conflict with vim-go/gometalinter checks
 let g:syntastic_go_checkers = []
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 " syntastic-compatible way to close a buffer and its location list
 nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
