@@ -106,9 +106,16 @@ hi gitcommitSummary cterm=NONE ctermfg=cyan ctermbg=NONE
 hi TabLineFill cterm=NONE ctermfg=NONE ctermbg=NONE
 hi TabLine cterm=NONE ctermfg=234 ctermbg=NONE
 hi TabLineSel cterm=NONE ctermfg=white ctermbg=NONE
-" (For the per-tab window counter. However other styles, ex. markdown, will inherit
+" (For the per-tab window counter. However other styles, ex. m {arkdown, will inherit
 " from Title for headings.)
 hi Title cterm=NONE ctermfg=darkgray ctermbg=NONE
+
+" Reduce color variation in markdown
+hi mkdCode cterm=NONE ctermfg=136 ctermbg=NONE
+hi mkdURL cterm=NONE ctermfg=136 ctermbg=NONE
+hi mkdInlineURL cterm=NONE ctermfg=136 ctermbg=NONE
+hi mkdLink cterm=NONE ctermfg=136 ctermbg=NONE
+hi mkdDelimiter cterm=NONE ctermfg=136 ctermbg=NONE
 
 " Print syntax highlighting group used at cursor
 " http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
