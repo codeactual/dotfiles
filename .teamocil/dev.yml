@@ -7,7 +7,7 @@ windows:
     root: "~/"
     layout: even-vertical
     panes:
-      - clear
+      - tail -F ~/error.log
       - commands:
           - clear
         focus: true
