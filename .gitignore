@@ -98,3 +98,4 @@ sandboxes/
 tmp/
 workspace/
 zsh/local
+npm*
