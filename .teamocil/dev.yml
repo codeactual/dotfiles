@@ -13,7 +13,9 @@ windows:
         focus: true
   - name: "vim"
     root: "~/"
-    layout: even-vertical
+    layout: main-horizontal
+    options:
+      - main-pane-height: 18
     panes:
       - vimsh
       - commands:
