@@ -182,8 +182,8 @@ set hidden
 " Jump 4 lines when running out of the screen
 set scrolljump=4
 
-" Indicate jump out of the screen when 3 lines before end of the screen
-set scrolloff=3
+" Vertically center the cursor, esp. for search result navigation
+set scrolloff=999
 
 " Correct indentation after opening a phpdocblock and automatic * on every
 " line
