@@ -50,8 +50,6 @@ hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
 " Location list paths (match prompt color for cwd)
 hi Directory cterm=NONE ctermfg=magenta ctermbg=black
 
-hi MatchParen cterm=none ctermbg=darkgrey ctermfg=white
-
 " tildes
 hi NonText cterm=none ctermfg=233 ctermbg=black
 
@@ -158,9 +156,6 @@ set textwidth=0
 
 " Show cursor position in lower-right corner
 set ruler
-
-" Highlight matching parens
-set showmatch
 
 " Searching
 set incsearch
@@ -327,3 +322,6 @@ let g:ycm_add_preview_to_completeopt =  0
 
 " gundo
 nmap <leader>g :GundoToggle<CR>
+
+" Disable paren matching.
+let loaded_matchparen = 1
