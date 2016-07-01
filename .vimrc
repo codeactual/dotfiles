@@ -34,9 +34,6 @@ set noeb vb t_vb=
 
 set nofoldenable
 
-set cursorline
-hi CursorLine cterm=NONE ctermfg=NONE ctermbg=232
-
 " Highlight search matches (original fg, dark grey bg)
 hi Search cterm=NONE ctermfg=white ctermbg=darkgrey
 
@@ -122,14 +119,6 @@ hi mkdDelimiter cterm=NONE ctermfg=136 ctermbg=NONE
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" Only show CursorLine the active buffer
-" http://stackoverflow.com/a/12018552
-augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
-augroup END
 
 " turn off any existing search
 au VimEnter * nohls
