@@ -6,13 +6,7 @@ source ~/zsh/core.zsh
 
 source ~/zsh/aliases.zsh
 source ~/zsh/docker.zsh
-source ~/zsh/irc.zsh
-source ~/zsh/android.zsh
 source ~/zsh/funcs.zsh
-source ~/zsh/gnome.zsh
-source ~/zsh/mac.zsh
-source ~/zsh/mysql.zsh
-source ~/zsh/php.zsh
 source ~/zsh/python.zsh
 source ~/zsh/ruby.zsh
 source ~/zsh/node.zsh
