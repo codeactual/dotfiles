@@ -20,6 +20,7 @@
 .Xmodmap
 .adobe*
 .android*
+.aws/
 .cache/
 .compiz*
 .config
