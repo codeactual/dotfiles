@@ -1,5 +1,11 @@
 echo "Loading $0"
 
+# For "messages on stderr telling about alias expansion, built-in command execution and external command execution"
+export GIT_TRACE=true
+
+# For .gitignore debugging (for 2.9.2+)
+export GIT_TRACE_EXCLUDE=1
+
 # Prepend `git` commands with GIT_TRACE=1 for verbose/debug output.
 
 # Based on http://justinlilly.com/dotfiles/zsh.html
