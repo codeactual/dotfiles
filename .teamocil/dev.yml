@@ -27,7 +27,7 @@ windows:
     panes:
       - clear
       - commands:
-          - vim3000
+          - vim3001
         focus: true
   - name: "t4"
     root: "~/"
