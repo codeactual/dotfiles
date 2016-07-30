@@ -1,0 +1,2 @@
+echo "Loading $0"
+

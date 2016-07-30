@@ -10,6 +10,7 @@ source ~/zsh/funcs.zsh
 source ~/zsh/python.zsh
 source ~/zsh/ruby.zsh
 source ~/zsh/node.zsh
+source ~/zsh/golang.zsh
 source ~/zsh/git.zsh
 source ~/zsh/ssh-agent.zsh
 
