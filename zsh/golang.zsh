@@ -35,6 +35,16 @@ function govenlink {
             return 1
         fi
         echo "Backup $BACKUP_PATH created."
+    else
+        VENDOR_PARENT_PATH=`dirname $VENDOR_PATH`
+        if [ ! -d "$VENDOR_PARENT_PATH" ]; then
+            echo "INFO: Not currently vendored. Created empty $VENDOR_PARENT_PATH to host symlink."
+            mkdir -p $VENDOR_PARENT_PATH
+            if [ $? -ne 0 ]; then
+                echo "ERR: Failed to create $VENDOR_PARENT_PATH."
+                return 1
+            fi
+        fi
     fi
 
     ln -s $GLOBAL_PATH $VENDOR_PATH
