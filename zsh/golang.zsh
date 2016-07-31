@@ -12,7 +12,7 @@ function govenlink {
     fi
 
     if [ ! -d "$GLOBAL_PATH" ]; then
-        echo "ERR: $GLOBAL_PATH link destination not found."
+        echo "ERR: $GLOBAL_PATH link destination not found. ==> go get $IMPORT_PATH"
         return 1
     fi
 
