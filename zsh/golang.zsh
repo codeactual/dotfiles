@@ -22,7 +22,7 @@ function govenlink {
     fi
 
     if [ -d "$VENDOR_PATH" ]; then
-        echo "INFO: Currently vendored."
+        echo "INFO: Previously vendored."
 
         if [ -d "$BACKUP_PATH" ]; then
             echo "ERR: Backup $BACKUP_PATH found. Already govenlink'ed?"
@@ -38,7 +38,7 @@ function govenlink {
     else
         VENDOR_PARENT_PATH=`dirname $VENDOR_PATH`
         if [ ! -d "$VENDOR_PARENT_PATH" ]; then
-            echo "INFO: Not currently vendored. Created empty $VENDOR_PARENT_PATH to host symlink."
+            echo "INFO: Not previously vendored. Created empty $VENDOR_PARENT_PATH to host symlink."
             mkdir -p $VENDOR_PARENT_PATH
             if [ $? -ne 0 ]; then
                 echo "ERR: Failed to create $VENDOR_PARENT_PATH."
