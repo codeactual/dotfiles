@@ -76,6 +76,7 @@
 .tumblr
 .vim/sessions
 .viminfo
+.vimrc.local
 .xscreensaver
 .xsession-errors
 .zzz*
