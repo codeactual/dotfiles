@@ -40,3 +40,6 @@
 [submodule "/home/ubuntu/.vim/bundle/gundo"]
 	path = /home/ubuntu/.vim/bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
+[submodule ".vim/bundle/systemd-vim-syntax"]
+	path = .vim/bundle/systemd-vim-syntax
+	url = https://github.com/kurayama/systemd-vim-syntax
