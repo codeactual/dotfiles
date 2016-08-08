@@ -199,7 +199,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 ##### PATH #####
 ################
 
-export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin"
+export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:$HOME/bin"
 export PERL5LIB=""
 
 BIN_DIR="$HOME/zsh/bin"
