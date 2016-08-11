@@ -39,6 +39,7 @@
 .gem/
 .gimp*
 .gksu.lock
+.gnupg*
 .gnome2/
 .google_authenticator
 .gstreamer*
