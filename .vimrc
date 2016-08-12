@@ -305,6 +305,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_yaml_checkers = ['yamlxs']
+let g:syntastic_python_checkers = ['flake8', 'pylint']
 let g:syntastic_aggregate_errors = 1
 " Don't conflict with vim-go/gometalinter checks
 let g:syntastic_go_checkers = []
@@ -347,6 +348,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 " autocompletion content.
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt =  0
+" Match the version YCM was compiled in.
+let g:ycm_server_python_interpreter = '/usr/bin/python2'
 
 " gundo
 nmap <leader>g :GundoToggle<CR>
