@@ -31,7 +31,9 @@ function find_agent_meta {
   fi
 }
 
-if [[ -z "$HOSTNAME" ]]; then
+if dk-detect; then
+  echo "Possibly inside a docker container. Exiting $0."
+else
   find_agent_meta
 
   # If the agent is not running (pid is zero length string)
@@ -64,6 +66,4 @@ if [[ -z "$HOSTNAME" ]]; then
         export_agent_meta $agent_pid $agent_sock
       fi
   fi
-else
-  echo "Possibly inside a docker container. Exiting $0."
 fi

@@ -21,6 +21,9 @@ alias dkrmiold="dkrmold; docker images --filter=dangling=true | grep '<none>' | 
 
 alias dk-master-install="docker -v; sudo service docker stop ; sudo cp \$(which docker) \$(which docker)_ ; sudo cp ./bundles/*-dev/binary/docker-*-dev $(which docker); sudo service docker start; docker -v"
 
+# http://stackoverflow.com/questions/20010199/determining-if-a-process-runs-inside-lxc-docker
+alias dk-detect="grep docker /proc/1/cgroup 2>&1 > /dev/null"
+
 LOCAL_ZSH_DIR=$HOME/docker/zsh
 if [ -d $LOCAL_ZSH_DIR ]; then
   for file in $LOCAL_ZSH_DIR/*.*sh
