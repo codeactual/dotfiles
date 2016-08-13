@@ -357,6 +357,9 @@ nmap <leader>g :GundoToggle<CR>
 " Disable paren matching.
 let loaded_matchparen = 1
 
+" Ex. in python add space after each '#' to avoid lint warnings.
+let g:NERDSpaceDelims = 1
+
 let local_vimrc_path = $HOME . "/.vimrc.local"
 if filereadable(local_vimrc_path)
     exec "source " . local_vimrc_path
