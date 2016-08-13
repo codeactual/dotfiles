@@ -305,7 +305,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_yaml_checkers = ['yamlxs']
-let g:syntastic_python_checkers = ['flake8', 'pylint']
+let g:syntastic_python_flake8_args='--ignore=E901'
 let g:syntastic_aggregate_errors = 1
 " Don't conflict with vim-go/gometalinter checks
 let g:syntastic_go_checkers = []
