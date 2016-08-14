@@ -23,7 +23,6 @@
 .aws/
 .cache/
 .compiz*
-.config
 .dbshell
 .dbus/
 .docker/
