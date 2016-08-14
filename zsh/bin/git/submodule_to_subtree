@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+# Based on http://stackoverflow.com/questions/28215244/convert-git-submodule-to-subtree
+#
+# Changes:
+# - Add subtrees at the submodules' current commits instead of master.
+# - Don't `fetch` after `subtree add`.
+
+cat .gitmodules |while read i
+do
+if [[ $i == \[submodule* ]]; then
+    echo $i
+
+    # extract the module's prefix
+    mpath=$(echo $i | cut -d\" -f2)
+
+    # skip two lines
+    read i; read i;
+
+    # extract the url of the submodule
+    murl=$(echo $i|cut -d\  -f3)
+
+    # extract the module name
+    mname=$(basename $mpath)
+
+    cd /tmp/dotfiles/$mpath
+    commit=`git rev-parse --verify HEAD`
+
+    cd -
+
+    echo "===== converting $murl in $mpath @ $commit ====="
+
+    # deinit the module
+    echo git submodule deinit $mpath
+    git submodule deinit $mpath
+
+    # remove the module from git
+    echo git rm -r --cached $mpath
+    git rm -r --cached $mpath
+
+    # remove the module from the filesystem
+    echo rm -rf $mpath
+    rm -rf $mpath
+
+    # commit the change
+    echo git commit -m \"Removed $mpath submodule\"
+    git commit -m "Removed $mpath submodule"
+
+    # add the remote
+    echo git remote add -f $mname $mpath
+    git remote add -f $mname $murl
+
+    # add the subtree
+    echo git subtree add --prefix $mpath $murl $commit --squash
+    git subtree add --prefix $mpath $mname $commit --squash
+fi
+done
