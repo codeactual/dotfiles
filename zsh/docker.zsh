@@ -1,5 +1,3 @@
-echo "Loading $0"
-
 alias dki="docker images"
 alias dkia="docker images -a"
 alias dkiat="docker images -a -tree"
