@@ -29,14 +29,14 @@ __ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
 # If a filter result is missing or old.
 if [ -f ~/.zsh_history ]; then
   if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find $__ZSH_HISTIGNORE_RESULT -mmin +1 > /dev/null 2>&1` ]; then
-    egrep -v "$__ZSH_HISTIGNORE" ~/.zsh_history > $__ZSH_HISTIGNORE_RESULT
-    echo "ZSH history cleanup: $(diff ~/.zsh_history $__ZSH_HISTIGNORE_RESULT | egrep "^<" | wc -l)"
-    cp $__ZSH_HISTIGNORE_RESULT ~/.zsh_history
+    egrep -v "$__ZSH_HISTIGNORE" ~/zsh/history > $__ZSH_HISTIGNORE_RESULT
+    echo "ZSH history cleanup: $(diff ~/zsh/history $__ZSH_HISTIGNORE_RESULT | egrep "^<" | wc -l)"
+    cp $__ZSH_HISTIGNORE_RESULT ~/zsh/history
     rm -f $__ZSH_HISTIGNORE_RESULT
   fi
 fi
 
-export HISTFILE=~/.zsh_history
+export HISTFILE=~/zsh/history
 export HISTSIZE=10000
 export SAVEHIST=10000
 
