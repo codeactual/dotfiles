@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Copy stdin to the tmux copy/paste buffer.
+
+tr -d '\n' | tmux loadb -
