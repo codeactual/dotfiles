@@ -8,6 +8,7 @@ export GIT_TRACE_EXCLUDE=1
 # Based on http://justinlilly.com/dotfiles/zsh.html
 alias g=git
 alias ga='git add'
+alias gaa='git add --all'
 alias gamend="git commit --amend"                                   # Amend last commit.
 alias gap='git add --patch'
 alias gcheckpoint='git stash && git stash apply'                            # http://stackoverflow.com/questions/1981830/undo-part-of-unstaged-changes-in-git
