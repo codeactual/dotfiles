@@ -14,8 +14,8 @@ alias dkrlast="dkr \`dkilast\`"
 
 alias dktlast="dkt \`dkilast\` \$1"
 
-alias dkrmold="docker ps --all --filter=status=exited --filter=status=dead | awk '{print \$1}' | grep -v CONTAINER | xargs docker rm"
-alias dkrmiold="dkrmold; docker images --filter=dangling=true | grep '<none>' | awk '{print \$3}' | xargs docker rmi; docker images"
+alias dkrmold="docker ps --all --filter=status=exited --filter=status=dead | awk '{print \$1}' | grep -v CONTAINER | xargs --no-run-if-empty docker rm"
+alias dkrmiold="dkrmold; docker images --filter=dangling=true | grep '<none>' | awk '{print \$3}' | xargs --no-run-if-empty docker rmi; docker images"
 
 alias dk-master-install="docker -v; sudo service docker stop ; sudo cp \$(which docker) \$(which docker)_ ; sudo cp ./bundles/*-dev/binary/docker-*-dev $(which docker); sudo service docker start; docker -v"
 
