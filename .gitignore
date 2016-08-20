@@ -21,6 +21,7 @@
 .adobe*
 .android*
 .aws/
+.boto/
 .cache/
 .compiz*
 .dbshell
@@ -88,7 +89,6 @@ Pictures/
 Ubuntu*
 bookmarkbackups
 config
-docker
 examples.desktop
 mac/
 npm_*/

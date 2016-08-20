@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker ps --all --filter=status=exited --filter=status=dead | awk '{print $1}' | grep -v CONTAINER | xargs --no-run-if-empty docker rm
