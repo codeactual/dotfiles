@@ -9,7 +9,7 @@
 cat .gitmodules |while read i
 do
 if [[ $i == \[submodule* ]]; then
-    echo $i
+    echo -e "\n\nStarting $i ==========================================\n\n"
 
     # extract the module's prefix
     mpath=$(echo $i | cut -d\" -f2)
@@ -23,20 +23,37 @@ if [[ $i == \[submodule* ]]; then
     # extract the module name
     mname=$(basename $mpath)
 
-    cd /tmp/dotfiles/$mpath
+    cd $mpath
+    if [ $? -ne 0 ]; then
+      echo "ERR: cd to $mpath failed"
+      exit 1
+    fi
+
     commit=`git rev-parse --verify HEAD`
+    if [ $? -ne 0 ]; then
+      echo "ERR: rev-parse failed"
+      exit 1
+    fi
 
     cd -
 
-    echo "===== converting $murl in $mpath @ $commit ====="
+    echo -e "\n\nConverting $murl in $mpath @ $commit =================\n\n"
 
     # deinit the module
     echo git submodule deinit $mpath
     git submodule deinit $mpath
+    if [ $? -ne 0 ]; then
+      echo "ERR: denit failed"
+      exit 1
+    fi
 
     # remove the module from git
     echo git rm -r --cached $mpath
     git rm -r --cached $mpath
+    if [ $? -ne 0 ]; then
+      echo "ERR: git rm failed"
+      exit 1
+    fi
 
     # remove the module from the filesystem
     echo rm -rf $mpath
@@ -45,13 +62,25 @@ if [[ $i == \[submodule* ]]; then
     # commit the change
     echo git commit -m \"Removed $mpath submodule\"
     git commit -m "Removed $mpath submodule"
+    if [ $? -ne 0 ]; then
+      echo "ERR: commit failed"
+      exit 1
+    fi
 
     # add the remote
     echo git remote add -f $mname $mpath
     git remote add -f $mname $murl
+    if [ $? -ne 0 ]; then
+      echo "ERR: remote add failed"
+      exit 1
+    fi
 
     # add the subtree
     echo git subtree add --prefix $mpath $murl $commit --squash
     git subtree add --prefix $mpath $mname $commit --squash
+    if [ $? -ne 0 ]; then
+      echo "ERR: subtree add failed"
+      exit 1
+    fi
 fi
 done
