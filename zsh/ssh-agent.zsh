@@ -21,7 +21,6 @@ function ssh_agent_stop {
 if dk-detect; then
   echo "ssh-agent.zsh: docker container detected"
 else
-  ssh_agent_link_socket
   ssh-add -l
   if [ $? -ne 0 ]; then
     ssh_agent_stop
