@@ -19,7 +19,7 @@ alias dk-master-install="docker -v; sudo service docker stop ; sudo cp \$(which 
 # http://stackoverflow.com/questions/20010199/determining-if-a-process-runs-inside-lxc-docker
 alias dk-detect="grep docker /proc/1/cgroup 2>&1 > /dev/null"
 
-LOCAL_ZSH_DIR=$HOME/docker/zsh
+LOCAL_ZSH_DIR=$HOME/zsh/docker
 if [ -d $LOCAL_ZSH_DIR ]; then
   for file in $LOCAL_ZSH_DIR/*.*sh
   do

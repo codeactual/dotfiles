@@ -100,4 +100,5 @@ sandboxes/
 tmp/
 workspace/
 zsh/local
+zsh/docker
 npm*
