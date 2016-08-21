@@ -1,7 +1,0 @@
-#!/bin/bash
-
-dkrmold
-
-# Propagate DOCKER_HOST in case it was customized at invocation
-DOCKER_HOST=$DOCKER_HOST docker images --filter=dangling=true | grep '<none>' | awk '{print $3}' | xargs --no-run-if-empty docker rmi
-
