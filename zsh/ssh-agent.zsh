@@ -18,7 +18,7 @@ function ssh_agent_stop {
   rm -rf "/tmp/ssh-*" $SSH_AUTH_SOCK 2>&1 > /dev/null
 }
 
-if dkdetect; then
+if grep docker /proc/1/cgroup 2>&1 > /dev/null; then
   echo "ssh-agent.zsh: docker container detected"
 else
   ssh-add -l
