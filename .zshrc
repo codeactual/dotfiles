@@ -18,9 +18,9 @@ source ~/zsh/ssh-agent.zsh
 ##### LOCAL INCLUDES #####
 ##########################
 
-LOCAL_CONFIG_DIR=$HOME/zsh/local
-if [ -d $LOCAL_CONFIG_DIR ]; then
-  for file in $LOCAL_CONFIG_DIR/*.zsh
+LOCAL_ZSH_DIR=$HOME/zsh/local
+if [ -d $LOCAL_ZSH_DIR ]; then
+  for file in $LOCAL_ZSH_DIR/*.zsh
   do
     source $file
   done
