@@ -78,6 +78,7 @@
 .vim/sessions
 .viminfo
 .vimrc.local
+.wget*
 .xscreensaver
 .xsession-errors
 .zzz*
