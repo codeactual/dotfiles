@@ -17,7 +17,7 @@ setopt prompt_subst
 
 # Use egrep to mimic HISTIGNORE in zsh.
 export __ZSH_HISTIGNORE_EXACT="(h?top|exit|reset|clear|gci|node|replpad|rm|secret|encrypt|decrypt|mv|vim?)"
-export __ZSH_HISTIGNORE_EXIST="shutdown|git checkout"
+export __ZSH_HISTIGNORE_EXIST="shutdown|git checkout|git branch -[dD]"
 export __ZSH_HISTIGNORE="(^..$"
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^l[sl] "
 export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^export"
