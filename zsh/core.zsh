@@ -109,14 +109,30 @@ export GIT_PS1_SHOWUPSTREAM="git"
 source ~/zsh/completion/git-completion.zsh
 source ~/zsh/completion/git-prompt.zsh
 
-# http://hamberg.no/erlend/posts/2010-10-17-show-current-vi-mode-in-zsh-prompt.html
-# set VIMODE according to the current mode (default “[INSERT]”)
-VIMODE='[INSERT]'
-function zle-keymap-select {
- VIMODE="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
- zle reset-prompt
+# https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/vi-mode/vi-mode.plugin.zsh
+# Updates editor information when the keymap changes.
+function zle-line-init zle-keymap-select() {
+  zle reset-prompt
+  zle -R
 }
+# Ensure that the prompt is redrawn when the terminal size changes.
+TRAPWINCH() {
+  zle && { zle reset-prompt; zle -R }
+}
+zle -N zle-line-init
 zle -N zle-keymap-select
+zle -N edit-command-line
+if [[ "$MODE_INDICATOR" == "" ]]; then
+  MODE_INDICATOR="%{$fg_bold[red]%}:%{$reset_color%}"
+fi
+function vi_mode_prompt_info() {
+  echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/:}"
+}
+VIMODE='$(vi_mode_prompt_info)'
+
+# 10ms for key sequences
+# From https://www.johnhawthorn.com/2012/09/vi-escape-delays/
+KEYTIMEOUT=1
 
 # Prevent buffer from cycling through tab-completion candiates. Only show the menu.
 # http://unix.stackexchange.com/questions/12035/zsh-equivalent-of-bash-show-all-if-ambiguous
@@ -149,8 +165,8 @@ PRMT_HOST="%{$fg[yellow]%}$PRMT_HOST_PREFIX%M%{$reset_color%}"
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
 PRMT_HISTNUM="%!"
 PRMT_BRANCH=""$'$(__git_ps1 "(%s)")'
-export PROMPT="$PRMT_DATE $PRMT_TIME $PRMT_TZ $PRMT_USER @ $PRMT_HOST : $PRMT_DIR $PRMT_HISTNUM $PRMT_BRANCH ${VIMODE}
-: "
+export PROMPT="$PRMT_DATE $PRMT_TIME $PRMT_TZ $PRMT_USER @ $PRMT_HOST : $PRMT_DIR $PRMT_HISTNUM $PRMT_BRANCH
+${VIMODE} "
 
 ########################
 ##### MISC OPTIONS #####
