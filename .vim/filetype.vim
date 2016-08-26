@@ -4,6 +4,7 @@
     endif
     augroup filetypedetect
       au BufRead,BufNewFile **/fpath/* setfiletype zsh|set softtabstop=2|set tabstop=2|set shiftwidth=2
+      au BufRead,BufNewFile *.zsh setfiletype zsh|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.yaml,*.yml         setfiletype yaml|set softtabstop=2|set tabstop=2|set shiftwidth=2|set nonumber
       au! BufRead,BufNewFile    *.md         setfiletype mkd|set softtabstop=2|set tabstop=2|set shiftwidth=2|set nonumber
       au! BufRead,BufNewFile    *.go         setfiletype go|set softtabstop=4|set tabstop=4|set shiftwidth=4|set nonumber
