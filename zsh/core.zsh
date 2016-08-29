@@ -155,10 +155,10 @@ PRMT_TIME="%{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S}"
 PRMT_TZ="%D{%Z}"
 PRMT_USER="%n"
 
-if [[ -z "$HOSTNAME" ]]; then
-  PRMT_HOST_PREFIX=""
+if grep docker /proc/1/cgroup 2>&1 > /dev/null; then
+  PRMT_HOST_PREFIX="docker:"
 else
-  PRMT_HOST_PREFIX="CONTAINER ---- "
+  PRMT_HOST_PREFIX=""
 fi
 PRMT_HOST="%{$fg[yellow]%}$PRMT_HOST_PREFIX%M%{$reset_color%}"
 
