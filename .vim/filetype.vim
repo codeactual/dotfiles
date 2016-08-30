@@ -3,6 +3,7 @@
       finish
     endif
     augroup filetypedetect
+      au BufRead,BufNewFile **/ansible/*.yml setfiletype ansible|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au BufRead,BufNewFile **/fpath/* setfiletype zsh|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au BufRead,BufNewFile *.zsh setfiletype zsh|set softtabstop=2|set tabstop=2|set shiftwidth=2
       au! BufRead,BufNewFile    *.yaml,*.yml         setfiletype yaml|set softtabstop=2|set tabstop=2|set shiftwidth=2|set nonumber
