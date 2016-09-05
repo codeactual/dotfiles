@@ -49,7 +49,7 @@ hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
 
 " Highlight line
 set cursorline
-hi CursorLine cterm=underline ctermfg=NONE ctermbg=232
+hi CursorLine cterm=NONE ctermfg=NONE ctermbg=235
 augroup CursorLine
   au!
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
