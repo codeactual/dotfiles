@@ -47,6 +47,15 @@ hi IncSearch cterm=NONE ctermfg=white ctermbg=blue
 hi LineNr cterm=NONE ctermfg=239 ctermbg=black
 hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
 
+" Highlight line
+set cursorline
+hi CursorLine cterm=NONE ctermfg=NONE ctermbg=232
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
 " Location list paths (match prompt color for cwd)
 hi Directory cterm=NONE ctermfg=magenta ctermbg=black
 
