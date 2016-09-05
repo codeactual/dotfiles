@@ -112,6 +112,8 @@ hi mkdInlineURL cterm=NONE ctermfg=136 ctermbg=NONE
 hi mkdLink cterm=NONE ctermfg=136 ctermbg=NONE
 hi mkdDelimiter cterm=NONE ctermfg=136 ctermbg=NONE
 
+hi MatchParen cterm=none ctermbg=242 ctermfg=NONE
+
 " Print syntax highlighting group used at cursor
 " http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -353,9 +355,6 @@ let g:ycm_server_python_interpreter = '/usr/bin/python2'
 
 " gundo
 nmap <leader>g :GundoToggle<CR>
-
-" Disable paren matching.
-let loaded_matchparen = 1
 
 " Ex. in python add space after each '#' to avoid lint warnings.
 let g:NERDSpaceDelims = 1
