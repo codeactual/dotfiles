@@ -77,3 +77,6 @@ alias rm="rm -i"
 alias vimsafe="vim -RMm"
 alias zshrc="vim ~/.zshrc; sleep 1; source ~/.zshrc"
 alias ccat="pygmentize -g"
+
+# Evaluate aliases before passing command to sudo
+alias sudo='sudo '
