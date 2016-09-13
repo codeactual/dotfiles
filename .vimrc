@@ -361,6 +361,7 @@ set completeopt-=preview
 let g:ycm_add_preview_to_completeopt =  0
 " Match the version YCM was compiled in.
 let g:ycm_server_python_interpreter = '/usr/bin/python2'
+let g:ycm_filetype_blacklist = {}
 
 " gundo
 nmap <leader>g :GundoToggle<CR>
