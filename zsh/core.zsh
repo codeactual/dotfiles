@@ -35,9 +35,6 @@ if [ -f ~/.zsh_history ]; then
     echo "ZSH history cleanup: $(egrep "^<" $__ZSH_HISTIGNORE_DIFF | wc -l)"
     cp $__ZSH_HISTIGNORE_RESULT ~/zsh/history
     rm -f $__ZSH_HISTIGNORE_RESULT
-
-    # Comment out to debug filtering
-    rm -f $__ZSH_HISTIGNORE_DIFF
   fi
 fi
 
