@@ -366,6 +366,7 @@ hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
 
 " YouCompleteMe
 "
+let g:ycm_auto_trigger = 0
 let g:ycm_complete_in_comments = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 " Prevent pane from popping up with the same signature info as the
