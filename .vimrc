@@ -355,6 +355,7 @@ hi def link goHexadecimalInt String
 hi def link goOctalInt String
 hi def link goFloat String
 hi def link goCharacter String
+hi def link goDeclType goType
 "
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
