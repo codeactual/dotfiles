@@ -34,13 +34,13 @@ set noeb vb t_vb=
 
 set nofoldenable
 
-" Highlight search matches (original fg, dark grey bg)
-hi Search cterm=NONE ctermfg=white ctermbg=darkgrey
+" Highlight search matches
+hi Search cterm=NONE ctermfg=white ctermbg=blue
 
-" Highlight visual mode selections (original fg, dark grey bg)
-hi Visual cterm=NONE ctermfg=white ctermbg=darkgrey
+" Highlight visual mode selections
+hi Visual cterm=NONE ctermfg=white ctermbg=blue
 
-" Highlight incremental serach matches (white fg, dark grey bg)
+" Highlight incremental serach matches
 hi IncSearch cterm=NONE ctermfg=white ctermbg=blue
 
 " Highlight line numbers
