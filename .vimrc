@@ -356,6 +356,9 @@ hi def link goOctalInt String
 hi def link goFloat String
 hi def link goCharacter String
 hi def link goDeclType goType
+" Highlight function names at declaration
+let g:go_highlight_functions = 1
+
 "
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
