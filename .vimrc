@@ -342,6 +342,7 @@ autocmd FileType python setlocal nonumber
 nmap <C-G> :GoImports<CR>
 " Reduce color distraction
 hi goDeclaration cterm=NONE ctermfg=240 ctermbg=NONE
+hi def link goBuiltins goDeclaration
 hi def link goRepeat goDeclaration
 hi def link goStatement goDeclaration
 hi def link goConditional goDeclaration
@@ -352,11 +353,8 @@ hi def link goBoolean String
 hi def link goDecimalInt String
 hi def link goHexadecimalInt String
 hi def link goOctalInt String
-hi def link goSignedInts String
-hi def link goUnsignedInts String
-hi def link goFloats String
 hi def link goFloat String
-hi def link goComplexes String
+hi def link goCharacter String
 "
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
