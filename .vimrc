@@ -339,12 +339,6 @@ nmap <C-C> :cd %:p:h<CR>
 autocmd FileType python setlocal nonumber
 
 " vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
 nmap <C-G> :GoImports<CR>
 "
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
