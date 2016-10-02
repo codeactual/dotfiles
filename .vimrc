@@ -340,6 +340,23 @@ autocmd FileType python setlocal nonumber
 
 " vim-go
 nmap <C-G> :GoImports<CR>
+" Reduce color distraction
+hi goDeclaration cterm=NONE ctermfg=240 ctermbg=NONE
+hi def link goRepeat goDeclaration
+hi def link goStatement goDeclaration
+hi def link goConditional goDeclaration
+hi def link goLabel goDeclaration
+hi def link goPredefinedIdentifiers String
+hi def link goFormatSpecifier String
+hi def link goBoolean String
+hi def link goDecimalInt String
+hi def link goHexadecimalInt String
+hi def link goOctalInt String
+hi def link goSignedInts String
+hi def link goUnsignedInts String
+hi def link goFloats String
+hi def link goFloat String
+hi def link goComplexes String
 "
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
