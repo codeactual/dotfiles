@@ -39,8 +39,8 @@ if [ -f ~/.zsh_history ]; then
 fi
 
 export HISTFILE=~/zsh/history
-export HISTSIZE=10000
-export SAVEHIST=10000
+export HISTSIZE=2000
+export SAVEHIST=1000
 
 # Update $HIST_FILE as new lines appear. Don't wait until shell exits.
 setopt INC_APPEND_HISTORY
