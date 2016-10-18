@@ -20,7 +20,7 @@
 .Xmodmap
 .adobe*
 .android*
-.aws/
+.aws*/
 .boto/
 .cache/
 .compiz*
