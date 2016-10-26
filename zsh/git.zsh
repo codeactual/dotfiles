@@ -27,6 +27,7 @@ alias gdaw="gdw; gdcw"
 alias gdc="gd --cached"
 alias gdcw="gd --cached --word-diff"
 alias gdl="gd HEAD\^ HEAD"                                    # Diff from last commit.
+alias gdlp="git log -n1 -p -- \$1"
 alias gddi="gd origin/develop \^develop"
 alias gddo="gd develop \^origin/develop"
 alias gdv='gd | $EDITOR -R - '
