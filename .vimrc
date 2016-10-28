@@ -304,10 +304,8 @@ imap jj <Esc>
 nmap <leader>f :tab sp<CR>
 nmap <leader>c :tabclose<CR>
 
-" Clear highlighting on escape in normal mode
-" http://stackoverflow.com/a/1037182
-nnoremap <esc> :noh<return><esc>
-nnoremap <esc>^[ <esc>^[
+" Clear highlighting in normal mode with return key
+nnoremap <CR> :noh<CR><CR>
 
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
