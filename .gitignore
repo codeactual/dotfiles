@@ -39,8 +39,8 @@
 .gem/
 .gimp*
 .gksu.lock
-.gnupg*
 .gnome2/
+.gnupg*
 .google_authenticator
 .gstreamer*
 .gtk*
@@ -90,8 +90,10 @@ Pictures/
 Ubuntu*
 bookmarkbackups
 config
+/dev
 examples.desktop
 mac/
+npm*
 npm_*/
 opt/
 outbox/
@@ -100,6 +102,5 @@ push
 sandboxes/
 tmp/
 workspace/
-zsh/local
 zsh/docker
-npm*
+zsh/local
