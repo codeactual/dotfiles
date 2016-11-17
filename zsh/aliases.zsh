@@ -77,7 +77,7 @@ alias rm="rm -i"
 alias vimsafe="vim -RMm"
 alias zshrc="vim ~/.zshrc; sleep 1; source ~/.zshrc"
 alias ccat="pygmentize -g"
-alias make="/usr/bin/env make --warn-undefined-variable"
+alias make="/usr/bin/env make --warn-undefined-variable --no-print-directory"
 
 # Evaluate aliases before passing command to sudo
 alias sudo='sudo '
