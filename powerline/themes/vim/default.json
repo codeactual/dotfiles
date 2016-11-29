@@ -2,6 +2,15 @@
 	"segments": {
 		"left": [
 			{
+				"type": "string",
+				"highlight_groups": ["background"],
+				"draw_soft_divider": false,
+				"draw_hard_divider": false,
+				"width": "auto",
+        "align": "left",
+        "after": "^ "
+			},
+			{
 				"function": "visual_range",
 				"include_modes": ["v", "V", "^V", "s", "S", "^S"],
 				"priority": 10
