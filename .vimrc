@@ -358,8 +358,10 @@ hi def link goFloat String
 hi def link goCharacter String
 hi def link goEscapeC String
 hi def link goDeclType goType
-" Highlight function names at declaration
+" Highlight function names at declaration ...
 let g:go_highlight_functions = 1
+" ... but not calls
+hi def link goFunctionCall goBlock
 
 "
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
