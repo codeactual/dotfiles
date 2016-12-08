@@ -372,7 +372,10 @@ hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#disable_auto_complete = 1
-inoremap <expr><C-x>   neocomplete#start_manual_complete()
+inoremap <expr><C-x> neocomplete#start_manual_complete()
+" Scroll through candidates, use <ESC>/`jj` alias to accept completion state.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 " gundo
 nmap <leader>g :GundoToggle<CR>
