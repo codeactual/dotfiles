@@ -29,8 +29,8 @@ alias cgrep="egrep --color=always"
 alias findbrokensym="find -L . -type l" # http://www.commandlinefu.com/commands/view/8260/find-broken-symlinks
 alias hgrep="history | cgrep -i $1"
 alias lsdir="find . -maxdepth 1 -type d -not -name '.'"
-alias wcgrep-nocolor="wcgrep-base --color=never"
-alias wcgrep="wcgrep-base --color=always"
+alias wgnc="wcgrep-base --color=never"
+alias wg="wcgrep-base --color=always"
 alias higrep="egrep --color=always --context=10000"
 function findnew() {
     # http://stackoverflow.com/questions/5566310/how-to-recursively-find-and-list-the-latest-modified-files-in-a-directory-with-s
