@@ -363,22 +363,16 @@ let g:go_highlight_functions = 1
 " ... but not calls
 hi def link goFunctionCall goBlock
 
-"
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
 hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
 
-" YouCompleteMe
-"
-let g:ycm_auto_trigger = 0
-let g:ycm_complete_in_comments = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-" Prevent pane from popping up with the same signature info as the
-" autocompletion content.
-set completeopt-=preview
-let g:ycm_add_preview_to_completeopt =  0
-" Match the version YCM was compiled in.
-let g:ycm_server_python_interpreter = '/usr/bin/python2'
+" neocomplete
+" https://github.com/Shougo/neocomplete.vim/wiki/neocomplete-migration-guide
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#disable_auto_complete = 1
+inoremap <expr><C-x>   neocomplete#start_manual_complete()
 
 " gundo
 nmap <leader>g :GundoToggle<CR>
