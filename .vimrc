@@ -368,14 +368,24 @@ hi def link goFunctionCall goBlock
 hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
 
 " neocomplete
-" https://github.com/Shougo/neocomplete.vim/wiki/neocomplete-migration-guide
+" - Use <ESC>/`jj` alias to accept inserted candidate, ex. when scrolling them.
+" - https://github.com/Shougo/neocomplete.vim/wiki/neocomplete-migration-guide
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#disable_auto_complete = 1
-inoremap <expr><C-x> neocomplete#start_manual_complete()
-" Scroll through candidates, use <ESC>/`jj` alias to accept completion state.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+let g:neocomplete#sources#syntax#max_list = 10
+let g:neocomplete#enable_auto_select = 1
+" Trigger auto-completion, or scroll down/forward if already displayed.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : neocomplete#start_manual_complete()
+" Scroll up/backward.
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" Select candidate via return key, mainly for when there's only one and
+" it's auto-selected by not inserted.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  " For no inserting <CR> key.
+  return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
 
 " gundo
 nmap <leader>g :GundoToggle<CR>
