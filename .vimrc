@@ -187,9 +187,6 @@ set formatoptions=qroct
 " Disable F1 help
 nmap <F1> <nop>
 
-" Switch to the Buffer Explorer list
-map <C-\> :BufExplorer<CR>
-
 " Switch to previous/next tab.
 map <C-J> :tabprev<CR>
 map <C-K> :tabnext<CR>
@@ -289,9 +286,10 @@ set sessionoptions-=localoptions
 set sessionoptions-=help
 
 " BufExplorer
-"
-" Ex. to deal with index.js files from many modules
-let g:bufExplorerSplitOutPathName = 0
+let g:bufExplorerSplitOutPathName = 1
+let g:bufExplorerShowRelativePath = 1
+map <C-\> :BufExplorer<CR>
+hi def link bufExplorerMapping bufExplorerHelp
 
 " Always show the status bar (vs. only when viewing multiple files).
 set laststatus=2
