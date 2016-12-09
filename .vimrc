@@ -375,6 +375,7 @@ let g:neocomplete#manual_completion_start_length = 4
 let g:neocomplete#disable_auto_complete = 1
 let g:neocomplete#max_list = 20
 let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#within_comment = 1
 " Trigger auto-completion, or scroll down/forward if already displayed.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : neocomplete#start_manual_complete()
 " Scroll up/backward.
