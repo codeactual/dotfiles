@@ -194,8 +194,6 @@ map <C-K> :tabnext<CR>
 " Switch to previous buffer with backspace.
 map <BS> :b#<CR>
 
-map <C-D> :GoDef<CR>
-
 " Disable incrementing/decrementing numbers in the current line.
 nmap <C-A> <nop>
 nmap <C-X> <nop>
@@ -366,6 +364,7 @@ hi def link goFunctionCall goBlock
 hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
 " Unset 'go#complete#Complete' for neocomplete
 setlocal omnifunc=
+map <C-D> :GoDef<CR>
 
 " neocomplete
 " - Use <ESC>/`jj` alias to accept inserted candidate, ex. when scrolling them.
