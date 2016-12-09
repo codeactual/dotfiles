@@ -363,10 +363,11 @@ hi def link goDeclType goType
 let g:go_highlight_functions = 1
 " ... but not calls
 hi def link goFunctionCall goBlock
-
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
 hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
+" Unset 'go#complete#Complete' for neocomplete
+setlocal omnifunc=
 
 " neocomplete
 " - Use <ESC>/`jj` alias to accept inserted candidate, ex. when scrolling them.
