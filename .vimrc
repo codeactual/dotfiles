@@ -388,6 +388,9 @@ function! s:my_cr_function()
   " For no inserting <CR> key.
   return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
+" Prevent pane from popping up with the same signature info as the
+" autocompletion content.
+set completeopt-=preview
 
 " gundo
 nmap <leader>g :GundoToggle<CR>
