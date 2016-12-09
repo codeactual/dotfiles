@@ -370,9 +370,10 @@ map <C-D> :GoDef<CR>
 " - Use <ESC>/`jj` alias to accept inserted candidate, ex. when scrolling them.
 " - https://github.com/Shougo/neocomplete.vim/wiki/neocomplete-migration-guide
 let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#sources#min_keyword_length = 4
+let g:neocomplete#manual_completion_start_length = 4
 let g:neocomplete#disable_auto_complete = 1
-let g:neocomplete#sources#syntax#max_list = 10
+let g:neocomplete#max_list = 20
 let g:neocomplete#enable_auto_select = 1
 " Trigger auto-completion, or scroll down/forward if already displayed.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : neocomplete#start_manual_complete()
