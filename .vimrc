@@ -324,10 +324,6 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_go_checkers = []
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
-" syntastic-compatible way to close a buffer and its location list
-nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
-cabbrev <silent> bd lclose\|bdelete
-
 " Move to the next error/warning cite
 nmap <C-L> :lne<CR>
 
