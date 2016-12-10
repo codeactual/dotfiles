@@ -32,11 +32,16 @@ set smartcase
 " Disable visual bell
 set noeb vb t_vb=
 
+" Folds
 set nofoldenable
-
-" Easier whole-function fold toggling
+" Toggle folding levels (ex. in function)
 map ff zA
-
+" Open all in file
+map gg zR
+" Close all in file
+map GG zM
+" Open all folds before easymotion search to avoid hang
+map <leader><leader> zR<Plug>(easymotion-prefix)
 " Less distracting fold markers
 hi Folded cterm=NONE ctermfg=gray ctermbg=233
 
