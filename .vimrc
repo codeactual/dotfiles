@@ -34,6 +34,12 @@ set noeb vb t_vb=
 
 set nofoldenable
 
+" Easier whole-function fold toggling
+map ff zA
+
+" Less distracting fold markers
+hi Folded cterm=NONE ctermfg=gray ctermbg=233
+
 " Highlight search matches
 hi Search cterm=NONE ctermfg=white ctermbg=blue
 
@@ -278,8 +284,6 @@ let g:session_autosave_silent = 'yes'
 let g:session_command_aliases = 1
 " skip globals
 set sessionoptions-=globals
-" skip manually created folds
-set sessionoptions-=folds
 " skip blank windows
 set sessionoptions-=blank
 " skip options/mappings
