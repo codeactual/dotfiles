@@ -376,8 +376,24 @@ let g:neocomplete#disable_auto_complete = 1
 let g:neocomplete#max_list = 20
 let g:neocomplete#enable_auto_select = 1
 let g:neocomplete#within_comment = 1
-" Trigger auto-completion, or scroll down/forward if already displayed.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : neocomplete#start_manual_complete()
+" Use manual completion but cover corner cases, etc.
+function! s:neocomplete_on_tab()
+    " Scroll down/forward if already displayed.
+    if pumvisible()
+        return "\<C-p>"
+    endif
+    " Don't trigger at the start of a line.
+    if col('.') == 1
+        return "\<tab>"
+    endif
+    " Don't trigger after space.
+    if matchstr(getline('.'), '\%' . (col('.')-1) . 'c.') == ' '
+        return "\<tab>"
+    endif
+    " Trigger auto-completion.
+    return neocomplete#start_manual_complete()
+endfunction
+inoremap <expr><TAB> <SID>neocomplete_on_tab()
 " Scroll up/backward.
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " Select candidate via return key, mainly for when there's only one and
