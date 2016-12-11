@@ -350,6 +350,7 @@ nmap <C-C> :cd %:p:h<CR>
 autocmd FileType python setlocal nonumber
 
 " vim-go
+let g:go_def_mapping_enabled = 0
 nmap <C-G> :GoImports<CR>
 " Reduce color distraction
 hi goDeclaration cterm=NONE ctermfg=240 ctermbg=NONE
