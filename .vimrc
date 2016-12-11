@@ -37,7 +37,7 @@ set nofoldenable
 " Toggle folding levels (ex. in function)
 map ff zA
 " Open all in file
-map gg zR
+map FF zR
 " Close all in file
 map GG zM
 " Close all bug current (function)
