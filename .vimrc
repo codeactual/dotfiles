@@ -3,8 +3,10 @@
 "   Ciaran McCreesh <ciaranm at gentoo.org>
 "   https://github.com/myusuf3/dotfiles/blob/master/vimrc
 
-" Remove any trailing whitespace that is in the file
-autocmd BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+
+" Remove any trailing whitespace that is in the file, then return
+" to the prior cursor position.
+autocmd BufWrite * if ! &bin | let prevline = line('.') | let prevcol = col('.') | silent! %s/\s\+$//ge | cal cursor(prevline, prevcol) | endif
 
 " viminfo
 " '0: don't save marks
