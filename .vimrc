@@ -43,7 +43,7 @@ map FF zR
 " Close all in file
 map GG zM
 " Close all but current (function)
-map CC zMzv
+map fe zMzA
 " Open all folds before easymotion search to avoid hang
 map <leader><leader> zR<Plug>(easymotion-prefix)
 " Less distracting fold markers
