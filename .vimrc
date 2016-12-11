@@ -403,8 +403,8 @@ function! s:neocomplete_on_tab()
     if col('.') == 1
         return "\<tab>"
     endif
-    " Don't trigger after space.
-    if matchstr(getline('.'), '\%' . (col('.')-1) . 'c.') == ' '
+    " Don't trigger after whitespace.
+    if matchstr(getline('.'), '\%' . (col('.')-1) . 'c.') =~ '\s\+'
         return "\<tab>"
     endif
     " Trigger auto-completion.
