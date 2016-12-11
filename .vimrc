@@ -350,6 +350,9 @@ nmap <C-C> :cd %:p:h<CR>
 autocmd FileType python setlocal nonumber
 
 " vim-go
+" For retaining folds after save
+let g:go_fmt_experimental = 1
+"
 let g:go_def_mapping_enabled = 0
 nmap <C-G> :GoImports<CR>
 " Reduce color distraction
