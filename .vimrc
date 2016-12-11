@@ -50,13 +50,13 @@ map <leader><leader> zR<Plug>(easymotion-prefix)
 hi Folded cterm=NONE ctermfg=gray ctermbg=233
 
 " Highlight search matches
-hi Search cterm=NONE ctermfg=white ctermbg=blue
+hi Search cterm=NONE ctermfg=white ctermbg=92
 
 " Highlight visual mode selections
-hi Visual cterm=NONE ctermfg=white ctermbg=blue
+hi Visual cterm=NONE ctermfg=white ctermbg=92
 
 " Highlight incremental serach matches
-hi IncSearch cterm=NONE ctermfg=white ctermbg=blue
+hi IncSearch cterm=NONE ctermfg=white ctermbg=129
 
 " Highlight line numbers
 hi LineNr cterm=NONE ctermfg=239 ctermbg=black
