@@ -397,7 +397,7 @@ let g:neocomplete#within_comment = 1
 function! s:neocomplete_on_tab()
     " Scroll down/forward if already displayed.
     if pumvisible()
-        return "\<C-p>"
+        return "\<C-n>"
     endif
     " Don't trigger at the start of a line.
     if col('.') == 1
