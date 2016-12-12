@@ -34,6 +34,10 @@ set smartcase
 " Disable visual bell
 set noeb vb t_vb=
 
+" Visual selection
+" Move to the first word of the line, select everything until the first space
+map vts 0wvt<space>
+
 " Folds
 set nofoldenable
 " Toggle folding levels (ex. in function)
