@@ -160,6 +160,8 @@ hi def link jsNumber goDecimalInt
 hi def link jsFloat goFloat
 hi def link jsRepeat goRepeat
 hi def link jsReturn goStatement
+hi def link jsStatement goStatement
+hi def link jsLabel goStatement
 hi def link jsUndefined goPredefinedIdentifiers
 hi def link jsTemplateVar jsTemplateString
 
