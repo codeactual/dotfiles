@@ -76,6 +76,7 @@
 .thunderbird/
 .tumblr
 .vim/sessions
+.vim/view
 .viminfo
 .vimrc.local
 .wget*
