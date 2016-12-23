@@ -140,6 +140,29 @@ hi mkdInlineURL cterm=NONE ctermfg=136 ctermbg=NONE
 hi mkdLink cterm=NONE ctermfg=136 ctermbg=NONE
 hi mkdDelimiter cterm=NONE ctermfg=136 ctermbg=NONE
 
+" Reduce color variation in JavaScript
+hi jsGlobalObjects cterm=NONE ctermfg=white ctermbg=NONE
+hi jsOf cterm=NONE ctermfg=white ctermbg=NONE
+hi jsOperator cterm=NONE ctermfg=white ctermbg=NONE
+hi jsThis cterm=NONE ctermfg=white ctermbg=NONE
+hi jsTernaryIfOperator cterm=NONE ctermfg=white ctermbg=NONE
+hi def link jsBooleanTrue goPredefinedIdentifiers
+hi def link jsBooleanFalse jsBooleanTrue
+hi def link jsClass goDeclaration
+hi def link jsStorageClass goDeclaration
+hi def link jsConditional goConditional
+hi def link jsExceptions goConditional
+hi def link jsException jsExceptions
+hi def link jsFunction goDeclaration
+hi def link jsArrowFunction goDeclaration
+hi def link jsNull goPredefinedIdentifiers
+hi def link jsNumber goDecimalInt
+hi def link jsFloat goFloat
+hi def link jsRepeat goRepeat
+hi def link jsReturn goStatement
+hi def link jsUndefined goPredefinedIdentifiers
+hi def link jsTemplateVar jsTemplateString
+
 hi MatchParen cterm=none ctermbg=242 ctermfg=NONE
 
 " Print syntax highlighting group used at cursor
