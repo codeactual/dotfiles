@@ -149,6 +149,7 @@ hi jsTernaryIfOperator cterm=NONE ctermfg=white ctermbg=NONE
 hi jsDocTags cterm=NONE ctermfg=247 ctermbg=NONE
 hi def link jsDocType jsDocTags
 hi def link jsDocParam jsDocTags
+hi def link jsDocTypeNoParam jsDocTags
 hi def link jsBooleanTrue goPredefinedIdentifiers
 hi def link jsBooleanFalse jsBooleanTrue
 hi def link jsClass goDeclaration
