@@ -399,30 +399,28 @@ let g:go_fmt_experimental = 1
 let g:go_def_mapping_enabled = 0
 nmap <C-G> :GoImports<CR>
 " Reduce color distraction
-hi goDeclaration cterm=NONE ctermfg=240 ctermbg=NONE
-hi goType cterm=NONE ctermfg=white ctermbg=NONE
 hi def link goBuiltins goDeclaration
 hi def link goRepeat goDeclaration
 hi def link goStatement goDeclaration
 hi def link goConditional goDeclaration
 hi def link goLabel goDeclaration
-hi def link goPredefinedIdentifiers String
-hi def link goFormatSpecifier String
-hi def link goBoolean String
-hi def link goDecimalInt String
-hi def link goHexadecimalInt String
-hi def link goOctalInt String
-hi def link goFloat String
-hi def link goCharacter String
-hi def link goEscapeC String
+hi def link goPredefinedIdentifiers goString
+hi def link goFormatSpecifier goString
+hi def link goBoolean goString
+hi def link goDecimalInt goString
+hi def link goHexadecimalInt goString
+hi def link goOctalInt goString
+hi def link goFloat goString
+hi def link goCharacter goString
+hi def link goEscapeC goString
 hi def link goDeclType goType
 hi def link goSignedInts goType
 hi def link goUnsignedInts goType
 hi def link goExtraType goType
-" Highlight function names at declaration ...
-let g:go_highlight_functions = 1
-" ... but not calls
-hi def link goFunctionCall goBlock
+hi def link goDirective goDeclaration
+hi goDeclaration cterm=NONE ctermfg=240 ctermbg=NONE
+hi goType cterm=NONE ctermfg=white ctermbg=NONE
+hi goFunction cterm=NONE ctermfg=white ctermbg=NONE
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
 hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
