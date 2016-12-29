@@ -400,6 +400,7 @@ let g:go_def_mapping_enabled = 0
 nmap <C-G> :GoImports<CR>
 " Reduce color distraction
 hi goDeclaration cterm=NONE ctermfg=240 ctermbg=NONE
+hi goType cterm=NONE ctermfg=white ctermbg=NONE
 hi def link goBuiltins goDeclaration
 hi def link goRepeat goDeclaration
 hi def link goStatement goDeclaration
@@ -415,6 +416,9 @@ hi def link goFloat String
 hi def link goCharacter String
 hi def link goEscapeC String
 hi def link goDeclType goType
+hi def link goSignedInts goType
+hi def link goUnsignedInts goType
+hi def link goExtraType goType
 " Highlight function names at declaration ...
 let g:go_highlight_functions = 1
 " ... but not calls
