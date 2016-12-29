@@ -61,7 +61,7 @@ map fe :call EnableFolds()<CR>zMzA
 " Open all folds before easymotion search to avoid hang
 map <leader><leader> zR<Plug>(easymotion-prefix)
 " Less distracting fold markers
-hi Folded cterm=NONE ctermfg=gray ctermbg=233
+hi Folded cterm=NONE ctermfg=gray ctermbg=NONE
 
 " Highlight search matches
 hi Search cterm=NONE ctermfg=white ctermbg=92
