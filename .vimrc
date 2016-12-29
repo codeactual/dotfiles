@@ -39,15 +39,25 @@ set noeb vb t_vb=
 map vts 0wvt<space>
 
 " Folds
+function EnableFolds()
+  " Handle case where a new split is created from an existing buffer, where
+  " all folds have been expanded, and the intent is to both showing the same
+  " buffer. Instead of using an overbroad auto-command in filetype.vim,
+  " we'll run it on-demand when trying to perform a fold operation.
+  " (copied from *.go handling in filetype.vim)
+  setlocal foldenable
+  setlocal foldmethod=indent
+  setlocal foldlevel=0
+endfunction
 set nofoldenable
 " Toggle folding levels (ex. in function)
-map ff zA
+map ff :call EnableFolds()<CR>zA
 " Open all in file
-map FF zR
+map FF :call EnableFolds()<CR>zR
 " Close all in file
 map GG zM
 " Close all but current (function)
-map fe zMzA
+map fe :call EnableFolds()<CR>zMzA
 " Open all folds before easymotion search to avoid hang
 map <leader><leader> zR<Plug>(easymotion-prefix)
 " Less distracting fold markers
