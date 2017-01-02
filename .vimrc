@@ -418,6 +418,7 @@ hi def link goEscapeC goString
 hi def link goDeclType goType
 hi def link goSignedInts goType
 hi def link goUnsignedInts goType
+hi def link goFloats goType
 hi def link goExtraType goType
 hi def link goDirective goDeclaration
 hi goDeclaration cterm=NONE ctermfg=240 ctermbg=NONE
