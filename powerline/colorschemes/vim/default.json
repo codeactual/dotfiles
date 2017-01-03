@@ -1,6 +1,7 @@
 {
 	"name": "Default color scheme",
 	"groups": {
+		"line_arrow_indicator":     { "fg": "gold", "bg": "gray0", "attrs": [] },
 		"information:unimportant":  { "fg": "gray8", "bg": "gray0", "attrs": [] },
 		"information:additional":   { "fg": "gray9", "bg": "gray0", "attrs": [] },
 		"background":               { "fg": "white", "bg": "gray0", "attrs": [] },
