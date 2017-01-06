@@ -45,11 +45,9 @@ function EnableFolds()
   " buffer. Instead of using an overbroad auto-command in filetype.vim,
   " we'll run it on-demand when trying to perform a fold operation.
   " (copied from *.go handling in filetype.vim)
-  if &foldenable == 0
-      setlocal foldenable
-      setlocal foldmethod=indent
-      setlocal foldlevel=0
-  endif
+  setlocal foldenable
+  setlocal foldmethod=indent
+  setlocal foldlevel=0
 endfunction
 set nofoldenable
 " Toggle folding levels (ex. in function)
