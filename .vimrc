@@ -362,7 +362,7 @@ nmap <leader>f :tab sp<CR>
 nmap <leader>c :tabclose<CR>
 
 " Clear highlighting in normal mode with return key
-nnoremap <CR> :noh<CR>
+nnoremap <silent> <CR> :noh<CR>
 
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
