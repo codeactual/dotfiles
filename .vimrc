@@ -393,6 +393,8 @@ nmap <C-C> :cd %:p:h<CR>
 autocmd FileType python setlocal nonumber
 
 " vim-go
+" Use the current package name for new files, not always `main`
+let g:go_template_use_pkg = 1
 " For retaining folds after save
 let g:go_fmt_experimental = 1
 "
