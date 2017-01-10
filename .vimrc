@@ -47,7 +47,11 @@ function EnableFolds()
   " (copied from *.go handling in filetype.vim)
   if &foldenable == 0
       setlocal foldenable
+  endif
+  if &foldmethod != "indent"
       setlocal foldmethod=indent
+  endif
+  if &foldlevel != 0
       setlocal foldlevel=0
   endif
 endfunction
