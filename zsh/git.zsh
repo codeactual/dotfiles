@@ -161,11 +161,15 @@ rule () {
   printf "${(r:$COLUMNS::_:)}"
 }
 
-function gd () {
+function gd {
   # Make it easier to see the latest diff (ex. if scrollback is already full of them) w/out searching for the prompt
   # or some other marker. But only do so when inside tmux because scrollback loss isn't as much of an issue.
   if [ "$TMUX" ]; then
     clear
   fi
   git diff --color $@ | diff-highlight | strip_diff_leading_symbols | less --raw-control-chars --quit-if-one-screen --no-init
+}
+
+function ggrep {
+  git rev-list --all | xargs git grep "$@"
 }
