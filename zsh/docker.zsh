@@ -5,3 +5,5 @@ if [ -d $LOCAL_ZSH_DIR ]; then
     source $file
   done
 fi
+
+export DOCKER_HIDE_LEGACY_COMMANDS=1
