@@ -504,3 +504,5 @@ function! s:CloseHiddenBuffers()
     endif
   endfor
 endfunction
+
+let g:AutoPairsUseInsertedCount = 1
