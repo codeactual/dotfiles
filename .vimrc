@@ -504,5 +504,3 @@ function! s:CloseHiddenBuffers()
     endif
   endfor
 endfunction
-
-let g:delimitMate_expand_cr = 1
