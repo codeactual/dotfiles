@@ -82,14 +82,8 @@ hi IncSearch cterm=NONE ctermfg=white ctermbg=129
 hi LineNr cterm=NONE ctermfg=239 ctermbg=black
 hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
 
-" Highlight line
-set cursorline
-hi CursorLine cterm=NONE ctermfg=NONE ctermbg=235
-augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
-augroup END
+" Use a "transparent" highlight to avoid an underline in BufExplorer
+hi CursorLine cterm=NONE ctermfg=NONE ctermbg=NONE
 
 " Location list paths (match prompt color for cwd)
 hi Directory cterm=NONE ctermfg=magenta ctermbg=black
