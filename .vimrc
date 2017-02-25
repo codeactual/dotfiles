@@ -499,7 +499,7 @@ function! s:CloseHiddenBuffers()
   endfor
 endfunction
 
-
+" Workaround for https://github.com/jiangmiao/auto-pairs/issues/164#issuecomment-280999007
 let g:AutoPairsUseInsertedCount = 1
 
 " Enable use of alt/option key in bindings on Mac when "Use Option as Meta key" is
