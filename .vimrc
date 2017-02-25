@@ -499,4 +499,28 @@ function! s:CloseHiddenBuffers()
   endfor
 endfunction
 
+
 let g:AutoPairsUseInsertedCount = 1
+
+" Enable use of alt/option key in bindings on Mac when "Use Option as Meta key" is
+" turned on in Terminal.
+" https://www.progclub.org/blog/2014/12/06/fixing-meta-keys-in-vim-via-mac-os-x-terminal-app/
+let c='a'
+while c <= 'z'
+    exec "set <M-".tolower(c).">=\e".c
+    exec "imap \e".c." <M-".tolower(c).">"
+    let c = nr2char(1+char2nr(c))
+endw
+
+" Move current line, in insert or normal mode, up/down with meta+j/k keys.
+" http://vim.wikia.com/wiki/Moving_lines_up_or_down
+"
+" (Mac: requires above "Use Option as Meta key" fix.)
+"
+" Note: if <ESC> is pressed and then quickly j/k,
+nnoremap <M-j> :m .+1<CR>==
+nnoremap <M-k> :m .-2<CR>==
+inoremap <M-j> <Esc>:m .+1<CR>==gi
+inoremap <M-k> <Esc>:m .-2<CR>==gi
+vnoremap <M-j> :m '>+1<CR>gv=gv
+vnoremap <M-k> :m '<-2<CR>gv=gv
