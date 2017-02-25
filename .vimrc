@@ -48,8 +48,8 @@ function EnableFolds()
   if &foldenable == 0
       setlocal foldenable
   endif
-  if &foldmethod != "indent"
-      setlocal foldmethod=indent
+  if &foldmethod != "syntax"
+      setlocal foldmethod=syntax
   endif
   if &foldlevel != 0
       setlocal foldlevel=0
