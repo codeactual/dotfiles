@@ -513,21 +513,15 @@ while c <= 'z'
 endw
 
 " Move current line, in insert or normal mode, up/down with meta+j/k keys.
-" https://www.reddit.com/r/vim/comments/4aai4y/move_line_updown_mapping_closes_folds_why/d0z4hgw/
+" http://vim.wikia.com/wiki/Moving_lines_up_or_down
 " (Mac: requires above "Use Option as Meta key" fix.)
 " Note: if <ESC> is pressed and then quickly j/k,
-nnoremap <silent> <M-k> :call <SID>Move(-1)<CR>
-nnoremap <silent> <M-j> :call <SID>Move(1)<CR>
-vnoremap <silent> <M-k> :call <SID>Move(-1)<CR>gv
-vnoremap <silent> <M-j> :call <SID>Move(1)<CR>gv
-function! <SID>Move(to) range " {{{2
-    let l:fl = a:firstline | let l:ll = a:lastline
-    let l:to = a:to ==# -1 ?
-        \ l:fl - 2 :
-        \ (l:ll + 1 >=# line('$') ? line('$') : l:ll + 1)
-    execute printf(':%d,%dm%d', l:fl, l:ll, l:to)
-    let l:cl = line('.')
-    if foldlevel(l:cl) !=# 0
-        execute 'normal! ' . repeat('za', foldlevel(l:cl))
-    endif
-endfunction " 2}}}
+nnoremap <M-j> :m .+1<CR>==
+nnoremap <M-k> :m .-2<CR>==
+inoremap <M-j> <Esc>:m .+1<CR>==gi
+inoremap <M-k> <Esc>:m .-2<CR>==gi
+vnoremap <M-j> :m '>+1<CR>gv=gv
+vnoremap <M-k> :m '<-2<CR>gv=gv
+
+" Use fastfold to prevent folds from changing when moving lines up/down.
+let g:fastfold_savehook = 0
