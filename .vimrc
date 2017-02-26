@@ -75,7 +75,7 @@ hi Search cterm=NONE ctermfg=white ctermbg=92
 " Highlight visual mode selections
 hi Visual cterm=NONE ctermfg=white ctermbg=92
 
-" Highlight incremental serach matches
+" Highlight incremental search matches
 hi IncSearch cterm=NONE ctermfg=white ctermbg=129
 
 " Highlight line numbers
@@ -525,3 +525,7 @@ vnoremap <M-k> :m '<-2<CR>gv=gv
 
 " Use fastfold to prevent folds from changing when moving lines up/down.
 let g:fastfold_savehook = 0
+
+" Don't automatically open folds when cycling through search matches.
+set foldopen-=search
+
