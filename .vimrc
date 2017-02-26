@@ -528,4 +528,5 @@ let g:fastfold_savehook = 0
 
 " Don't automatically open folds when cycling through search matches.
 set foldopen-=search
+set foldopen-=mark
 
