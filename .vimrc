@@ -55,11 +55,14 @@ function EnableFolds()
       setlocal foldlevel=0
   endif
 endfunction
-set nofoldenable
+function DisableFolds()
+    setlocal nofoldenable
+    setlocal foldmethod=manual
+endfunction
 " Toggle folding levels (ex. in function)
 map ff :call EnableFolds()<CR>zA
 " Open all in file
-map FF :call EnableFolds()<CR>zR
+map FF :call DisableFolds()<CR>zR
 " Close all in file
 map GG zM
 " Close all but current (function)
