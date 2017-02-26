@@ -57,7 +57,7 @@
 	url = https://github.com/codeactual/vim-signature
 [submodule ".vim/bundle/auto-pairs"]
 	path = .vim/bundle/auto-pairs
-	url = https://github.com/jiangmiao/auto-pairs
+	url = https://github.com/codeactual/auto-pairs
 [submodule ".vim/bundle/FastFold"]
 	path = .vim/bundle/FastFold
 	url = https://github.com/Konfekt/FastFold
