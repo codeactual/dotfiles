@@ -62,7 +62,7 @@ endfunction
 " Toggle folding levels (ex. in function)
 map ff :call EnableFolds()<CR>zA
 " Open all in file
-map FF :call DisableFolds()<CR>zR
+map FF zR<CR>:call DisableFolds()<CR>
 " Close all in file
 map GG zM
 " Close all but current (function)
@@ -515,21 +515,14 @@ while c <= 'z'
     let c = nr2char(1+char2nr(c))
 endw
 
-" Move current line, in insert or normal mode, up/down with meta+j/k keys.
+" Move current line, in normal mode, up/down with meta+j/k keys.
 " http://vim.wikia.com/wiki/Moving_lines_up_or_down
+" https://github.com/vim/vim/issues/687#issuecomment-196500745
 " (Mac: requires above "Use Option as Meta key" fix.)
-" Note: if <ESC> is pressed and then quickly j/k,
-nnoremap <M-j> :m .+1<CR>==
-nnoremap <M-k> :m .-2<CR>==
-inoremap <M-j> <Esc>:m .+1<CR>==gi
-inoremap <M-k> <Esc>:m .-2<CR>==gi
-vnoremap <M-j> :m '>+1<CR>gv=gv
-vnoremap <M-k> :m '<-2<CR>gv=gv
-
-" Use fastfold to prevent folds from changing when moving lines up/down.
-let g:fastfold_savehook = 0
+" Note: if <ESC> is pressed and then quickly j/k, it has the same effect.
+nnoremap <M-j> :let fdm_sav=&fdm\|:set fdm=manual\|:m .+1<CR>:let &fdm=fdm_sav<CR>==
+nnoremap <M-k> :let fdm_sav=&fdm\|:set fdm=manual\|:m .-2<CR>:let &fdm=fdm_sav<CR>==
 
 " Don't automatically open folds when cycling through search matches.
 set foldopen-=search
 set foldopen-=mark
-
