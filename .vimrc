@@ -357,10 +357,10 @@ hi def link bufExplorerMapping bufExplorerHelp
 set laststatus=2
 
 " Exit insert mode
-" (Use ee instead of the common jj to avoid conflicts with fast 'j' presses use in visual
+" (Use qq instead of the common jj to avoid conflicts with fast 'j' presses use in visual
 " mode to expand the block down.)
-imap ee <Esc>
-vmap ee <Esc>
+imap qq <Esc>
+vmap qq <Esc>
 
 " Opens the split in a new tab. Kind like 'distraction free' mode. (f)
 " https://github.com/Wolfy87/vim-config/commit/707e062fe1fb756c84aa3ffe7b0652c4a0676970
@@ -438,7 +438,7 @@ setlocal omnifunc=
 map <C-D> :GoDef<CR>
 
 " neocomplete
-" - Use <ESC>/`ee` alias to accept inserted candidate, ex. when scrolling them.
+" - Use <ESC>/`qq` alias to accept inserted candidate, ex. when scrolling them.
 " - https://github.com/Shougo/neocomplete.vim/wiki/neocomplete-migration-guide
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#sources#min_keyword_length = 4
