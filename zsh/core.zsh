@@ -90,6 +90,9 @@ bindkey -M viins "\e[B" history-beginning-search-forward-end
 bindkey -M viins "\eOA" history-beginning-search-backward-end
 bindkey -M viins "\eOB" history-beginning-search-forward-end
 
+# Use 'qq' for <ESC> to match .vimrc
+bindkey -M viins 'qq' vi-cmd-mode
+
 ######################
 ##### COMPLETION #####
 ######################
@@ -127,9 +130,9 @@ function vi_mode_prompt_info() {
 }
 VIMODE='$(vi_mode_prompt_info)'
 
-# 10ms for key sequences
+# 200ms for key sequences (to match vim default)
 # From https://www.johnhawthorn.com/2012/09/vi-escape-delays/
-KEYTIMEOUT=1
+KEYTIMEOUT=200
 
 # Prevent buffer from cycling through tab-completion candiates. Only show the menu.
 # http://unix.stackexchange.com/questions/12035/zsh-equivalent-of-bash-show-all-if-ambiguous
