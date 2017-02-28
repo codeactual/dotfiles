@@ -359,6 +359,7 @@ set laststatus=2
 " Exit insert mode
 " (Use qq instead of the common jj to avoid conflicts with fast 'j' presses use in visual
 " mode to expand the block down.)
+map q <Nop>
 imap qq <Esc>
 vmap qq <Esc>
 
