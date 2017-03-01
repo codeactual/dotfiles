@@ -530,3 +530,6 @@ nnoremap <M-k> :let fdm_sav=&fdm\|:set fdm=manual\|:m .-2<CR>:let &fdm=fdm_sav<C
 " Don't automatically open folds when cycling through search matches.
 set foldopen-=search
 set foldopen-=mark
+
+" Only show the mode in powerline
+set noshowmode
