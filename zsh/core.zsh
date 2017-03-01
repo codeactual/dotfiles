@@ -16,21 +16,13 @@ setopt prompt_subst
 ###################
 
 # Use egrep to mimic HISTIGNORE in zsh.
-export __ZSH_HISTIGNORE_EXACT="(h?top|exit|reset|clear|gci|node|replpad|rm|secret|encrypt|decrypt|mv|vim?)"
-export __ZSH_HISTIGNORE_EXIST="shutdown|git checkout|git branch -[dD]"
-export __ZSH_HISTIGNORE="(^..$"
-export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^l[sl] "
-export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^export"
-export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^[^.$/a-z:]"
-export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|$__ZSH_HISTIGNORE_EXIST"
-export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE|^$__ZSH_HISTIGNORE_EXACT$"
-export __ZSH_HISTIGNORE="$__ZSH_HISTIGNORE)"
+__ZSH_HISTIGNORE="^(export|shutdown|git checkout|exit|reset|clear|gci|node|rm|mv|vim)"
 __ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
 __ZSH_HISTIGNORE_DIFF="/tmp/.zsh_history_diff_pid$$"
 # If a filter result is missing or old.
 if [ -f ~/.zsh_history ]; then
   if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find $__ZSH_HISTIGNORE_RESULT -mmin +1 > /dev/null 2>&1` ]; then
-    egrep -v "$__ZSH_HISTIGNORE" ~/zsh/history > $__ZSH_HISTIGNORE_RESULT
+    cat ~/zsh/history | sed 's/^\(: [0-9]\+:[0-9]\+;\)\(.*\)/\1\2/g' | egrep -v "$__ZSH_HISTIGNORE" > $__ZSH_HISTIGNORE_RESULT
     diff ~/zsh/history $__ZSH_HISTIGNORE_RESULT >  $__ZSH_HISTIGNORE_DIFF
     echo "ZSH history cleanup: $(egrep "^<" $__ZSH_HISTIGNORE_DIFF | wc -l)"
     cp $__ZSH_HISTIGNORE_RESULT ~/zsh/history
