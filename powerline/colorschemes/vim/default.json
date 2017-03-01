@@ -23,7 +23,7 @@
 		"line_percent_gradient":    { "fg": "gray9", "bg": "gray1", "attrs": [] },
 		"position":                 { "fg": "gray9", "bg": "gray1", "attrs": [] },
 		"position_gradient":        { "fg": "green_yellow_red", "bg": "gray1", "attrs": [] },
-		"line_current":             { "fg": "gray10", "bg": "gray1", "attrs": ["bold"] },
+		"line_current":             { "fg": "white", "bg": "gray1", "attrs": ["bold"] },
 		"line_current_symbol":      { "fg": "gray1", "bg": "gray10", "attrs": [] },
 		"virtcol_current_gradient": { "fg": "gray10", "bg": "gray1", "attrs": [] },
 		"col_current":              { "fg": "gray6", "bg": "gray10", "attrs": [] },
