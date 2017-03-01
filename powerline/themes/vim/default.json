@@ -1,16 +1,14 @@
 {
 	"segments": {
 		"left": [
-			{
-				"type": "string",
-				"highlight_groups": ["line_arrow_indicator"],
+      {
+        "function": "mode",
+        "exclude_modes": ["nc"],
 				"draw_soft_divider": false,
-				"draw_hard_divider": false,
-				"width": "auto",
-        "align": "left",
-        "after": "^ "
-			},
+        "after": " "
+      },
 			{
+				"before": " ",
 				"function": "visual_range",
 				"include_modes": ["v", "V", "^V", "s", "S", "^S"],
 				"priority": 10
