@@ -402,11 +402,11 @@ autocmd FileType python setlocal nonumber
 " vim-go
 " Use the current package name for new files, not always `main`
 let g:go_template_use_pkg = 1
-" For retaining folds after save
-let g:go_fmt_experimental = 1
+" Call :GoFmt manually via mapping until fold-closing regression is fixed.
+let g:go_fmt_autosave = 0
 "
 let g:go_def_mapping_enabled = 0
-nmap <silent> <C-G> :GoImports<CR>
+nmap <silent> <C-G> :GoImports<CR>:GoFmt<CR>
 " Reduce color distraction
 hi def link goBuiltins goDeclaration
 hi def link goRepeat goDeclaration
