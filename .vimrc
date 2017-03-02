@@ -39,6 +39,7 @@ set noeb vb t_vb=
 map vts 0wvt<space>
 
 " Folds
+set foldnestmax=1
 function EnableFolds()
   " Handle case where a new split is created from an existing buffer, where
   " all folds have been expanded, and the intent is to both showing the same
