@@ -60,15 +60,15 @@ function DisableFolds()
     setlocal foldmethod=manual
 endfunction
 " Toggle folding levels (ex. in function)
-map ff :call EnableFolds()<CR>zA
+map <silent> ff :call EnableFolds()<CR>zA
 " Open all in file
-map FF zR<CR>:call DisableFolds()<CR>
+map <silent> FF zR<CR>:call DisableFolds()<CR>
 " Close all in file
-map GG zM
+map <silent> GG zM
 " Close all but current (function)
-map fe :call EnableFolds()<CR>zMzA
+map <silent> fe :call EnableFolds()<CR>zMzA
 " Open all folds before easymotion search to avoid hang
-map <leader><leader> zR<Plug>(easymotion-prefix)
+map <silent> <leader><leader> zR<Plug>(easymotion-prefix)
 " Less distracting fold markers
 hi Folded cterm=NONE ctermfg=234 ctermbg=NONE
 
@@ -249,8 +249,8 @@ set formatoptions=qroct
 nmap <F1> <nop>
 
 " Switch to previous/next tab.
-map <C-J> :tabprev<CR>
-map <C-K> :tabnext<CR>
+map <silent> <C-J> :tabprev<CR>
+map <silent> <C-K> :tabnext<CR>
 
 " Switch to previous buffer with backspace.
 map <BS> :b#<CR>
@@ -270,10 +270,10 @@ map <C-O> :CtrlPClearCache<CR>
 set timeoutlen=200
 
 " Toggle tag bar
-map <C-T> :Tagbar<CR>
+map <silent> <C-T> :Tagbar<CR>
 
 " Toggle line numbers.
-nmap <C-N> :set invnumber<CR>
+nmap <silent> <C-N> :set invnumber<CR>
 
 syntax enable
 
@@ -350,7 +350,7 @@ set sessionoptions-=help
 " BufExplorer
 let g:bufExplorerSplitOutPathName = 1
 let g:bufExplorerShowRelativePath = 1
-map <C-\> :BufExplorer<CR>
+map <silent> <C-\> :BufExplorer<CR>
 hi def link bufExplorerMapping bufExplorerHelp
 
 " Always show the status bar (vs. only when viewing multiple files).
@@ -365,8 +365,8 @@ vmap qq <Esc>
 
 " Opens the split in a new tab. Kind like 'distraction free' mode. (f)
 " https://github.com/Wolfy87/vim-config/commit/707e062fe1fb756c84aa3ffe7b0652c4a0676970
-nmap <leader>f :tab sp<CR>
-nmap <leader>c :tabclose<CR>
+nmap <silent> <leader>f :tab sp<CR>
+nmap <silent> <leader>c :tabclose<CR>
 
 " Clear highlighting in normal mode with return key
 nnoremap <silent> <CR> :noh<CR>
@@ -388,10 +388,10 @@ let g:syntastic_go_checkers = []
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 " Move to the next error/warning cite
-nmap <C-L> :lne<CR>
+nmap <silent> <C-L> :lne<CR>
 
 " Change the cwd to the file's
-nmap <C-C> :cd %:p:h<CR>
+nmap <silent> <C-C> :cd %:p:h<CR>
 
 " python-mode
 "
@@ -406,7 +406,7 @@ let g:go_template_use_pkg = 1
 let g:go_fmt_experimental = 1
 "
 let g:go_def_mapping_enabled = 0
-nmap <C-G> :GoImports<CR>
+nmap <silent> <C-G> :GoImports<CR>
 " Reduce color distraction
 hi def link goBuiltins goDeclaration
 hi def link goRepeat goDeclaration
@@ -436,7 +436,7 @@ hi goFunction cterm=NONE ctermfg=white ctermbg=NONE
 hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
 " Unset 'go#complete#Complete' for neocomplete
 setlocal omnifunc=
-map <C-D> :GoDef<CR>
+map <silent> <C-D> :GoDef<CR>
 
 " neocomplete
 " - Use <ESC>/`qq` alias to accept inserted candidate, ex. when scrolling them.
@@ -465,9 +465,9 @@ function! s:neocomplete_on_tab()
     " Trigger auto-completion.
     return neocomplete#start_manual_complete()
 endfunction
-inoremap <expr><TAB> <SID>neocomplete_on_tab()
+inoremap <silent> <expr><TAB> <SID>neocomplete_on_tab()
 " Scroll up/backward.
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " Select candidate via return key, mainly for when there's only one and
 " it's auto-selected by not inserted.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -480,7 +480,7 @@ endfunction
 set completeopt-=preview
 
 " gundo
-nmap <leader>g :GundoToggle<CR>
+nmap <silent> <leader>g :GundoToggle<CR>
 
 " Ex. in python add space after each '#' to avoid lint warnings.
 let g:NERDSpaceDelims = 1
@@ -524,8 +524,8 @@ endw
 " https://github.com/vim/vim/issues/687#issuecomment-196500745
 " (Mac: requires above "Use Option as Meta key" fix.)
 " Note: if <ESC> is pressed and then quickly j/k, it has the same effect.
-nnoremap <M-j> :let fdm_sav=&fdm\|:set fdm=manual\|:m .+1<CR>:let &fdm=fdm_sav<CR>==
-nnoremap <M-k> :let fdm_sav=&fdm\|:set fdm=manual\|:m .-2<CR>:let &fdm=fdm_sav<CR>==
+nnoremap <silent> <M-j> :let fdm_sav=&fdm\|:set fdm=manual\|:m .+1<CR>:let &fdm=fdm_sav<CR>==
+nnoremap <silent> <M-k> :let fdm_sav=&fdm\|:set fdm=manual\|:m .-2<CR>:let &fdm=fdm_sav<CR>==
 
 " Don't automatically open folds when cycling through search matches.
 set foldopen-=search
