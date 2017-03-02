@@ -406,7 +406,17 @@ let g:go_template_use_pkg = 1
 let g:go_fmt_autosave = 0
 "
 let g:go_def_mapping_enabled = 0
-nmap <silent> <C-G> :GoImports<CR>:GoFmt<CR>
+function SaveGo()
+     setlocal nofoldenable
+     setlocal foldmethod=manual
+     mkview!
+     GoImports
+     GoFmt
+     silent! loadview
+     setlocal foldenable
+     setlocal foldmethod=syntax
+endfunction
+nmap <silent> <C-G> :call SaveGo()<CR>
 " Reduce color distraction
 hi def link goBuiltins goDeclaration
 hi def link goRepeat goDeclaration
