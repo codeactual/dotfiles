@@ -63,7 +63,7 @@ endfunction
 " Toggle folding levels (ex. in function)
 map <silent> ff :call EnableFolds()<CR>zA
 " Open all in file
-map <silent> FF zR<CR>:call DisableFolds()<CR>
+map <silent> FF :call DisableFolds()<CR>
 " Close all in file
 map <silent> GG zM
 " Close all but current (function)
@@ -405,17 +405,30 @@ autocmd FileType python setlocal nonumber
 let g:go_template_use_pkg = 1
 " Call :GoFmt manually via mapping until fold-closing regression is fixed.
 let g:go_fmt_autosave = 0
-"
+" Use a custom mapping instead
 let g:go_def_mapping_enabled = 0
+map <silent> <C-D> :GoDef<CR>
+" Replacement for vim-go bug where GoFmt closes folds, even with its
+" experimental mode enabled (as of vim v8.0.0363, vim-go b9c8156).)
 function SaveGo()
-     setlocal nofoldenable
-     setlocal foldmethod=manual
-     mkview!
-     GoImports
-     GoFmt
-     silent! loadview
-     setlocal foldenable
-     setlocal foldmethod=syntax
+    let foldhype = &foldenable
+    if foldhype
+        echom("folds were enabled")
+        setlocal nofoldenable
+        setlocal foldmethod=manual
+    endif
+    mkview!
+    GoImports
+    GoFmt
+    silent! loadview
+    if foldhype
+        setlocal foldenable
+        setlocal foldmethod=syntax
+    else
+        " Workaround GoFmt somehow re-enabling folds
+        setlocal foldmethod=manual
+        setlocal nofoldenable
+    endif
 endfunction
 nmap <silent> <C-G> :call SaveGo()<CR>
 " Reduce color distraction
@@ -447,7 +460,6 @@ hi goFunction cterm=NONE ctermfg=white ctermbg=NONE
 hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
 " Unset 'go#complete#Complete' for neocomplete
 setlocal omnifunc=
-map <silent> <C-D> :GoDef<CR>
 
 " neocomplete
 " - Use <ESC>/`qq` alias to accept inserted candidate, ex. when scrolling them.
