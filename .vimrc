@@ -413,13 +413,11 @@ map <silent> <C-D> :GoDef<CR>
 function SaveGo()
     let foldhype = &foldenable
     if foldhype
-        echom("folds were enabled")
         setlocal nofoldenable
         setlocal foldmethod=manual
     endif
     mkview!
     GoImports
-    GoFmt
     silent! loadview
     if foldhype
         setlocal foldenable
