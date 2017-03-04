@@ -254,7 +254,7 @@ map <silent> <C-J> :tabprev<CR>
 map <silent> <C-K> :tabnext<CR>
 
 " Switch to previous buffer with backspace.
-map <BS> :b#<CR>
+map <S-J> :b#<CR>
 
 " Disable incrementing/decrementing numbers in the current line.
 nmap <C-A> <nop>
