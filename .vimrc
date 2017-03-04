@@ -363,6 +363,8 @@ set laststatus=2
 map q <Nop>
 imap qq <Esc>
 vmap qq <Esc>
+" Clear the current command-line and reutrn to normal mode.
+cmap qq <C-E><C-U><Esc>
 
 " Opens the split in a new tab. Kind like 'distraction free' mode. (f)
 " https://github.com/Wolfy87/vim-config/commit/707e062fe1fb756c84aa3ffe7b0652c4a0676970
