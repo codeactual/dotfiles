@@ -1,0 +1,6 @@
+{
+  "Disable": ["aligncheck", "interfacer", "ineffassign", "gocyclo"],
+  "Concurrency": 2,
+  "Deadline": "60s",
+  "Vendor": false
+}
