@@ -5,6 +5,13 @@
 # - `setopt` shows options that differ from default
 # - private configs live in $HOME/zsh/local/*.sh
 
+grep docker /proc/1/cgroup 2>&1 > /dev/null
+if [ $? -eq 0 ]; then
+  in_docker=0
+else
+  in_docker=1
+fi
+
 # Set up the prompt
 autoload -Uz promptinit
 promptinit
@@ -15,18 +22,20 @@ setopt prompt_subst
 ##### HISTORY #####
 ###################
 
-# Use egrep to mimic HISTIGNORE in zsh.
-__ZSH_HISTIGNORE="^(export|shutdown|git checkout|exit|reset|clear|gci|node|rm|mv|vim)"
-__ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
-__ZSH_HISTIGNORE_DIFF="/tmp/.zsh_history_diff_pid$$"
-# If a filter result is missing or old.
-if [ -f ~/.zsh_history ]; then
-  if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find $__ZSH_HISTIGNORE_RESULT -mmin +1 > /dev/null 2>&1` ]; then
-    cat ~/zsh/history | sed 's/^\(: [0-9]\+:[0-9]\+;\)\(.*\)/\1\2/g' | egrep -v "$__ZSH_HISTIGNORE" > $__ZSH_HISTIGNORE_RESULT
-    diff ~/zsh/history $__ZSH_HISTIGNORE_RESULT >  $__ZSH_HISTIGNORE_DIFF
-    echo "ZSH history cleanup: $(egrep "^<" $__ZSH_HISTIGNORE_DIFF | wc -l)"
-    cp $__ZSH_HISTIGNORE_RESULT ~/zsh/history
-    rm -f $__ZSH_HISTIGNORE_RESULT
+# If outside a docker container, perform egrep-based filtering.
+if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
+  __ZSH_HISTIGNORE="(export|shutdown|git checkout|exit|reset|clear|gci|node|rm|mv|vim|git reset|(git (clean|reset|checkout)))"
+  __ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
+  __ZSH_HISTIGNORE_DIFF="/tmp/.zsh_history_diff_pid$$"
+  # If a filter result is missing or old.
+  if [ -f ~/.zsh_history ]; then
+    if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find $__ZSH_HISTIGNORE_RESULT -mmin +1 > /dev/null 2>&1` ]; then
+      cat ~/zsh/history | sed 's/^\(: [0-9]\+:[0-9]\+;\)\(.*\)/\1\2/g' | egrep -v ": [0-9]+:[0-9]+;$__ZSH_HISTIGNORE" > $__ZSH_HISTIGNORE_RESULT
+      diff ~/zsh/history $__ZSH_HISTIGNORE_RESULT >  $__ZSH_HISTIGNORE_DIFF
+      echo "ZSH history cleanup: $(egrep "^<" $__ZSH_HISTIGNORE_DIFF | wc -l)"
+      cp $__ZSH_HISTIGNORE_RESULT ~/zsh/history
+      rm -f $__ZSH_HISTIGNORE_RESULT
+    fi
   fi
 fi
 
@@ -34,12 +43,15 @@ export HISTFILE=~/zsh/history
 export HISTSIZE=2000
 export SAVEHIST=1000
 
-# Update $HIST_FILE as new lines appear. Don't wait until shell exits.
-setopt INC_APPEND_HISTORY
-# Ignore a line if it duplcates the previous.
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
-# Ignore lines that begin with a space.
 setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+
 # Strip extra blanks from added lines.
 #
 # Disabled due to bug where long lines get mangled. Should be fixed when ubuntu has zsh 5.05.
@@ -48,10 +60,6 @@ setopt HIST_IGNORE_SPACE
 # - https://bugzilla.novell.com/show_bug.cgi?id=902509
 #setopt HIST_REDUCE_BLANKS
 unsetopt HIST_REDUCE_BLANKS
-# Perform history expansion but don't execute yet. Let it be edited first.
-setopt HIST_VERIFY
-# Allow history sharing between terminals.
-setopt SHARE_HISTORY
 
 # https://github.com/nickstenning/dotfiles/blob/master/zsh/lib/keys.zsh
 history-incremental-pattern-search-backward-with-buffer() {
@@ -98,7 +106,6 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUPSTREAM="git"
 
-source ~/zsh/completion/git-completion.zsh
 source ~/zsh/completion/git-prompt.zsh
 
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/vi-mode/vi-mode.plugin.zsh

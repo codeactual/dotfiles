@@ -103,14 +103,17 @@ function gdo {
 }
 
 function gdoi {
+  CUR_BRANCH=$(get_current_branch)
   gd $@ \^origin/$CUR_BRANCH $CUR_BRANCH
 }
 
 function glo {
+  CUR_BRANCH=$(get_current_branch)
   git log $@ --name-status $CUR_BRANCH \^origin/$CUR_BRANCH
 }
 
 function gloi {
+  CUR_BRANCH=$(get_current_branch)
   git log $@ --name-status \^origin/$CUR_BRANCH $CUR_BRANCH
 }
 

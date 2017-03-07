@@ -8,12 +8,6 @@
 " to the prior cursor position.
 autocmd BufWrite * if ! &bin | let prevline = line('.') | let prevcol = col('.') | silent! %s/\s\+$//ge | cal cursor(prevline, prevcol) | endif
 
-" viminfo
-" '0: don't save marks
-" f0: don't save marks
-" <0: don't save registers
-set viminfo='0,f0,<0
-
 set term=xterm-256color
 set termencoding=utf-8
 
@@ -365,8 +359,8 @@ set laststatus=2
 map q <Nop>
 imap qq <Esc>
 vmap qq <Esc>
-" Clear the current command-line and reutrn to normal mode.
-cmap qq <C-E><C-U><Esc>
+" Clear the current command-line/search and return to normal mode.
+cmap qq <C-C>
 
 " Opens the split in a new tab. Kind like 'distraction free' mode. (f)
 " https://github.com/Wolfy87/vim-config/commit/707e062fe1fb756c84aa3ffe7b0652c4a0676970
@@ -530,6 +524,8 @@ endfunction
 
 " Workaround for https://github.com/jiangmiao/auto-pairs/issues/164#issuecomment-280999007
 let g:AutoPairsUseInsertedCount = 1
+" Don't auto-pair backticks.
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"'}
 
 " Enable use of alt/option key in bindings on Mac when "Use Option as Meta key" is
 " turned on in Terminal.
@@ -555,3 +551,13 @@ set foldopen-=mark
 
 " Only show the mode in powerline
 set noshowmode
+
+" When selecting a quickfix entry, activate an existing buffer that matches,
+" rather than opening the file (sometimes redundantly) in the bottom-right
+" split.
+set switchbuf=useopen
+
+" Move cursor to window/line of first/next/prev quickfix item
+map mm :cc1<CR>
+map .. :cnext<CR>
+map ,, :cprev<CR>
