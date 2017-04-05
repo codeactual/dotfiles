@@ -66,120 +66,128 @@ map <silent> GG zM
 map <silent> fe :call EnableFolds()<CR>zMzA
 " Open all folds before easymotion search to avoid hang
 map <silent> <leader><leader> zR<Plug>(easymotion-prefix)
-" Less distracting fold markers
-hi Folded cterm=NONE ctermfg=234 ctermbg=NONE
 
-" Highlight search matches
-hi Search cterm=NONE ctermfg=white ctermbg=92
+func! s:highlighting()
+    " Less distracting fold markers
+    hi Folded cterm=NONE ctermfg=234 ctermbg=NONE
 
-" Highlight visual mode selections
-hi Visual cterm=NONE ctermfg=white ctermbg=92
+    " Highlight search matches
+    hi Search cterm=NONE ctermfg=white ctermbg=92
 
-" Highlight incremental search matches
-hi IncSearch cterm=NONE ctermfg=white ctermbg=129
+    " Highlight visual mode selections
+    hi Visual cterm=NONE ctermfg=white ctermbg=92
 
-" Highlight line numbers
-hi LineNr cterm=NONE ctermfg=239 ctermbg=black
-hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
+    " Highlight incremental search matches
+    hi IncSearch cterm=NONE ctermfg=white ctermbg=129
 
-" Use a "transparent" highlight to avoid an underline in BufExplorer
-hi CursorLine cterm=NONE ctermfg=NONE ctermbg=NONE
+    " Highlight line numbers
+    hi LineNr cterm=NONE ctermfg=239 ctermbg=black
+    hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
 
-" Location list paths (match prompt color for cwd)
-hi Directory cterm=NONE ctermfg=magenta ctermbg=black
+    " Use a "transparent" highlight to avoid an underline in BufExplorer
+    hi CursorLine cterm=NONE ctermfg=NONE ctermbg=NONE
 
-" tildes
-hi NonText cterm=none ctermfg=233 ctermbg=black
+    " Location list paths (match prompt color for cwd)
+    hi Directory cterm=NONE ctermfg=magenta ctermbg=black
 
-" Easier to read exact error/warning sites marked by syntastic which
-" links Spell* groups to its own in plugin/syntastic/highlighting.vim
-hi SpellCap cterm=NONE ctermfg=NONE ctermbg=236
-hi SpellBad cterm=NONE ctermfg=NONE ctermbg=236
+    " tildes
+    hi NonText cterm=none ctermfg=233 ctermbg=black
 
-" Less distracting when syntastic signs are present
-hi SignColumn cterm=NONE ctermfg=4 ctermbg=black
+    " Easier to read exact error/warning sites marked by syntastic which
+    " links Spell* groups to its own in plugin/syntastic/highlighting.vim
+    hi SpellCap cterm=NONE ctermfg=NONE ctermbg=236
+    hi SpellBad cterm=NONE ctermfg=NONE ctermbg=236
 
-hi comment ctermfg=darkgray
-hi string cterm=NONE ctermfg=136 ctermbg=NONE
+    " Less distracting when syntastic signs are present
+    hi SignColumn cterm=NONE ctermfg=4 ctermbg=black
 
-" Change the autocompletion menu colors
-hi Pmenu cterm=NONE ctermfg=red ctermbg=black
-hi PmenuSel cterm=NONE ctermfg=green ctermbg=black
+    hi comment ctermfg=darkgray
+    hi string cterm=NONE ctermfg=136 ctermbg=NONE
 
-" Highlight only the character that marks the line-length limit boundary.
-hi ColorColumn cterm=none ctermfg=242 ctermbg=NONE
+    " Change the autocompletion menu colors
+    hi Pmenu cterm=NONE ctermfg=red ctermbg=black
+    hi PmenuSel cterm=NONE ctermfg=green ctermbg=black
 
-" Reduce veritical split visibility
-hi VertSplit cterm=NONE ctermfg=black ctermbg=black
-" (Bottom of the vertical split)
-hi StatusLine cterm=NONE ctermfg=black ctermbg=black
-hi StatusLineNC cterm=NONE ctermfg=black ctermbg=black
+    " Highlight only the character that marks the line-length limit boundary.
+    hi ColorColumn cterm=none ctermfg=242 ctermbg=NONE
 
-" Increase readability of quickfix lines
-hi qfFileName cterm=NONE ctermfg=lightgray ctermbg=NONE
-hi qfSeparator cterm=NONE ctermfg=black ctermbg=NONE
-hi qfLineNr cterm=NONE ctermfg=darkgreen ctermbg=NONE
-hi qfError cterm=NONE ctermfg=darkgray ctermbg=NONE
+    " Reduce veritical split visibility
+    hi VertSplit cterm=NONE ctermfg=black ctermbg=black
+    " (Bottom of the vertical split)
+    hi StatusLine cterm=NONE ctermfg=black ctermbg=black
+    hi StatusLineNC cterm=NONE ctermfg=black ctermbg=black
 
-" Increase readability of gitcommit
-hi diffAdded cterm=NONE ctermfg=green ctermbg=NONE
-hi diffRemoved cterm=NONE ctermfg=red ctermbg=NONE
-hi diffSubName cterm=NONE ctermfg=darkgrey ctermbg=NONE
-hi diffFile cterm=NONE ctermfg=cyan ctermbg=NONE
-hi gitcommitComment cterm=NONE ctermfg=234 ctermbg=NONE
-hi gitcommitOnBranch cterm=NONE ctermfg=234 ctermbg=NONE
-hi gitcommitHeader cterm=NONE ctermfg=234 ctermbg=NONE
-hi gitcommitBranch cterm=NONE ctermfg=cyan ctermbg=NONE
-hi gitcommitType cterm=NONE ctermfg=white ctermbg=NONE
-hi gitcommitSelectedFile cterm=NONE ctermfg=cyan ctermbg=NONE
-hi gitcommitUntrackedFile cterm=NONE ctermfg=gray ctermbg=NONE
-hi gitcommitSummary cterm=NONE ctermfg=cyan ctermbg=NONE
+    " Increase readability of quickfix lines
+    hi qfFileName cterm=NONE ctermfg=lightgray ctermbg=NONE
+    hi qfSeparator cterm=NONE ctermfg=black ctermbg=NONE
+    hi qfLineNr cterm=NONE ctermfg=darkgreen ctermbg=NONE
+    hi qfError cterm=NONE ctermfg=darkgray ctermbg=NONE
 
-" Reduce tab bar distraction
-hi TabLineFill cterm=NONE ctermfg=NONE ctermbg=NONE
-hi TabLine cterm=NONE ctermfg=234 ctermbg=NONE
-hi TabLineSel cterm=NONE ctermfg=white ctermbg=NONE
-" (For the per-tab window counter. However other styles, ex. m {arkdown, will inherit
-" from Title for headings.)
-hi Title cterm=NONE ctermfg=darkgray ctermbg=NONE
+    " Increase readability of gitcommit
+    hi diffAdded cterm=NONE ctermfg=green ctermbg=NONE
+    hi diffRemoved cterm=NONE ctermfg=red ctermbg=NONE
+    hi diffSubName cterm=NONE ctermfg=darkgrey ctermbg=NONE
+    hi diffFile cterm=NONE ctermfg=cyan ctermbg=NONE
+    hi gitcommitComment cterm=NONE ctermfg=234 ctermbg=NONE
+    hi gitcommitOnBranch cterm=NONE ctermfg=234 ctermbg=NONE
+    hi gitcommitHeader cterm=NONE ctermfg=234 ctermbg=NONE
+    hi gitcommitBranch cterm=NONE ctermfg=cyan ctermbg=NONE
+    hi gitcommitType cterm=NONE ctermfg=white ctermbg=NONE
+    hi gitcommitSelectedFile cterm=NONE ctermfg=cyan ctermbg=NONE
+    hi gitcommitUntrackedFile cterm=NONE ctermfg=gray ctermbg=NONE
+    hi gitcommitSummary cterm=NONE ctermfg=cyan ctermbg=NONE
 
-" Reduce color variation in markdown
-hi mkdCode cterm=NONE ctermfg=136 ctermbg=NONE
-hi mkdURL cterm=NONE ctermfg=136 ctermbg=NONE
-hi mkdInlineURL cterm=NONE ctermfg=136 ctermbg=NONE
-hi mkdLink cterm=NONE ctermfg=136 ctermbg=NONE
-hi mkdDelimiter cterm=NONE ctermfg=136 ctermbg=NONE
+    " Reduce tab bar distraction
+    hi TabLineFill cterm=NONE ctermfg=NONE ctermbg=NONE
+    hi TabLine cterm=NONE ctermfg=234 ctermbg=NONE
+    hi TabLineSel cterm=NONE ctermfg=white ctermbg=NONE
+    " (For the per-tab window counter. However other styles, ex. m {arkdown, will inherit
+    " from Title for headings.)
+    hi Title cterm=NONE ctermfg=darkgray ctermbg=NONE
 
-" Reduce color variation in JavaScript
-hi jsGlobalObjects cterm=NONE ctermfg=white ctermbg=NONE
-hi jsOf cterm=NONE ctermfg=white ctermbg=NONE
-hi jsOperator cterm=NONE ctermfg=white ctermbg=NONE
-hi jsThis cterm=NONE ctermfg=white ctermbg=NONE
-hi jsTernaryIfOperator cterm=NONE ctermfg=white ctermbg=NONE
-hi jsDocTags cterm=NONE ctermfg=247 ctermbg=NONE
-hi def link jsDocType jsDocTags
-hi def link jsDocParam jsDocTags
-hi def link jsDocTypeNoParam jsDocTags
-hi def link jsBooleanTrue goPredefinedIdentifiers
-hi def link jsBooleanFalse jsBooleanTrue
-hi def link jsClass goDeclaration
-hi def link jsStorageClass goDeclaration
-hi def link jsConditional goConditional
-hi def link jsExceptions goConditional
-hi def link jsException jsExceptions
-hi def link jsFunction goDeclaration
-hi def link jsArrowFunction goDeclaration
-hi def link jsNull goPredefinedIdentifiers
-hi def link jsNumber goDecimalInt
-hi def link jsFloat goFloat
-hi def link jsRepeat goRepeat
-hi def link jsReturn goStatement
-hi def link jsStatement goStatement
-hi def link jsLabel goStatement
-hi def link jsUndefined goPredefinedIdentifiers
-hi def link jsTemplateVar jsTemplateString
+    " Reduce color variation in markdown
+    hi mkdCode cterm=NONE ctermfg=136 ctermbg=NONE
+    hi mkdURL cterm=NONE ctermfg=136 ctermbg=NONE
+    hi mkdInlineURL cterm=NONE ctermfg=136 ctermbg=NONE
+    hi mkdLink cterm=NONE ctermfg=136 ctermbg=NONE
+    hi mkdDelimiter cterm=NONE ctermfg=136 ctermbg=NONE
 
-hi MatchParen cterm=none ctermbg=242 ctermfg=NONE
+    " Reduce color variation in JavaScript
+    hi jsGlobalObjects cterm=NONE ctermfg=white ctermbg=NONE
+    hi jsOf cterm=NONE ctermfg=white ctermbg=NONE
+    hi jsOperator cterm=NONE ctermfg=white ctermbg=NONE
+    hi jsThis cterm=NONE ctermfg=white ctermbg=NONE
+    hi jsTernaryIfOperator cterm=NONE ctermfg=white ctermbg=NONE
+    hi jsDocTags cterm=NONE ctermfg=247 ctermbg=NONE
+    hi def link jsDocType jsDocTags
+    hi def link jsDocParam jsDocTags
+    hi def link jsDocTypeNoParam jsDocTags
+    hi def link jsBooleanTrue goPredefinedIdentifiers
+    hi def link jsBooleanFalse jsBooleanTrue
+    hi def link jsClass goDeclaration
+    hi def link jsStorageClass goDeclaration
+    hi def link jsConditional goConditional
+    hi def link jsExceptions goConditional
+    hi def link jsException jsExceptions
+    hi def link jsFunction goDeclaration
+    hi def link jsArrowFunction goDeclaration
+    hi def link jsNull goPredefinedIdentifiers
+    hi def link jsNumber goDecimalInt
+    hi def link jsFloat goFloat
+    hi def link jsRepeat goRepeat
+    hi def link jsReturn goStatement
+    hi def link jsStatement goStatement
+    hi def link jsLabel goStatement
+    hi def link jsUndefined goPredefinedIdentifiers
+    hi def link jsTemplateVar jsTemplateString
+
+    hi MatchParen cterm=none ctermbg=242 ctermfg=NONE
+endfunc
+
+call s:highlighting()
+
+autocmd! ColorScheme <buffer> call s:highlighting()
+autocmd! User GoyoLeave nested call s:highlighting()
 
 " Print syntax highlighting group used at cursor
 " http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
@@ -362,10 +370,8 @@ vmap qq <Esc>
 " Clear the current command-line/search and return to normal mode.
 cmap qq <C-C>
 
-" Opens the split in a new tab. Kind like 'distraction free' mode. (f)
-" https://github.com/Wolfy87/vim-config/commit/707e062fe1fb756c84aa3ffe7b0652c4a0676970
-nmap <silent> <leader>f :tab sp<CR>
-nmap <silent> <leader>c :tabclose<CR>
+nmap <silent> <leader>f :Goyo 100%x80%+20%<CR>
+nmap <silent> <leader>c :Goyo!<CR>
 
 " Clear highlighting in normal mode with return key
 nnoremap <silent> <CR> :noh<CR>
