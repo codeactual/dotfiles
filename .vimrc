@@ -562,8 +562,3 @@ set noshowmode
 " rather than opening the file (sometimes redundantly) in the bottom-right
 " split.
 set switchbuf=useopen
-
-" Move cursor to window/line of first/next/prev quickfix item
-map mm :cc1<CR>
-map .. :cnext<CR>
-map ,, :cprev<CR>
