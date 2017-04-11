@@ -15,17 +15,22 @@
 	rebase = true
 [rebase]
 	stat = true
+  autostash = true
 [push]
 	default = tracking
+  followTags = true
 [merge]
 	ff = false
   renamelimit = 10000
+  conflictstyle = diff3
 [clean]
   requireForce = true
 [alias]
     checkpoint = git stash; git stash apply
     # https://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git
     oldest-ancestor = !zsh -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
+    fpush = git push --force-with-lease
+    stash-all = stash save --include-untracked
 [color "diff-highlight"]
   oldNormal = "red bold"
   oldHighlight = "red bold 52"
@@ -39,3 +44,5 @@
   fsckObjects = true
 [diff]
   algorithm = patience
+[stash]
+  showPatch = true
