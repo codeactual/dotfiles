@@ -32,7 +32,7 @@ alias gddi="gd origin/develop \^develop"
 alias gddo="gd develop \^origin/develop"
 alias gdv='gd | $EDITOR -R - '
 alias gdw="gd --word-diff"
-alias gg="git grep --line-number --show-function --context=4 --heading --color=always"
+alias ggrep="git grep -I --line-number --color=auto --heading"
 alias gi="git info"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen%cD (%cr)%Creset'"
 alias glns="gl --name-status"
