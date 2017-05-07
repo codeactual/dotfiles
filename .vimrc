@@ -114,8 +114,8 @@ func! s:highlighting()
     " Reduce veritical split visibility
     hi VertSplit cterm=NONE ctermfg=black ctermbg=black
     " (Bottom of the vertical split)
-    hi StatusLine cterm=NONE ctermfg=black ctermbg=black
-    hi StatusLineNC cterm=NONE ctermfg=black ctermbg=black
+    hi StatusLine cterm=NONE ctermfg=white ctermbg=235
+    hi StatusLineNC cterm=NONE ctermfg=darkgray ctermbg=234
 
     " Increase readability of quickfix lines
     hi qfFileName cterm=NONE ctermfg=lightgray ctermbg=NONE
