@@ -562,3 +562,6 @@ set noshowmode
 " rather than opening the file (sometimes redundantly) in the bottom-right
 " split.
 set switchbuf=useopen
+
+" Close the current tab from normal mode
+map <silent> tc :tabclose<CR>
