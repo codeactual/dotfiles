@@ -187,7 +187,6 @@ endfunc
 call s:highlighting()
 
 autocmd! ColorScheme <buffer> call s:highlighting()
-autocmd! User GoyoLeave nested call s:highlighting()
 
 " Print syntax highlighting group used at cursor
 " http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
@@ -369,9 +368,6 @@ imap qq <Esc>
 vmap qq <Esc>
 " Clear the current command-line/search and return to normal mode.
 cmap qq <C-C>
-
-nmap <silent> <leader>f :Goyo 100%x80%+20%<CR>
-nmap <silent> <leader>c :Goyo!<CR>
 
 " Clear highlighting in normal mode with return key
 nnoremap <silent> <CR> :noh<CR>
