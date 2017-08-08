@@ -369,6 +369,11 @@ vmap qq <Esc>
 " Clear the current command-line/search and return to normal mode.
 cmap qq <C-C>
 
+" Opens the split in a new tab. Kind like 'distraction free' mode. (f)
+" https://github.com/Wolfy87/vim-config/commit/707e062fe1fb756c84aa3ffe7b0652c4a0676970
+nmap <silent> <leader>f :tab sp<CR>
+nmap <silent> <leader>c :tabclose<CR>
+
 " Clear highlighting in normal mode with return key
 nnoremap <silent> <CR> :noh<CR>
 
