@@ -561,3 +561,6 @@ set switchbuf=useopen
 
 " Close the current tab from normal mode
 map <silent> tc :tabclose<CR>
+
+let g:limelight_paragraph_span = 4
+let g:limelight_conceal_ctermfg = 'gray'
