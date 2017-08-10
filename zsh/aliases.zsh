@@ -78,6 +78,7 @@ alias vimsafe="vim -RMm"
 alias zshrc="vim ~/.zshrc; sleep 1; source ~/.zshrc"
 alias ccat="pygmentize -g"
 alias make="/usr/bin/env make --warn-undefined-variable --no-print-directory"
+alias tad="tmux attach -d"
 
 # Evaluate aliases before passing command to sudo
 alias sudo='sudo '
