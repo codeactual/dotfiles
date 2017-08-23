@@ -32,7 +32,6 @@ alias gddi="gd origin/develop \^develop"
 alias gddo="gd develop \^origin/develop"
 alias gdv='gd | $EDITOR -R - '
 alias gdw="gd --word-diff"
-alias ggrep="git grep -I --line-number --color=auto --heading"
 alias gi="git info"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen%cD (%cr)%Creset'"
 alias glns="gl --name-status"
@@ -174,5 +173,5 @@ function gd {
 }
 
 function ggrep {
-  git rev-list --all | xargs git grep "$@"
+  git rev-list --all | xargs git grep --color=always "$@" | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
 }
