@@ -169,7 +169,7 @@ function gd {
   if [ "$TMUX" ]; then
     clear
   fi
-  git diff --color $@ | diff-highlight | strip_diff_leading_symbols | less --raw-control-chars --quit-if-one-screen --no-init
+  git diff --color $@ | diff-highlight | strip_diff_leading_symbols | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
 }
 
 function ggrep {
