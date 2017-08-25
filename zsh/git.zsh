@@ -163,15 +163,65 @@ rule () {
   printf "${(r:$COLUMNS::_:)}"
 }
 
-function gd {
-  # Make it easier to see the latest diff (ex. if scrollback is already full of them) w/out searching for the prompt
-  # or some other marker. But only do so when inside tmux because scrollback loss isn't as much of an issue.
+# Clear the screen if we're inside tmux (where backscroll won't be lost as easily).
+function clear_term_if_tmux {
   if [ "$TMUX" ]; then
     clear
   fi
+}
+
+function gd {
+  clear_term_if_tmux
+
+  # Make it easier to see the latest diff (ex. if scrollback is already full of them) w/out searching for the prompt
+  # or some other marker. But only do so when inside tmux because scrollback loss isn't as much of an issue.
   git diff --color $@ | diff-highlight | strip_diff_leading_symbols | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
 }
 
-function ggrep {
-  git rev-list --all | xargs git grep --color=always "$@" | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
+function ggreplog {
+  clear_term_if_tmux
+
+  git rev-list --all --format="%Cgreen%cD (%cr)%Creset %C(yellow)%an%d%Creset %C(white dim)%H%Creset %n%B" | grep -v "^commit.*$" | grep --color=always --context=10 "$@" | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
+}
+
+function hr {
+  # http://wiki.bash-hackers.org/snipplets/print_horizontal_line
+  printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+}
+
+function ggrepcontent_main {
+  clear_term_if_tmux
+
+  GREP_COLOR="01;35" # purple/magenta
+
+  for hash in `git rev-list --all`; do
+    # Detect first-commits to avoid `git diff` error.
+    # There is likely a faster command/flag combo to get the same desired output (exit code).
+    git show --no-notes --no-patch "${hash}^" > /dev/null 2>&1
+
+    if [ $? -eq 0 ]; then
+      grepout=`git diff "${hash}^" "${hash}" | GREP_COLOR="${GREP_COLOR}" grep --context=10 --color=always "$@" 2>&1`
+      grepexit=$?
+      grepout=`echo "$grepout" | diff-highlight | strip_diff_leading_symbols`
+    else
+      grepout=`git show "${hash}" | GREP_COLOR="${GREP_COLOR}" grep --context=10 --color=always "$@" 2>&1`
+      grepexit=$?
+    fi
+
+    if [ $grepexit -eq 0 ]; then
+      hr
+      git show --quiet --format=medium ${hash}
+      echo "${grepout}"
+    fi
+    break
+  done
+}
+
+function ggrepcontent {
+  #ggrepcontent "$@" | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
+  ggrepcontent_main "$@"
+}
+
+function ggrepnames {
+  # xargs git grep --color=always "$@" | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
 }
