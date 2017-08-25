@@ -163,8 +163,9 @@ PRMT_HOST="%{$fg[yellow]%}$PRMT_HOST_PREFIX%M%{$reset_color%}"
 
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
 PRMT_HISTNUM="%!"
-PRMT_BRANCH=""$'$(__git_ps1 "(%s)")'
-export PROMPT="$PRMT_DATE $PRMT_TIME $PRMT_TZ $PRMT_USER @ $PRMT_HOST : $PRMT_DIR $PRMT_HISTNUM $PRMT_BRANCH
+PRMT_GITGPG="\$(if [[ \$(git config --get commit.gpgsign) = "true" ]]; then echo "GPG"; else echo "NoGPG"; fi)"
+PRMT_GIT=""$'$(__git_ps1 "%s")'
+export PROMPT="$PRMT_DATE $PRMT_TIME $PRMT_TZ $PRMT_USER @ $PRMT_HOST : $PRMT_DIR $PRMT_HISTNUM ($PRMT_GIT,$PRMT_GITGPG)
 ${VIMODE} "
 
 ########################
