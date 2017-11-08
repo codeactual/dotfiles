@@ -19,7 +19,7 @@
     "no-self-compare": 1,
     "no-shadow": 0,
     "no-throw-literal": 1,
-    "no-undefined": 1,
+    "no-undefined": 0,
     "no-var": 1,
     "no-void": 1,
     "no-underscore-dangle": 0,
