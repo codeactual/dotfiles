@@ -7,7 +7,7 @@
   "rules": {
     "block-scoped-var": 0,
     "camelcase": 0,
-    "func-names": 1,
+    "func-names": 0,
     "key-spacing": 0,
     "no-catch-shadow": 1,
     "no-console": 1,
