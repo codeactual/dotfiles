@@ -396,9 +396,6 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 " Move to the next error/warning cite
 nmap <silent> <C-L> :lne<CR>
 
-" Change the cwd to the file's
-nmap <silent> <C-C> :cd %:p:h<CR>
-
 " python-mode
 "
 " Disable default behavior of enabling line numbers
