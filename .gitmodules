@@ -34,6 +34,9 @@
 [submodule ".vim/bundle/powerline"]
 	path = .vim/bundle/powerline
 	url = https://github.com/powerline/powerline.git
+[submodule ".vim/bundle/vim-bracketed-paste"]
+	path = .vim/bundle/vim-bracketed-paste
+	url = https://github.com/ConradIrwin/vim-bracketed-paste
 [submodule ".vim/bundle/gundo"]
 	path = .vim/bundle/gundo
 	url = https://github.com/sjl/gundo.vim.git
