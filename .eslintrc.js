@@ -12,6 +12,23 @@ module.exports = {
     }
   },
   'rules': {
+    'require-await': ['error', 'always'],
+    'no-return-await': ['error', 'always'],
+    'prefer-promise-reject-errors': ['error', 'always'],
+
+    'no-throw-literal': ['error', 'always'],
+    'no-self-compare': ['error', 'always'],
+    'no-return-assign': ['error', 'always'],
+    'no-new': ['error', 'always'],
+    'no-lone-blocks': ['error', 'always'],
+    'no-invalid-this': ['error', 'always'],
+    'no-eq-null': ['error', 'always'],
+    'no-empty-function': ['error', 'always'],
+    'no-else-return': ['error', 'always'],
+    'default-case': ['error', 'always'],
+    'array-callback-return': ['error', 'always'],
+    'consistent-return': ['error', 'always'],
+
     'indent': ['error', 2],
     'linebreak-style': ['error', 'unix'],
     'quotes': ['error', 'single'],
