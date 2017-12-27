@@ -104,7 +104,9 @@ compinit
 # For git-completion
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
-export GIT_PS1_SHOWUPSTREAM="git"
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM="verbose name git"
+export GIT_PS1_SHOWCOLORHINTS=1
 
 source ~/zsh/completion/git-prompt.zsh
 
@@ -127,7 +129,6 @@ fi
 function vi_mode_prompt_info() {
   echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/:}"
 }
-VIMODE='$(vi_mode_prompt_info)'
 
 # 200ms for key sequences (to match vim default)
 # From https://www.johnhawthorn.com/2012/09/vi-escape-delays/
@@ -163,10 +164,8 @@ PRMT_HOST="%{$fg[yellow]%}$PRMT_HOST_PREFIX%M%{$reset_color%}"
 
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
 PRMT_HISTNUM="%!"
-PRMT_GITGPG="\$(if [[ \$(git config --get commit.gpgsign) = "true" ]]; then echo "GPG"; else echo "NoGPG"; fi)"
-PRMT_GIT=""$'$(__git_ps1 "%s")'
-export PROMPT="$PRMT_DATE $PRMT_TIME $PRMT_TZ $PRMT_USER @ $PRMT_HOST : $PRMT_DIR $PRMT_HISTNUM ($PRMT_GIT,$PRMT_GITGPG)
-${VIMODE} "
+unset -f precmd
+precmd () { __git_ps1 "" "" "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ \$PRMT_USER @ \$PRMT_HOST : \$PRMT_DIR \$PRMT_HISTNUM %s\n\$(vi_mode_prompt_info) " }
 
 ########################
 ##### MISC OPTIONS #####
