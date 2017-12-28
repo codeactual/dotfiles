@@ -108,8 +108,6 @@ export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="verbose name git"
 export GIT_PS1_SHOWCOLORHINTS=1
 
-source ~/zsh/completion/git-prompt.zsh
-
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/vi-mode/vi-mode.plugin.zsh
 # Updates editor information when the keymap changes.
 function zle-line-init zle-keymap-select() {
@@ -162,10 +160,30 @@ else
 fi
 PRMT_HOST="%{$fg[yellow]%}$PRMT_HOST_PREFIX%M%{$reset_color%}"
 
+function __git_ps1_remote {
+  GIT_BRANCH=`git name-rev --name-only HEAD 2>&1`
+  if [ $? -ne 0 ]; then
+    return $?
+  fi
+
+  echo "$(git config "branch.${GIT_BRANCH}.remote")"
+}
+
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
 PRMT_HISTNUM="%!"
 unset -f precmd
-precmd () { __git_ps1 "" "" "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ \$PRMT_USER @ \$PRMT_HOST : \$PRMT_DIR \$PRMT_HISTNUM %s\n\$(vi_mode_prompt_info) " }
+precmd () {
+  # 1st arg: prepend to the git status section
+  # 2nd arg: append to git status section
+  # 3rd arg: format of git status section
+  # - Use multi-line string, for 2nd arg, because \n won't work there.
+  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ \$PRMT_USER @ \$PRMT_HOST : \$PRMT_DIR \$PRMT_HISTNUM \$(__git_ps1_remote)" "
+\$(vi_mode_prompt_info) " "/%s"
+}
+
+unset PS1
+unset PROMPT
+source ~/zsh/completion/git-prompt.zsh
 
 ########################
 ##### MISC OPTIONS #####
