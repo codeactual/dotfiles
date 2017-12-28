@@ -166,7 +166,16 @@ function __git_ps1_remote {
     return $?
   fi
 
-  echo "$(git config "branch.${GIT_BRANCH}.remote")"
+  GIT_REMOTE=$(git config "branch.${GIT_BRANCH}.remote")
+  if [ "${GIT_REMOTE}" = "" ]; then
+    if [ "${GIT_BRANCH}" = "" ]; then
+      echo "<unknown>/"
+    else
+      echo "${GIT_BRANCH}/"
+    fi
+  else
+    echo "$(git config "branch.${GIT_BRANCH}.remote")/"
+  fi
 }
 
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
@@ -177,7 +186,7 @@ precmd () {
   # 3rd arg: format of git status section
   # - Use multi-line string, for 2nd arg, because \n won't work there.
   __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ | \$PRMT_HOST:\$PRMT_USER:$PRMT_DIR \$(__git_ps1_remote)" "
-\$(vi_mode_prompt_info) " "/%s"
+\$(vi_mode_prompt_info) " "%s"
 }
 
 unset PS1
