@@ -176,7 +176,7 @@ precmd () {
   # 2nd arg: append to git status section
   # 3rd arg: format of git status section
   # - Use multi-line string, for 2nd arg, because \n won't work there.
-  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ | \$PRMT_HOST:\$PRMT_USER:$PRMT_DIR | \$(__git_ps1_remote)" "
+  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ | \$PRMT_HOST:\$PRMT_USER:$PRMT_DIR \$(__git_ps1_remote)" "
 \$(vi_mode_prompt_info) " "/%s"
 }
 
