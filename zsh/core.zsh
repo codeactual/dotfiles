@@ -150,7 +150,7 @@ unsetopt ALWAYS_LAST_PROMPT
 # : some cmd
 PRMT_DATE="%D{%a %m/%d}"
 PRMT_TIME="%{$fg[green]%}%D{%H:%M}%{$reset_color%}:%D{%S}"
-PRMT_TZ="%D{%Z}"
+PRMT_TZ="%D{%Z} $(TZ=":America/Los_Angeles" date +'%z %Z')"
 PRMT_USER="%n"
 
 if grep docker /proc/1/cgroup 2>&1 > /dev/null; then
@@ -158,7 +158,7 @@ if grep docker /proc/1/cgroup 2>&1 > /dev/null; then
 else
   PRMT_HOST_PREFIX=""
 fi
-PRMT_HOST="%{$fg[yellow]%}$PRMT_HOST_PREFIX%M%{$reset_color%}"
+PRMT_HOST="$PRMT_HOST_PREFIX%M"
 
 function __git_ps1_remote {
   GIT_BRANCH=`git name-rev --name-only HEAD 2>&1`
@@ -170,14 +170,13 @@ function __git_ps1_remote {
 }
 
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
-PRMT_HISTNUM="%!"
 unset -f precmd
 precmd () {
   # 1st arg: prepend to the git status section
   # 2nd arg: append to git status section
   # 3rd arg: format of git status section
   # - Use multi-line string, for 2nd arg, because \n won't work there.
-  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ \$PRMT_USER @ \$PRMT_HOST : \$PRMT_DIR \$PRMT_HISTNUM \$(__git_ps1_remote)" "
+  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ | \$PRMT_HOST:\$PRMT_USER:$PRMT_DIR | \$(__git_ps1_remote)" "
 \$(vi_mode_prompt_info) " "/%s"
 }
 
