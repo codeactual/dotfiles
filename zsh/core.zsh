@@ -154,7 +154,7 @@ PRMT_TZ="%D{%Z} $(TZ=":America/Los_Angeles" date +'%z %Z')"
 PRMT_USER="%n"
 
 if grep docker /proc/1/cgroup 2>&1 > /dev/null; then
-  PRMT_HOST_PREFIX="docker: "
+  PRMT_HOST_PREFIX="docker:"
 else
   PRMT_HOST_PREFIX=""
 fi
