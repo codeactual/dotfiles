@@ -162,7 +162,7 @@ PRMT_HOST="$PRMT_HOST_PREFIX%M"
 
 function __git_ps1_remote {
   GIT_BRANCH=`git name-rev --name-only HEAD 2>&1`
-  if [ $? -ne 0 ]; then
+  if [ $? -ne 0 ] || [[ $GIT_BRANCH == *"HEAD"* ]]; then
     return $?
   fi
 
