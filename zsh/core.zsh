@@ -179,7 +179,6 @@ function __git_ps1_remote {
 }
 
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
-unset -f precmd
 precmd () {
   # 1st arg: prepend to the git status section
   # 2nd arg: append to git status section
