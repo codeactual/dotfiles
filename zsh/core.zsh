@@ -32,7 +32,7 @@ if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
     if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find $__ZSH_HISTIGNORE_RESULT -mmin +1 > /dev/null 2>&1` ]; then
       cat ~/zsh/history | sed 's/^\(: [0-9]\+:[0-9]\+;\)\(.*\)/\1\2/g' | egrep -v ": [0-9]+:[0-9]+;$__ZSH_HISTIGNORE" > $__ZSH_HISTIGNORE_RESULT
       diff ~/zsh/history $__ZSH_HISTIGNORE_RESULT >  $__ZSH_HISTIGNORE_DIFF
-      echo "ZSH history cleanup: $(egrep "^<" $__ZSH_HISTIGNORE_DIFF | wc -l)"
+      echo "ZSH history cleanup: $__ZSH_HISTIGNORE_DIFF ($(egrep "^<" $__ZSH_HISTIGNORE_DIFF | wc -l))"
       cp $__ZSH_HISTIGNORE_RESULT ~/zsh/history
       rm -f $__ZSH_HISTIGNORE_RESULT
     fi
