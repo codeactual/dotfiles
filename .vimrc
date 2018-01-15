@@ -429,6 +429,7 @@ function SaveGo()
 endfunction
 nmap <silent> <C-G> :call SaveGo()<CR>
 " Reduce color distraction
+hi def link goConst goDeclaration
 hi def link goVar goDeclaration
 hi def link goImport goDeclaration
 hi def link goPackage goDeclaration
