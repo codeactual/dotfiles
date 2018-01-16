@@ -454,7 +454,7 @@ hi def link goFloats goType
 hi def link goExtraType goType
 hi def link goDirective goDeclaration
 hi goDeclaration cterm=NONE ctermfg=240 ctermbg=NONE
-hi goType cterm=NONE ctermfg=240 ctermbg=NONE
+hi goType cterm=NONE ctermfg=white ctermbg=NONE
 hi goFunction cterm=NONE ctermfg=white ctermbg=NONE
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
