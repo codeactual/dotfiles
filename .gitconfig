@@ -46,3 +46,5 @@
   algorithm = patience
 [stash]
   showPatch = true
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/
