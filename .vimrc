@@ -504,6 +504,7 @@ endfunction
 set completeopt-=preview
 
 " gundo
+let g:gundo_prefer_python3 = 1
 nmap <silent> <leader>g :GundoToggle<CR>
 
 " Ex. in python add space after each '#' to avoid lint warnings.
