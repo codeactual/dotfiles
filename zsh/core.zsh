@@ -160,22 +160,20 @@ else
 fi
 PRMT_HOST="$PRMT_HOST_PREFIX%M"
 
-function __git_ps1_remote {
+function __git_dir_info {
   GIT_BRANCH=`git name-rev --name-only HEAD 2>&1`
   if [ $? -ne 0 ] || [[ $GIT_BRANCH == *"HEAD"* ]]; then
-    return $?
+    return $? # not a git repo
   fi
 
   GIT_REMOTE=$(git config "branch.${GIT_BRANCH}.remote")
   if [ "${GIT_REMOTE}" = "" ]; then
-    if [ "${GIT_BRANCH}" = "" ]; then
-      echo "<unknown>/"
-    else
-      echo "${GIT_BRANCH}/"
-    fi
+    GIT_REMOTE="no_remote"
   else
-    echo "$(git config "branch.${GIT_BRANCH}.remote")/"
+    GIT_REMOTE=$(git config "branch.${GIT_BRANCH}.remote")
   fi
+
+  echo "${GIT_REMOTE}/"
 }
 
 PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
@@ -184,7 +182,7 @@ precmd () {
   # 2nd arg: append to git status section
   # 3rd arg: format of git status section
   # - Use multi-line string, for 2nd arg, because \n won't work there.
-  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ | \$PRMT_HOST:\$PRMT_USER:$PRMT_DIR \$(__git_ps1_remote)" "
+  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ | \$PRMT_HOST:\$PRMT_USER:$PRMT_DIR \$(__git_dir_info)" "
 \$(vi_mode_prompt_info) " "%s"
 }
 
