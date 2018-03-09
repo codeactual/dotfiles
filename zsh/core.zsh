@@ -1,4 +1,4 @@
-#################
+#.################
 ##### NOTES #####
 #################
 # - man zshoptions
@@ -225,9 +225,8 @@ export EDITOR="vim"
 # List defaults: dircolors -p
 export LS_COLORS="di=00;96"
 
-# Permit vim 256-color schemes.
-# Especially to override TERM set to "screen" inside screen.
-export TERM="xterm-256color"
+# https://github.com/tmux/tmux/issues/625#issuecomment-258009586
+[[ $TMUX = "" ]] && export TERM="xterm-256color"
 
 # http://www.commandlinefu.com/commands/view/9530/color-man-pages
 export LESS_TERMCAP_mb=$'\E[01;31m'
