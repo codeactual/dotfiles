@@ -62,7 +62,7 @@ alias rsync-resume="rsync --partial"  # Resumes incomplete scp operation.
 #######################
 
 alias curl-find-ca-bundle="curl-config --ca"
-alias dl="wget --max-redirect 5 --no-cookies"
+alias dl="curl --location --max-redirs 5 --proto-default https --proto-redir '=https' --remote-name --remote-header-name"
 function curl-final-url {
   curl -I --silent --location --max-redirs 10 -w "%{url_effective}\n" "$1" | tail -n 1
 }
