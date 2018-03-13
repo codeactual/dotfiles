@@ -387,8 +387,6 @@ nnoremap <silent> <CR> :noh<CR>
 
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
-set lazyredraw
-
 " syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
