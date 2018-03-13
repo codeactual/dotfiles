@@ -181,6 +181,11 @@ func! s:highlighting()
     hi def link jsUndefined goPredefinedIdentifiers
     hi def link jsTemplateVar jsTemplateString
 
+    " Reduce color variation in YAML
+    hi def link yamlBlockMappingKey string
+    hi yamlKeyValueDelimiter cterm=NONE ctermfg=240 ctermbg=NONE
+    hi def link yamlBlockCollectionItemStart yamlKeyValueDelimiter
+
     hi MatchParen cterm=none ctermbg=242 ctermfg=NONE
 endfunc
 
