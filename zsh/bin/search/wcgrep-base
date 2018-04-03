@@ -62,4 +62,4 @@ fi
 # Removed environment variables.
 # -prune replaced by -not.
 # grep replaced by egrep.
-find $pathargs -not -regex '.*\/vendor.*' -not -regex '.*\/\..*\/.*' -not -regex '.*\/coverage.*' -not -regex '.*\/tmp.*' -not -regex ".*\.min\..*" -not -regex '.*\/target.*' -not -regex '.*\/dist.*' -not -regex '.*SNAPSHOT.*' -not -regex '.*\/release.*' -not -regex '.*\/jsgen.*' -not -regex '.*\/node_modules.*' -not -regex '.*\/components.*' -not -regex '.*\/instrumented.*' -type f -print0 | xargs -0 egrep -HnI $grepargs "$pattern"
+find $pathargs -not -regex '.*\/vendor.*' -not -regex '.*\/\..*\/.*' -not -regex '.*\/coverage.*' -not -regex '.*\/tmp.*' -not -regex ".*\.min\..*" -not -regex '.*\/dist.*' -not -regex '.*SNAPSHOT.*' -not -regex '.*\/release.*' -not -regex '.*\/jsgen.*' -not -regex '.*\/node_modules.*' -not -regex '.*\/components.*' -not -regex '.*\/instrumented.*' -type f -print0 | xargs -0 egrep -HnI $grepargs "$pattern"
