@@ -183,6 +183,7 @@ func! s:highlighting()
 
     " Reduce color variation in YAML
     hi def link yamlBlockMappingKey string
+    hi def link yamlAnchor yamlPlainScalar
     hi def link yamlBool yamlBlockMappingKey
     hi def link yamlInteger yamlBool
     hi yamlKeyValueDelimiter cterm=NONE ctermfg=240 ctermbg=NONE
