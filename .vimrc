@@ -575,3 +575,6 @@ set switchbuf=useopen
 
 " Close the current tab from normal mode
 map <silent> tc :tabclose<CR>
+
+" https://stackoverflow.com/questions/16931770/makefile4-missing-separator-stop
+autocmd FileType make setlocal noexpandtab
