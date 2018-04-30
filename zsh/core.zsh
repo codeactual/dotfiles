@@ -99,7 +99,9 @@ bindkey -M viins 'qq' vi-cmd-mode
 
 # Use modern completion system
 autoload -Uz compinit
+autoload -Uz bashcompinit
 compinit
+bashcompinit
 
 # For git-completion
 export GIT_PS1_SHOWDIRTYSTATE=1
