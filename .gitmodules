@@ -58,3 +58,9 @@
 [submodule ".vim/bundle/vim-toml"]
 	path = .vim/bundle/vim-toml
 	url = https://github.com/cespare/vim-toml
+[submodule ".vim/bundle/vim-diminactive"]
+	path = .vim/bundle/vim-diminactive
+	url = https://github.com/blueyed/vim-diminactive
+[submodule ".vim/bundle/vim-tmux-focus-events"]
+	path = .vim/bundle/vim-tmux-focus-events
+	url = https://github.com/tmux-plugins/vim-tmux-focus-events
