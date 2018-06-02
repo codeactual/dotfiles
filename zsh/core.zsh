@@ -242,17 +242,24 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 ################
 ##### PATH #####
 ################
-
-export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:$HOME/bin"
+#
 export PERL5LIB=""
+
+# Don't overwrite any PATH customization made via `docker run -e ...`
+if ! grep docker /proc/1/cgroup 2>&1 > /dev/null; then
+  export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:$HOME/bin"
+fi
 
 BIN_DIR="$HOME/zsh/bin"
 for dir in `ls -d $BIN_DIR/*`
 do
-  if [ -d "$dir/bin" ]; then
-    PATH="$PATH:$dir/bin"             # Ex. zsh/bin/percona-toolkit/bin
-  else
-    PATH="$PATH:$dir"                 # Ex. zsh/bin/search
+  # Don't overwrite any PATH customization made via `docker run -e ...`
+  if ! grep docker /proc/1/cgroup 2>&1 > /dev/null; then
+    if [ -d "$dir/bin" ]; then
+      PATH="$PATH:$dir/bin"             # Ex. zsh/bin/percona-toolkit/bin
+    else
+      PATH="$PATH:$dir"                 # Ex. zsh/bin/search
+    fi
   fi
   if [ -d "$dir/lib" ]; then
     if [ -z $PERL5LIB ]; then
