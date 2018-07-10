@@ -579,3 +579,23 @@ map <silent> tc :tabclose<CR>
 
 " https://stackoverflow.com/questions/16931770/makefile4-missing-separator-stop
 autocmd FileType make setlocal noexpandtab
+
+" https://github.com/blueyed/vim-diminactive/issues/2#issuecomment-95705842
+if exists('+colorcolumn')
+    function! InactivateWindow(inactivate)
+        if a:inactivate == 1
+            " using 0 as the third parameter lets me still see Search'd patterns in inactive windows.
+            let w:inactiveWindowMatchId = matchadd("ColorColumn", "\\%>0v", 0, 9999)
+        else
+            if exists("w:inactiveWindowMatchId")
+                call matchdelete(w:inactiveWindowMatchId)
+            endif
+        endif
+    endfunction
+    augroup DimInactiveWindows
+        au!
+        "This highlights text beyond the 256 char mark, but it only changes the background of areas WITH text...
+        au WinLeave * call InactivateWindow(1)
+        au WinEnter * call InactivateWindow(0)
+    augroup END
+endif
