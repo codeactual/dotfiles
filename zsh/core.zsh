@@ -178,7 +178,7 @@ function __git_dir_info {
   echo "${GIT_REMOTE}/"
 }
 
-PRMT_DIR="%{$fg[magenta]%}%d%{$reset_color%}"
+PRMT_DIR="%{$fg[green]%}%d%{$reset_color%}"
 precmd () {
   # 1st arg: prepend to the git status section
   # 2nd arg: append to git status section
