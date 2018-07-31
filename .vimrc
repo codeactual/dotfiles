@@ -192,6 +192,17 @@ func! s:highlighting()
     hi def link yamlFlowIndicator yamlKeyValueDelimiter
 
     hi MatchParen cterm=none ctermbg=242 ctermfg=NONE
+
+    " Reduce color variation in Terraform
+    hi terraSection cterm=NONE ctermfg=240 ctermbg=NONE
+    hi def link terraData terraSection
+    hi def link terraResource terraSection
+    hi def link terraDataTypeBI terraValueString
+    hi def link terraResourceTypeBI terraDataTypeBI
+    hi def link terraBraces terraSection
+    hi terraStringInterp cterm=NONE ctermfg=white ctermbg=NONE
+    hi def link terraValueDec terraValueString
+    hi def link terraValueBool terraValueString
 endfunc
 
 call s:highlighting()
