@@ -197,6 +197,7 @@ func! s:highlighting()
     hi terraSection cterm=NONE ctermfg=240 ctermbg=NONE
     hi def link terraData terraSection
     hi def link terraResource terraSection
+    hi def link terraModule terraSection
     hi def link terraDataTypeBI terraValueString
     hi def link terraResourceTypeBI terraDataTypeBI
     hi def link terraBraces terraSection
