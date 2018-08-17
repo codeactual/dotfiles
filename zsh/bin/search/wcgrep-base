@@ -33,8 +33,18 @@
 #                  null defaults to '.*~$\|.*/\.svn\(/\|$\)', which will
 #                  ignore vim backup files and subversion admin dirs.
 
+set -euo pipefail
 
 arg_count=$#
+pattern=""
+grepargs=""
+pathargs=""
+
+if [ "$arg_count" -eq "1" ]; then
+  echo "No pattern. Exiting."
+  exit
+fi
+
 for (( i=1; i <= $arg_count; i++ )); do
     arg="$1"
     shift 1
