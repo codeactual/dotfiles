@@ -24,7 +24,7 @@ setopt prompt_subst
 
 # If outside a docker container, perform egrep-based filtering.
 if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
-  __ZSH_HISTIGNORE="(encrypt|decrypt|export|shutdown|git checkout|exit|reset|clear|gci|node|rm|mv|vim|git reset|(git (clean|reset|checkout)))"
+  __ZSH_HISTIGNORE="(auth|code|token|key|encrypt|decrypt|export|shutdown|git checkout|exit|reset|clear|gci|node|rm|mv|vim|git reset|(git (clean|reset|checkout)))"
   __ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
   __ZSH_HISTIGNORE_DIFF="/tmp/.zsh_history_diff_pid$$"
   # If a filter result is missing or old.
