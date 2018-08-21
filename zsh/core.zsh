@@ -34,7 +34,6 @@ if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
   __ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
   __ZSH_HISTIGNORE_DIFF="/tmp/.zsh_history_diff_pid$$"
   # If a filter result is missing or old.
-    echo "HISTFILE = ${HISTFILE}"
     if [ -f "${HISTFILE}" ]; then
       if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find ${__ZSH_HISTIGNORE_RESULT} -mmin +1 > /dev/null 2>&1` ]; then
         cat ${HISTFILE} | egrep -v ": [0-9]+:[0-9]+;.*${__ZSH_HISTIGNORE_ANYWHERE}" > ${__ZSH_HISTIGNORE_RESULT}.anywhere
