@@ -22,26 +22,34 @@ setopt prompt_subst
 ##### HISTORY #####
 ###################
 
-# If outside a docker container, perform egrep-based filtering.
-if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
-  __ZSH_HISTIGNORE="(secret|auth|code|token|key|encrypt|decrypt|export|shutdown|git checkout|exit|reset|clear|gci|node|rm|mv|vim|git reset|(git (clean|reset|checkout)))"
-  __ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
-  __ZSH_HISTIGNORE_DIFF="/tmp/.zsh_history_diff_pid$$"
-  # If a filter result is missing or old.
-  if [ -f ~/.zsh_history ]; then
-    if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find $__ZSH_HISTIGNORE_RESULT -mmin +1 > /dev/null 2>&1` ]; then
-      cat ~/zsh/history | sed 's/^\(: [0-9]\+:[0-9]\+;\)\(.*\)/\1\2/g' | egrep -v ": [0-9]+:[0-9]+;$__ZSH_HISTIGNORE" > $__ZSH_HISTIGNORE_RESULT
-      diff ~/zsh/history $__ZSH_HISTIGNORE_RESULT >  $__ZSH_HISTIGNORE_DIFF
-      echo "ZSH history cleanup: $__ZSH_HISTIGNORE_DIFF ($(egrep "^<" $__ZSH_HISTIGNORE_DIFF | wc -l))"
-      cp $__ZSH_HISTIGNORE_RESULT ~/zsh/history
-      rm -f $__ZSH_HISTIGNORE_RESULT
-    fi
-  fi
-fi
-
 export HISTFILE=~/zsh/history
 export HISTSIZE=2000
 export SAVEHIST=1000
+
+# If outside a docker container, perform egrep-based filtering.
+if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
+  __ZSH_HISTIGNORE_ANYWHERE="(secret|auth|code|token|key|encrypt|decrypt)"
+  __ZSH_HISTIGNORE_BEGINSWITH="(export|shutdown|exit|reset|clear|gci|node|rm|mv|vim|git)"
+
+  __ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
+  __ZSH_HISTIGNORE_DIFF="/tmp/.zsh_history_diff_pid$$"
+  # If a filter result is missing or old.
+    echo "HISTFILE = ${HISTFILE}"
+    if [ -f "${HISTFILE}" ]; then
+      if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find ${__ZSH_HISTIGNORE_RESULT} -mmin +1 > /dev/null 2>&1` ]; then
+        cat ${HISTFILE} | egrep -v ": [0-9]+:[0-9]+;.*${__ZSH_HISTIGNORE_ANYWHERE}" > ${__ZSH_HISTIGNORE_RESULT}.anywhere
+        diff ${HISTFILE} ${__ZSH_HISTIGNORE_RESULT}.anywhere > ${__ZSH_HISTIGNORE_DIFF}.anywhere
+        echo "ZSH history cleanup (anywhere): ${__ZSH_HISTIGNORE_DIFF}.anywhere ($(egrep "^<" ${__ZSH_HISTIGNORE_DIFF}.anywhere | wc -l))"
+
+        cat ${__ZSH_HISTIGNORE_RESULT}.anywhere | egrep -v ": [0-9]+:[0-9]+;${__ZSH_HISTIGNORE_BEGINSWITH}" > ${__ZSH_HISTIGNORE_RESULT}.beginswith
+        diff ${HISTFILE} ${__ZSH_HISTIGNORE_RESULT}.beginswith > ${__ZSH_HISTIGNORE_DIFF}.beginswith
+        echo "ZSH history cleanup (beginswith): ${__ZSH_HISTIGNORE_DIFF}.beginswith ($(egrep "^<" ${__ZSH_HISTIGNORE_DIFF}.beginswith | wc -l))"
+
+        cp ${__ZSH_HISTIGNORE_RESULT}.beginswith ${HISTFILE}
+        rm -f ${__ZSH_HISTIGNORE_RESULT}
+      fi
+    fi
+  fi
 
 setopt EXTENDED_HISTORY
 setopt HIST_FIND_NO_DUPS
