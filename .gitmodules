@@ -48,7 +48,7 @@
 	url = https://github.com/pearofducks/ansible-vim
 [submodule ".vim/bundle/vim-terraform"]
 	path = .vim/bundle/vim-terraform
-	url = https://github.com/codeactual/vim-terraform
+	url = https://github.com/hashivim/vim-terraform
 [submodule ".vim/bundle/neocomplete.vim"]
 	path = .vim/bundle/neocomplete.vim
 	url = https://github.com/Shougo/neocomplete.vim
