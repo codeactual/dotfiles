@@ -611,3 +611,5 @@ if exists('+colorcolumn')
         au WinEnter * call InactivateWindow(0)
     augroup END
 endif
+
+let g:terraform_fmt_on_save = 1
