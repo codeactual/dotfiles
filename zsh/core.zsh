@@ -37,12 +37,16 @@ if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
     if [ -f "${HISTFILE}" ]; then
       if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find ${__ZSH_HISTIGNORE_RESULT} -mmin +1 > /dev/null 2>&1` ]; then
         cat ${HISTFILE} | egrep -v ": [0-9]+:[0-9]+;.*${__ZSH_HISTIGNORE_ANYWHERE}" > ${__ZSH_HISTIGNORE_RESULT}.anywhere
-        diff ${HISTFILE} ${__ZSH_HISTIGNORE_RESULT}.anywhere > ${__ZSH_HISTIGNORE_DIFF}.anywhere
-        echo "ZSH history cleanup (anywhere): ${__ZSH_HISTIGNORE_DIFF}.anywhere ($(egrep "^<" ${__ZSH_HISTIGNORE_DIFF}.anywhere | wc -l))"
+        if [ "${DUMPDIFF}" = "1" ]; then
+          diff ${HISTFILE} ${__ZSH_HISTIGNORE_RESULT}.anywhere > ${__ZSH_HISTIGNORE_DIFF}.anywhere
+          echo "ZSH history cleanup (anywhere): ${__ZSH_HISTIGNORE_DIFF}.anywhere ($(egrep "^<" ${__ZSH_HISTIGNORE_DIFF}.anywhere | wc -l))"
+        fi
 
         cat ${__ZSH_HISTIGNORE_RESULT}.anywhere | egrep -v ": [0-9]+:[0-9]+;${__ZSH_HISTIGNORE_BEGINSWITH}" > ${__ZSH_HISTIGNORE_RESULT}.beginswith
-        diff ${HISTFILE} ${__ZSH_HISTIGNORE_RESULT}.beginswith > ${__ZSH_HISTIGNORE_DIFF}.beginswith
-        echo "ZSH history cleanup (beginswith): ${__ZSH_HISTIGNORE_DIFF}.beginswith ($(egrep "^<" ${__ZSH_HISTIGNORE_DIFF}.beginswith | wc -l))"
+        if [ "${DUMPDIFF}" = "1" ]; then
+          diff ${HISTFILE} ${__ZSH_HISTIGNORE_RESULT}.beginswith > ${__ZSH_HISTIGNORE_DIFF}.beginswith
+          echo "ZSH history cleanup (beginswith): ${__ZSH_HISTIGNORE_DIFF}.beginswith ($(egrep "^<" ${__ZSH_HISTIGNORE_DIFF}.beginswith | wc -l))"
+        fi
 
         cp ${__ZSH_HISTIGNORE_RESULT}.beginswith ${HISTFILE}
         rm -f ${__ZSH_HISTIGNORE_RESULT}
