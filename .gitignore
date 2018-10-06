@@ -23,6 +23,7 @@
 .aws*/
 .boto/
 .cache/
+.cage-aws-cache
 .compiz*
 .dbshell
 .dbus/
@@ -72,6 +73,7 @@
 .subversion/
 .sudo_as_admin_successful
 .swt/
+.terraform.d
 .thumbnails/
 .thunderbird/
 .tumblr
@@ -84,6 +86,7 @@
 .xsession-errors
 .zzz*
 /bin
+/dev
 Desktop/
 Downloads/
 Dropbox/
@@ -91,7 +94,6 @@ Pictures/
 Ubuntu*
 bookmarkbackups
 config
-/dev
 examples.desktop
 mac/
 npm*
