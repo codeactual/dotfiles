@@ -431,7 +431,13 @@ let g:go_fmt_autosave = 0
 let g:go_def_mapping_enabled = 0
 map <silent> <C-D> :GoDef<CR>
 " Replacement for vim-go bug where GoFmt closes folds, even with its
-" experimental mode enabled (as of vim v8.0.0363, vim-go b9c8156).)
+" experimental mode enabled (as of vim 8.0.0363, vim-go b9c8156).)
+"
+" - At vim 8.1.0036 and vim-go 04699c8, using go_fmt_experimental=1 in
+"   combination with SaveGo appears to stop the fold closing, but
+"   go_fmt_experimental alone does not. The flag may also have other
+"   side-effects that prevented its earlier use.
+let g:go_fmt_experimental = 1
 function SaveGo()
     let foldhype = &foldenable
     if foldhype
