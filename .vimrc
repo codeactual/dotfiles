@@ -430,7 +430,7 @@ let g:go_def_mapping_enabled = 0
 map <silent> <C-D> :GoDef<CR>
 let g:go_fmt_experimental = 1
 let g:go_fmt_autosave = 0
-nmap <silent> <C-G> :GoImports<CR>ff
+nmap <silent> <C-G> :GoImports<CR>zo
 
 " Reduce color distraction
 hi def link goConst goDeclaration
