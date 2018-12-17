@@ -239,7 +239,12 @@ export EDITOR="vim"
 export LS_COLORS="di=00;96"
 
 # https://github.com/tmux/tmux/issues/625#issuecomment-258009586
-[[ $TMUX = "" ]] && export TERM="xterm-256color"
+if [[ $TMUX = "" ]]; then
+  export TERM="xterm-256color"
+else
+  export TERM="tmux"
+fi
+
 
 # http://www.commandlinefu.com/commands/view/9530/color-man-pages
 export LESS_TERMCAP_mb=$'\E[01;31m'
