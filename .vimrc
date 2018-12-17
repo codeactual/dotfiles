@@ -463,37 +463,26 @@ hi goFunction cterm=NONE ctermfg=white ctermbg=NONE
 " Avoid flashes of red because gofmt, plus the whitespace-trimming BufWrite
 " in this file, will fix any leading/trailing extra-space issues.
 hi goSpaceError cterm=NONE ctermfg=NONE ctermbg=NONE
-" Unset 'go#complete#Complete' for neocomplete
-setlocal omnifunc=
 
-" neocomplete
-" - Use <ESC>/`qq` alias to accept inserted candidate, ex. when scrolling them.
-" - https://github.com/Shougo/neocomplete.vim/wiki/neocomplete-migration-guide
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#sources#min_keyword_length = 4
-let g:neocomplete#manual_completion_start_length = 4
-let g:neocomplete#disable_auto_complete = 1
-let g:neocomplete#max_list = 20
-let g:neocomplete#enable_auto_select = 1
-let g:neocomplete#within_comment = 1
-" Use manual completion but cover corner cases, etc.
-function! s:neocomplete_on_tab()
-    " Scroll down/forward if already displayed.
-    if pumvisible()
-        return "\<C-n>"
-    endif
-    " Don't trigger at the start of a line.
-    if col('.') == 1
-        return "\<tab>"
-    endif
-    " Don't trigger after whitespace.
-    if matchstr(getline('.'), '\%' . (col('.')-1) . 'c.') =~ '\s\+'
-        return "\<tab>"
-    endif
-    " Trigger auto-completion.
-    return neocomplete#start_manual_complete()
+" Autocompletion
+"
+" http://vim.wikia.com/wiki/Smart_mapping_for_tab_completion
+function! CleverTab()
+  if pumvisible()
+    return "\<C-N>"
+  endif
+  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+    return "\<Tab>"
+  elseif exists('&omnifunc') && &omnifunc != ''
+    return "\<C-X>\<C-O>"
+  else
+    return "\<C-N>"
+  endif
 endfunction
-inoremap <silent> <expr><TAB> <SID>neocomplete_on_tab()
+inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
+
+" Autocompletion
+"
 " Scroll up/backward.
 inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " Select candidate via return key, mainly for when there's only one and
