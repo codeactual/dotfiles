@@ -18,15 +18,17 @@ function ssh_agent_stop {
   rm -rf "/tmp/ssh-*" $SSH_AUTH_SOCK 2>&1 > /dev/null
 }
 
-if grep docker /proc/1/cgroup 2>&1 > /dev/null; then
-  echo "ssh-agent.zsh: docker container detected"
-else
-  ssh-add -l
-  if [ $? -ne 0 ]; then
-    ssh_agent_stop
-    ssh_agent_start
-    sleep 1
-    ssh_agent_link_socket
-    ssh-add
+function ssh_agent {
+  if grep docker /proc/1/cgroup 2>&1 > /dev/null; then
+    echo "ssh-agent.zsh: docker container detected"
+  else
+    ssh-add -l
+    if [ $? -ne 0 ]; then
+      ssh_agent_stop
+      ssh_agent_start
+      sleep 1
+      ssh_agent_link_socket
+      ssh-add
+    fi
   fi
-fi
+}
