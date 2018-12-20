@@ -190,12 +190,13 @@ function __git_dir_info {
 }
 
 PRMT_DIR="%{$fg[green]%}%d%{$reset_color%}"
+PRMT_HISTNUM="%!"
 precmd () {
   # 1st arg: prepend to the git status section
   # 2nd arg: append to git status section
   # 3rd arg: format of git status section
   # - Use multi-line string, for 2nd arg, because \n won't work there.
-  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ | \$PRMT_HOST:\$PRMT_USER:$PRMT_DIR \$(__git_dir_info)" "
+  __git_ps1 "\$PRMT_DATE \$PRMT_TIME \$PRMT_TZ | \$PRMT_HOST:\$PRMT_USER:$PRMT_DIR \$PRMT_HISTNUM \$(__git_dir_info)" "
 \$(vi_mode_prompt_info) " "%s"
 }
 
