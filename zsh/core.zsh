@@ -36,7 +36,7 @@ if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
   # If a filter result is missing or old.
     if [ -f "${HISTFILE}" ]; then
       if [ ! -f $__ZSH_HISTIGNORE_RESULT ] || [ test `find ${__ZSH_HISTIGNORE_RESULT} -mmin +1 > /dev/null 2>&1` ]; then
-        cat ${HISTFILE} | egrep -v ": [0-9]+:[0-9]+;.*${__ZSH_HISTIGNORE_ANYWHERE}" > ${__ZSH_HISTIGNORE_RESULT}.anywhere
+        cat ${HISTFILE} | egrep -iv ": [0-9]+:[0-9]+;.*${__ZSH_HISTIGNORE_ANYWHERE}" > ${__ZSH_HISTIGNORE_RESULT}.anywhere
         if [ "${DUMPDIFF}" = "1" ]; then
           diff ${HISTFILE} ${__ZSH_HISTIGNORE_RESULT}.anywhere > ${__ZSH_HISTIGNORE_DIFF}.anywhere
           echo "ZSH history cleanup (anywhere): ${__ZSH_HISTIGNORE_DIFF}.anywhere ($(egrep "^<" ${__ZSH_HISTIGNORE_DIFF}.anywhere | wc -l))"
