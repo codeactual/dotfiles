@@ -138,7 +138,8 @@ if [[ "$MODE_INDICATOR" == "" ]]; then
   MODE_INDICATOR="%{$fg_bold[red]%}:%{$reset_color%}"
 fi
 function vi_mode_prompt_info() {
-  echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/:}"
+  echo "
+${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/:}"
 }
 
 # 200ms for key sequences (to match vim default)
