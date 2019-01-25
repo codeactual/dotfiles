@@ -72,7 +72,7 @@ func! s:highlighting()
     hi Folded cterm=NONE ctermfg=234 ctermbg=NONE
 
     " Highlight search matches
-    hi Search cterm=NONE ctermfg=white ctermbg=63
+    hi Search cterm=NONE ctermfg=white ctermbg=240
 
     " Highlight visual mode selections
     hi Visual cterm=NONE ctermfg=white ctermbg=92
