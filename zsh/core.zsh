@@ -163,7 +163,7 @@ unsetopt ALWAYS_LAST_PROMPT
 # Tue 08/11 07:38:34 UTC ubuntu @ ip-172-31-4-177 : /var/dev 4901  [INSERT]
 # : some cmd
 PRMT_DATE="%D{%a %m/%d}"
-PRMT_TIME="%D{%H:%M}:%D{%S"
+PRMT_TIME="%D{%H:%M}:%D{%S}"
 PRMT_TZ="%D{%Z} $(TZ=":America/Los_Angeles" date +'%z %Z')"
 PRMT_USER="%n"
 
