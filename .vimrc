@@ -146,6 +146,9 @@ func! s:highlighting()
     " from Title for headings.)
     hi Title cterm=NONE ctermfg=darkgray ctermbg=NONE
 
+    " Reduce color variation in Go
+    hi goComplexes cterm=NONE ctermfg=white ctermbg=NONE
+
     " Reduce color variation in markdown
     hi mkdCode cterm=NONE ctermfg=136 ctermbg=NONE
     hi mkdURL cterm=NONE ctermfg=136 ctermbg=NONE
