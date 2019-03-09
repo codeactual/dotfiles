@@ -471,6 +471,13 @@ function! CleverTab()
   if pumvisible()
     return "\<C-N>"
   endif
+
+  " Currently strings in comments aren't completed anyway, so this at least
+  " allows use of tabs in godoc comments to enable preformatted text.
+  if synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") == 'comment'
+    return "\<Tab>"
+  endif
+
   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
     return "\<Tab>"
   elseif exists('&omnifunc') && &omnifunc != ''
