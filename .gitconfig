@@ -52,5 +52,3 @@
 [remote]
   # https://stackoverflow.com/questions/15507264/can-i-specify-in-git-config-to-fetch-multiple-refspecs
   fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
-[url "git@github.com:"]
-	insteadOf = https://github.com/
