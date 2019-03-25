@@ -435,11 +435,7 @@ let g:go_fmt_experimental = 1
 let g:go_fmt_autosave = 0
 " Only GoFmt for its simplification feature. GoImports will format the source
 " but without simplification.
-nmap <silent> <C-G> :GoFmt<CR>:GoImports<CR>:call EnableFolds()<CR>zo
-
-let g:go_fmt_options = {
-    \ 'gofmt': '-s',
-    \ }
+nmap <silent> <C-G> :GoFmt<CR>:call EnableFolds()<CR>zo
 
 " Reduce color distraction
 hi def link goConst goDeclaration
