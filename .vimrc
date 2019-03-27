@@ -433,14 +433,24 @@ let g:go_def_mapping_enabled = 0
 map <silent> <C-D> :GoDef<CR>
 let g:go_fmt_experimental = 1
 let g:go_fmt_autosave = 0
-" Only GoFmt for its simplification feature. GoImports will format the source
-" but without simplification.
+" FixMyGoPlease executes both gofmt and goimports on the current buffer.
+"
+" It uses gofmt for its code simplification (-s) feature which is currently
+" not provided by goimports (otherwise only the latter would be necessary).
+"
+" Its behavior works around a go#fmt#Format() issue that comes up when there's
+" syntax error in the buffer such as a missing closing parens. The error
+" output of whichever runs first, gofmt or goimports, is written to a
+" temporary file (as designed0. But the second executable to run will then
+" use the same temporary file as its input, leading to unintelligible errors
+" in the quickfix window because they don't reflect results based on the
+" current buffer.
+"
+" The workaround is to check if the quickfix window is open after running
+" gofmt, then only calling goimports if its closed (i.e. gofmt passed).
 function! FixMyGoPlease()
-  " if !go#fmt#Format(-1) " gofmt
-    " echom "lclosing"
-    " return 'lclose'
-  " endif
-  call go#fmt#Format(-1) " gofmt (succeeded)
+  call go#fmt#Format(-1) " gofmt
+
   let l:qfOpen = 0
   for winnr in range(1, winnr('$'))
     if getwinvar(winnr, '&syntax') == 'qf'
@@ -453,8 +463,11 @@ function! FixMyGoPlease()
     call go#fmt#Format(1) " goimports
   endif
 endfunction
-nmap <silent> <C-G> <CR>:call FixMyGoPlease()<CR>
-"<CR>:call EnableFolds()<CR>zo
+" Work around the issue where all folds are closed after the buffer is
+" formatted. Here we ensure folds are reenabled and we expand the fold
+" under the cursor. The limitation is that if the multiple folds were
+" open, only the cursor-local one is reopened.
+nmap <silent> <C-G> <CR>:call FixMyGoPlease()<CR>:call EnableFolds()<CR>zo
 let g:go_fmt_options = {
   \ 'gofmt': '-s',
   \ }
