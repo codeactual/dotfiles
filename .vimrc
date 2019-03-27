@@ -435,7 +435,29 @@ let g:go_fmt_experimental = 1
 let g:go_fmt_autosave = 0
 " Only GoFmt for its simplification feature. GoImports will format the source
 " but without simplification.
-nmap <silent> <C-G> :GoFmt<CR>:GoFmt<CR>:call EnableFolds()<CR>zo
+function! FixMyGoPlease()
+  " if !go#fmt#Format(-1) " gofmt
+    " echom "lclosing"
+    " return 'lclose'
+  " endif
+  call go#fmt#Format(-1) " gofmt (succeeded)
+  let l:qfOpen = 0
+  for winnr in range(1, winnr('$'))
+    if getwinvar(winnr, '&syntax') == 'qf'
+      let l:qfOpen = 1
+    else
+    endif
+  endfor
+
+  if l:qfOpen == 0
+    call go#fmt#Format(1) " goimports
+  endif
+endfunction
+nmap <silent> <C-G> <CR>:call FixMyGoPlease()<CR>
+"<CR>:call EnableFolds()<CR>zo
+let g:go_fmt_options = {
+  \ 'gofmt': '-s',
+  \ }
 
 " Reduce color distraction
 hi def link goConst goDeclaration
