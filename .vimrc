@@ -620,3 +620,14 @@ if exists('+colorcolumn')
 endif
 
 let g:terraform_fmt_on_save = 1
+
+" Author: https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log/3026047#3026047
+function! ToggleVerbose()
+    if !&verbose
+        set verbosefile=/tmp/vim.log
+        set verbose=15
+    else
+        set verbose=0
+        set verbosefile=
+    endif
+endfunction
