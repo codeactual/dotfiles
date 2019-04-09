@@ -644,3 +644,5 @@ function! ToggleVerbose()
         set verbosefile=
     endif
 endfunction
+
+let g:go_debug = ['lsp']
