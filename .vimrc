@@ -155,6 +155,7 @@ func! s:highlighting()
     hi mkdInlineURL cterm=NONE ctermfg=136 ctermbg=NONE
     hi mkdLink cterm=NONE ctermfg=136 ctermbg=NONE
     hi mkdDelimiter cterm=NONE ctermfg=136 ctermbg=NONE
+    hi mkdInlineURL cterm=NONE ctermfg=white ctermbg=NONE
 
     " Reduce color variation in JavaScript
     hi jsGlobalObjects cterm=NONE ctermfg=white ctermbg=NONE
