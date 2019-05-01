@@ -432,6 +432,7 @@ let g:go_template_use_pkg = 1
 " Use a custom mapping instead
 let g:go_def_mapping_enabled = 0
 map <silent> <C-D> :GoDef<CR>
+map <silent> <C-I> :GoInfo<CR>
 let g:go_fmt_experimental = 1
 let g:go_fmt_autosave = 0
 " FixMyGoPlease executes both gofmt and goimports on the current buffer.
