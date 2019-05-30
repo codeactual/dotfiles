@@ -110,7 +110,7 @@ func! s:highlighting()
 
     " textwidth is disabled so this only affects vim-diminactive which reuses
     " this highlight group for the inactive buffer text color.
-    hi ColorColumn cterm=none ctermfg=234 ctermbg=NONE
+    hi ColorColumn cterm=none ctermfg=232 ctermbg=NONE
 
     " Reduce veritical split visibility
     hi VertSplit cterm=NONE ctermfg=black ctermbg=black
