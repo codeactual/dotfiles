@@ -380,6 +380,7 @@ set sessionoptions-=help
 " BufExplorer
 let g:bufExplorerSplitOutPathName = 1
 let g:bufExplorerShowRelativePath = 1
+let g:bufExplorerShowTabBuffer = 1
 map <silent> <C-\> :BufExplorer<CR>
 hi def link bufExplorerMapping bufExplorerHelp
 
