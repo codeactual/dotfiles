@@ -428,6 +428,8 @@ nmap <silent> <C-L> :lne<CR>
 autocmd FileType python setlocal nonumber
 
 " vim-go
+let g:go_info_mode = 'gopls'
+let g:go_def_mode = 'gopls'
 " Use the current package name for new files, not always `main`
 let g:go_template_use_pkg = 1
 " Use a custom mapping instead
