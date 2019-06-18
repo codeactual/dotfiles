@@ -519,6 +519,8 @@ function! CleverTab()
 
   " Currently strings in comments aren't completed anyway, so this at least
   " allows use of tabs in godoc comments to enable preformatted text.
+  "
+  " - To autocomplete inside a comment, use <C-N> directly.
   if synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") == 'comment'
     return "\<Tab>"
   endif
