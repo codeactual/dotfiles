@@ -44,7 +44,7 @@
 [receive]
   fsckObjects = true
 [diff]
-  algorithm = patience
+  algorithm = histogram
 [stash]
   showPatch = true
 [url "git@gitlab.com:"]
