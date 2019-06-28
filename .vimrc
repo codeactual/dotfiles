@@ -84,8 +84,8 @@ func! s:highlighting()
     hi LineNr cterm=NONE ctermfg=239 ctermbg=black
     hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
 
-    " Use a "transparent" highlight to avoid an underline in BufExplorer
-    hi CursorLine cterm=NONE ctermfg=NONE ctermbg=NONE
+    hi CursorLine cterm=NONE ctermfg=white ctermbg=233
+    set cursorline
 
     " Location list paths (match prompt color for cwd)
     hi Directory cterm=NONE ctermfg=magenta ctermbg=black
