@@ -9,3 +9,6 @@ function ganodemodules {
   local EXACT=".*/\(\(grunt\|gulp\|.*ake\)file.*\|\(component\|bower\).json\|CONTRIBUTORS\|.*-min\.js\|build\)$"
   find ./node_modules -type f -not -regex $EXT -not -iregex $DIRS -not -iregex $EXACT -exec git add {} \;
 }
+
+# https://nodejs.org/api/repl.html#repl_persistent_history
+export NODE_REPL_HISTORY=""
