@@ -28,7 +28,7 @@ export SAVEHIST=1000
 
 # If outside a docker container, perform egrep-based filtering.
 if [ "$in_docker" = "1" ] && [ -z "$TMUX" ]; then
-  __ZSH_HISTIGNORE_ANYWHERE="(secret|auth|code|token|key|encrypt|decrypt|delete|remove|drop|purge|prune|rm|mv)"
+  __ZSH_HISTIGNORE_ANYWHERE="(secret|auth|code|token|key|encrypt|decrypt|delete|remove|drop|purge|prune|rm|mv|cp)"
   __ZSH_HISTIGNORE_BEGINSWITH="(export|shutdown|exit|reset|clear|gci|node|vim|git)"
 
   __ZSH_HISTIGNORE_RESULT="/tmp/.zsh_history_filtered_pid$$"
