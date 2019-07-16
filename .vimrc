@@ -84,7 +84,7 @@ func! s:highlighting()
     hi LineNr cterm=NONE ctermfg=239 ctermbg=black
     hi CursorLineNr cterm=NONE ctermfg=244 ctermbg=black
 
-    hi CursorLine cterm=NONE ctermfg=NONE ctermbg=233
+    hi CursorLine cterm=NONE ctermfg=NONE ctermbg=235
     set cursorline
 
     " Location list paths (match prompt color for cwd)
