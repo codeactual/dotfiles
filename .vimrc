@@ -87,6 +87,13 @@ func! s:highlighting()
     hi CursorLine cterm=NONE ctermfg=NONE ctermbg=235
     set cursorline
 
+    " https://stackoverflow.com/questions/12017331/how-can-i-make-vim-highlight-the-current-line-on-only-the-active-buffer/12018552#12018552
+    augroup CursorLine
+      au!
+      au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+      au WinLeave * setlocal nocursorline
+    augroup END
+
     " Location list paths (match prompt color for cwd)
     hi Directory cterm=NONE ctermfg=magenta ctermbg=black
 
