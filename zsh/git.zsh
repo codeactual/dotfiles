@@ -68,6 +68,11 @@ alias gundoreset="git reset --soft 'HEAD^'"
 
 # Check out a new timestamped branch.
 function gcob {
+  if [ -z "${1}" ]; then
+    echo "branch suffix required"
+    exit 1
+  fi
+
   local date=`date "+%Y_%m_%d"`
 
   # Ex. 2012_12_17_fix_tests
