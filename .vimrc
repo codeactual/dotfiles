@@ -658,4 +658,4 @@ function! ToggleVerbose()
     endif
 endfunction
 
-let g:go_debug = ['lsp']
+" let g:go_debug = ['lsp']
