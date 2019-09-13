@@ -230,3 +230,8 @@ function ggrepcontent {
 function ggrepnames {
   # xargs git grep --color=always "$@" | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
 }
+
+function gcisame {
+  local msg=`git log -1 --pretty=format:%s`
+  gci -m "${msg}" "$@"
+}
