@@ -659,3 +659,4 @@ function! ToggleVerbose()
 endfunction
 
 " let g:go_debug = ['lsp']
+let go_doc_popup_window = 1
