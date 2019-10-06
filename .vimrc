@@ -272,11 +272,11 @@ set incsearch
 " Allow edit buffers to be hidden
 set hidden
 
-" Jump 4 lines when running out of the screen
-set scrolljump=4
+" Jump N lines when running out of the screen
+set scrolljump=1
 
-" Indicate jump out of the screen when 3 lines before end of the screen
-set scrolloff=3
+" Indicate jump out of the screen when N lines before end of the screen
+set scrolloff=20
 
 " Correct indentation after opening a phpdocblock and automatic * on every
 " line
