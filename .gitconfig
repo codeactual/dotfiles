@@ -45,6 +45,7 @@
   fsckObjects = true
 [diff]
   algorithm = histogram
+	noprefix = true
 [stash]
   showPatch = true
 [url "git@gitlab.com:"]
