@@ -50,6 +50,7 @@
 .icedtea/
 .ipython/
 .irssi
+.kube
 .lesshst
 .libreoffice/
 .local/
