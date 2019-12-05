@@ -190,6 +190,9 @@ function __git_dir_info {
   echo "${GIT_REMOTE}/"
 }
 
+# https://github.com/jonmosco/kube-ps1
+source ~/zsh/kube-ps1.sh
+
 PRMT_DIR="
 %{$fg[green]%}%d%{$reset_color%}
 "
@@ -200,7 +203,7 @@ precmd () {
   # 2nd arg: append to git status section
   # 3rd arg: format of git status section
   # - Use multi-line string, for 2nd arg, because \n won't work there.
-  __git_ps1 "\${PRMT_DIR}\${PRMT_DATE} \${PRMT_TIME} \${PRMT_TZ} | \${PRMT_HOST} \${PRMT_USER}\${PRMT_HISTNUM} \$(__git_dir_info)" "
+  __git_ps1 "\${PRMT_DIR}\${PRMT_DATE} \${PRMT_TIME} \${PRMT_TZ} | \${PRMT_HOST} \${PRMT_USER} \$(kube_ps1)\${PRMT_HISTNUM} \$(__git_dir_info)" "
 \$(vi_mode_prompt_info) " "%s"
 }
 
