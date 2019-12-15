@@ -153,37 +153,6 @@ function gpob {
   git push -u origin `get_current_branch`
 }
 
-# From https://github.com/paulirish/dotfiles/commit/6743b907ff586c28cd36e08d1e1c634e2968893e
-function strip_diff_leading_symbols(){
-  color_code_regex="(\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K])"
-
-  # simplify the unified patch diff header
-  sed -r "s/^($color_code_regex)diff --git .*$//g" | \
-    sed -r "s/^($color_code_regex)index .*$/\n\1$(rule)/g" | \
-    sed -r "s/^($color_code_regex)\+\+\+(.*)$/\1+++\5\n\1$(rule)\x1B\[m/g" |\
-
-  # actually strips the leading symbols
-    sed -r "s/^($color_code_regex)[\+\-]/\1 /g"
-}
-rule () {
-  printf "${(r:$COLUMNS::_:)}"
-}
-
-# Clear the screen if we're inside tmux (where backscroll won't be lost as easily).
-function clear_term_if_tmux {
-  if [ "$TMUX" ]; then
-    clear
-  fi
-}
-
-function gd {
-  clear_term_if_tmux
-
-  # Make it easier to see the latest diff (ex. if scrollback is already full of them) w/out searching for the prompt
-  # or some other marker. But only do so when inside tmux because scrollback loss isn't as much of an issue.
-  git diff --color $@ | diff-highlight | strip_diff_leading_symbols | less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
-}
-
 function ggreplog {
   clear_term_if_tmux
 
