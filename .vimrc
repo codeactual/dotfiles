@@ -481,6 +481,7 @@ endfunction
 nmap <silent> <C-G> <CR>:call FixMyGoPlease()<CR>:call EnableFolds()<CR>zo
 let g:go_fmt_options = {
   \ 'gofmt': '-s',
+  \ 'goimports': '-local ca/',
   \ }
 
 " Reduce color distraction
